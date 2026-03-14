@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #8BBCAD;
+  --accent-dim: rgba(139,188,173,0.12);
+  --accent-border: rgba(139,188,173,0.25);
+  --rose: #D4907A;
+  --gold: #C9A87C;
+}
+
+body { background: #0D1110; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a3632; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+@keyframes slideInRight {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes slideOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(110%); opacity: 0; }
+}
+@keyframes countUp {
+  from { transform: translateY(6px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+@keyframes simPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(139,188,173,0.3); }
+  50%     { box-shadow: 0 0 0 8px rgba(139,188,173,0); }
+}
+
+.toast-enter { animation: slideInRight 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.toast-exit  { animation: slideOutRight 0.3s ease-in forwards; }
+.count-up    { animation: countUp 0.35s ease forwards; }
+.sim-pulse   { animation: simPulse 1.5s ease-in-out infinite; }
