@@ -41,8 +41,8 @@ const SIM_EVENTS = [
   },
   {
     delay: 3000,
-    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Intu Med Spa offers Botox from $12/unit. Want to book a consult?"' },
-    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Intu Med Spa offers Botox starting at $12/unit. We also have a special right now: 20 units for $179! Would you like to book a consultation?' } },
+    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Wishful Beauty Med Spa offers Botox from $12/unit. Want to book a consult?"' },
+    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Wishful Beauty Med Spa offers Botox starting at $12/unit. We also have a special right now: 20 units for $179! Would you like to book a consultation?' } },
   },
   {
     delay: 5200,
@@ -55,34 +55,34 @@ const SIM_EVENTS = [
   },
   {
     delay: 8000,
-    toast: { type: 'missed', title: '📞 Missed Call Detected', body: 'Sarah M. called about IV Therapy — AI texting back now' },
+    toast: { type: 'missed', title: '📞 Missed Call Detected', body: 'Sarah M. called about Laser Hair Removal — AI texting back now' },
     missedCall: {
       name: 'Sarah M.',
       time: 'Just now',
-      service: 'IV Therapy',
+      service: 'Laser Hair Removal',
       status: 'AI Responding',
       isNew: true,
-      aiResponse: 'Hi Sarah! You just missed a call from Intu Med Spa. We saw you were inquiring about IV Therapy. Want to book an appointment this week?',
+      aiResponse: 'Hi Sarah! You just missed a call from Wishful Beauty Med Spa. We saw you were inquiring about Laser Hair Removal. Want to book an appointment this week?',
     },
   },
   {
     delay: 10000,
-    toast: { type: 'missed', title: '💬 AI Texted Back in 8 Seconds', body: '"Hi Sarah! You called about IV Therapy — want to book an appointment?"' },
+    toast: { type: 'missed', title: '💬 AI Texted Back in 8 Seconds', body: '"Hi Sarah! You called about Laser Hair Removal — want to book an appointment?"' },
   },
   {
     delay: 12500,
-    toast: { type: 'booked', title: '✅ IV Therapy Appointment Booked!', body: 'Sarah M. confirmed — Friday 11:00 AM' },
+    toast: { type: 'booked', title: '✅ Laser Hair Removal Appointment Booked!', body: 'Sarah M. confirmed — Friday 11:00 AM' },
     stat: { leads: 1, missed: 1, revenue: 250 },
-    feed: { icon: '📞', text: 'Missed call recovered — Sarah M. booked IV Therapy appointment', time: 'just now' },
-    appointment: { name: 'Sarah M.', service: 'IV Therapy', day: 'Friday', time: '11:00 AM' },
-    lead: { name: 'Sarah M.', service: 'IV Therapy', source: 'Missed Call', status: 'Consultation Booked', date: 'Just now' },
+    feed: { icon: '📞', text: 'Missed call recovered — Sarah M. booked Laser Hair Removal appointment', time: 'just now' },
+    appointment: { name: 'Sarah M.', service: 'Laser Hair Removal', day: 'Friday', time: '11:00 AM' },
+    lead: { name: 'Sarah M.', service: 'Laser Hair Removal', source: 'Missed Call', status: 'Consultation Booked', date: 'Just now' },
     missedCallUpdate: { name: 'Sarah M.', status: 'Consultation Booked' },
   },
   {
     delay: 15500,
     toast: { type: 'email', title: '📧 Follow-Up Emails Sent', body: 'AI sent follow-up to 3 leads who have not booked in 24h' },
     feed: { icon: '📧', text: 'Automated follow-up email sent to 3 unbooked leads', time: 'just now' },
-    emailExample: { to: 'Jessica M.', service: 'Lip Filler', subject: 'Your consultation at Intu Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in lip fillers...' },
+    emailExample: { to: 'Jessica M.', service: 'Lip Filler', subject: 'Your consultation at Wishful Beauty Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in lip fillers...' },
   },
   {
     delay: 18500,
@@ -91,7 +91,7 @@ const SIM_EVENTS = [
     review: {
       name: 'Mia T.',
       rating: 5,
-      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Intu Med Spa is next level.',
+      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Wishful Beauty Med Spa is next level.',
       aiResponse: "Mia, thank you so much! We're thrilled our AI front desk made booking effortless — and even more thrilled you love your results! Can't wait to see you again. 💚",
       status: 'Response Posted',
       time: 'just now',

@@ -29,7 +29,7 @@ const initialAutomations = [
     title: 'Website Chat AI',
     description: 'Answers questions, provides pricing, and books consultations directly from the website chat.',
     icon: Globe,
-    color: '#8BBCAD',
+    color: '#c4688a',
     triggers: 312,
     lastTriggered: '1 minute ago',
     active: true,
@@ -73,7 +73,7 @@ const initialAutomations = [
     title: 'Appointment Reminder',
     description: 'Sends automated reminders 24h and 1h before each appointment to reduce no-shows.',
     icon: Calendar,
-    color: '#8BBCAD',
+    color: '#c4688a',
     triggers: 203,
     lastTriggered: '12 minutes ago',
     active: true,
@@ -95,7 +95,7 @@ const initialAutomations = [
 const tagColor = {
   SMS:          'bg-[#C9A87C]/10 text-[#C9A87C]',
   Instagram:    'bg-[#D4907A]/10 text-[#D4907A]',
-  Website:      'bg-[#8BBCAD]/10 text-[#8BBCAD]',
+  Website:      'bg-[#c4688a]/10 text-[#c4688a]',
   Email:        'bg-purple-500/10 text-purple-400',
   'Email + SMS':'bg-green-500/10 text-green-400',
 }
@@ -115,11 +115,11 @@ export default function Automations() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="font-display text-3xl text-white tracking-wide">Automations</h2>
-          <p className="text-[#6a8a85] text-sm mt-0.5">Every rule running in the background for Intu Med Spa.</p>
+          <p className="text-[#6a8a85] text-sm mt-0.5">Every rule running in the background for Wishful Beauty Med Spa.</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 rounded-xl px-4 py-2 border"
-            style={{ background: 'rgba(139,188,173,0.08)', borderColor: 'rgba(139,188,173,0.25)' }}>
+            style={{ background: 'rgba(196,104,138,0.08)', borderColor: 'rgba(196,104,138,0.25)' }}>
             <Zap size={13} style={{ color: 'var(--accent)' }} />
             <span className="font-mono text-xs font-bold" style={{ color: 'var(--accent)' }}>{activeCount} ACTIVE</span>
           </div>

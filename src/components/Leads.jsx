@@ -15,7 +15,7 @@ const allLeads = [
 ]
 
 const statusStyle = {
-  'Consultation Booked': 'bg-[#8BBCAD]/10 text-[#8BBCAD] border-[#8BBCAD]/30',
+  'Consultation Booked': 'bg-[#c4688a]/10 text-[#c4688a] border-[#c4688a]/30',
   'Follow-up Sent': 'bg-[#C9A87C]/10 text-[#C9A87C] border-[#C9A87C]/30',
   'Interested': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30',
   'Contacted': 'bg-[#333]/60 text-[#888] border-[#444]',
@@ -26,7 +26,7 @@ const sourceStyle = {
   'Website Chat': 'bg-purple-500/10 text-purple-400',
   'Instagram DM': 'bg-pink-500/10 text-pink-400',
   'Missed Call': 'bg-[#f59e0b]/10 text-[#f59e0b]',
-  'Website Form': 'bg-[#8BBCAD]/10 text-[#8BBCAD]',
+  'Website Form': 'bg-[#c4688a]/10 text-[#c4688a]',
 }
 
 const filters = ['All', 'Website', 'Instagram', 'SMS']
@@ -53,9 +53,9 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
           <p className="text-[#4a6560] text-sm mt-0.5">All leads captured by AI across every channel.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-xl px-4 py-2">
-            <Users size={13} className="text-[#8BBCAD]" />
-            <span className="text-[#8BBCAD] font-mono text-xs font-bold">{simLeads.length + allLeads.length} LEADS TODAY</span>
+          <div className="flex items-center gap-2 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-4 py-2">
+            <Users size={13} className="text-[#c4688a]" />
+            <span className="text-[#c4688a] font-mono text-xs font-bold">{simLeads.length + allLeads.length} LEADS TODAY</span>
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
             onClick={() => setActiveFilter(f)}
             className={`px-4 py-1.5 rounded-lg font-mono text-xs transition-all ${
               activeFilter === f
-                ? 'bg-[#8BBCAD] text-[#0D1110] font-bold'
+                ? 'bg-[#c4688a] text-[#0D1110] font-bold'
                 : 'bg-[#0D1110] text-[#888] border border-[#333] hover:border-[#555]'
             }`}
           >
@@ -145,7 +145,7 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
                       <span className="text-[#4a6560] font-mono text-xs">{lead.date}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <button className="flex items-center gap-1 text-[#4a6560] hover:text-[#8BBCAD] font-mono text-[10px] transition-colors opacity-0 group-hover:opacity-100">
+                      <button className="flex items-center gap-1 text-[#4a6560] hover:text-[#c4688a] font-mono text-[10px] transition-colors opacity-0 group-hover:opacity-100">
                         <ExternalLink size={12} />
                         View
                       </button>

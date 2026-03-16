@@ -6,15 +6,15 @@ const calls = [
     name: 'Sarah M.',
     time: '7:42 PM',
     topic: 'Botox',
-    aiResponse: 'Hi Sarah! Thanks for contacting Intu Med Spa. We saw you called about Botox. Would you like to book a consultation this week?',
+    aiResponse: 'Hi Sarah! Thanks for contacting Wishful Beauty Med Spa. We saw you called about Botox. Would you like to book a consultation this week?',
     status: 'Consultation Booked',
     responseTime: '8 seconds',
   },
   {
     name: 'Michael T.',
     time: '6:15 PM',
-    topic: 'Weight Loss',
-    aiResponse: 'Hi Michael! You called about our GLP-1 weight loss program. Starting at $189/month. Want to book a free consultation?',
+    topic: 'Microneedling',
+    aiResponse: 'Hi Michael! You called about microneedling at Wishful Beauty. Sessions start at $250. Want to book a free consultation?',
     status: 'Follow-up Sent',
     responseTime: '6 seconds',
   },
@@ -22,15 +22,15 @@ const calls = [
     name: 'Jennifer K.',
     time: '5:30 PM',
     topic: 'HydraFacial',
-    aiResponse: 'Hi Jennifer! You missed a call to Intu Med Spa. Our HydraFacials start at $175. Ready to book?',
+    aiResponse: 'Hi Jennifer! You missed a call to Wishful Beauty Med Spa. Our HydraFacials start at $175. Ready to book?',
     status: 'Consultation Booked',
     responseTime: '9 seconds',
   },
   {
     name: 'David R.',
     time: '4:48 PM',
-    topic: 'IV Therapy',
-    aiResponse: 'Hi David! Intu Med Spa here. Our IV therapy sessions start at $99. Want to schedule?',
+    topic: 'Laser Hair Removal',
+    aiResponse: 'Hi David! Wishful Beauty Med Spa here. Our laser hair removal sessions start at $99. Want to schedule?',
     status: 'Replied',
     responseTime: '7 seconds',
   },
@@ -38,7 +38,7 @@ const calls = [
     name: 'Lisa W.',
     time: '3:22 PM',
     topic: 'Lip Fillers',
-    aiResponse: 'Hi Lisa! We saw you called about lip fillers at Intu Med Spa, starting at $550. Shall we book a consult?',
+    aiResponse: 'Hi Lisa! We saw you called about lip fillers at Wishful Beauty Med Spa, starting at $550. Shall we book a consult?',
     status: 'Consultation Booked',
     responseTime: '5 seconds',
   },
@@ -46,23 +46,23 @@ const calls = [
     name: 'Marcus H.',
     time: '2:10 PM',
     topic: 'Botox',
-    aiResponse: 'Hi Marcus! Intu Med Spa here — we have a current Botox special: 20 units for $179. Book this week?',
+    aiResponse: 'Hi Marcus! Wishful Beauty Med Spa here — we have a current Botox special: 20 units for $179. Book this week?',
     status: 'Follow-up Sent',
     responseTime: '11 seconds',
   },
 ]
 
 const statusStyle = {
-  'Consultation Booked': 'bg-[#8BBCAD]/10 text-[#8BBCAD] border-[#8BBCAD]/30',
+  'Consultation Booked': 'bg-[#c4688a]/10 text-[#c4688a] border-[#c4688a]/30',
   'Follow-up Sent': 'bg-[#C9A87C]/10 text-[#C9A87C] border-[#C9A87C]/30',
   'Replied': 'bg-purple-500/10 text-purple-400 border-purple-500/30',
 }
 
 const topicColor = {
-  'Botox': '#8BBCAD',
-  'Weight Loss': '#f59e0b',
-  'HydraFacial': '#8BBCAD',
-  'IV Therapy': '#a78bfa',
+  'Botox': '#c4688a',
+  'Microneedling': '#f59e0b',
+  'HydraFacial': '#e6d5b8',
+  'Laser Hair Removal': '#a78bfa',
   'Lip Fillers': '#f472b6',
 }
 
@@ -72,7 +72,7 @@ export default function MissedCalls({ simMissedCalls = [] }) {
       name: mc.name,
       time: mc.time,
       topic: mc.service,
-      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Intu Med Spa. Want to book an appointment?`,
+      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Wishful Beauty Med Spa. Want to book an appointment?`,
       status: mc.status,
       responseTime: '8 seconds',
       isNew: mc.isNew,
@@ -89,9 +89,9 @@ export default function MissedCalls({ simMissedCalls = [] }) {
           <p className="text-[#4a6560] text-sm mt-0.5">AI texts back within seconds. No lead left behind.</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-xl px-4 py-2">
-            <CheckCircle2 size={14} className="text-[#8BBCAD]" />
-            <span className="text-[#8BBCAD] font-mono text-xs font-bold">12 CALLS RECOVERED TODAY</span>
+          <div className="flex items-center gap-2 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-4 py-2">
+            <CheckCircle2 size={14} className="text-[#c4688a]" />
+            <span className="text-[#c4688a] font-mono text-xs font-bold">12 CALLS RECOVERED TODAY</span>
           </div>
           <div className="flex items-center gap-2 bg-[#0D1110] border border-[#333] rounded-xl px-4 py-2">
             <Zap size={14} className="text-[#f59e0b]" />
@@ -118,13 +118,13 @@ export default function MissedCalls({ simMissedCalls = [] }) {
       {/* Call Cards */}
       <div className="grid grid-cols-2 gap-4">
         {liveCalls.map((call, i) => (
-          <div key={i} className={`bg-[#131918] border rounded-xl p-4 hover:border-[#333] transition-colors ${call.isNew ? 'border-[#8BBCAD]/30' : 'border-[#1E2B28]'}`}>
+          <div key={i} className={`bg-[#131918] border rounded-xl p-4 hover:border-[#333] transition-colors ${call.isNew ? 'border-[#c4688a]/30' : 'border-[#1E2B28]'}`}>
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
                 {/* Avatar */}
                 <div
                   className="w-9 h-9 rounded-full flex items-center justify-center text-[#0D1110] font-bold text-sm flex-shrink-0"
-                  style={{ background: topicColor[call.topic] || '#8BBCAD' }}
+                  style={{ background: topicColor[call.topic] || '#c4688a' }}
                 >
                   {call.name[0]}
                 </div>
@@ -137,7 +137,7 @@ export default function MissedCalls({ simMissedCalls = [] }) {
                     </span>
                     <span
                       className="text-[10px] font-mono px-1.5 py-0.5 rounded"
-                      style={{ color: topicColor[call.topic], background: (topicColor[call.topic] || '#8BBCAD') + '18' }}
+                      style={{ color: topicColor[call.topic], background: (topicColor[call.topic] || '#c4688a') + '18' }}
                     >
                       {call.topic}
                     </span>
@@ -158,10 +158,10 @@ export default function MissedCalls({ simMissedCalls = [] }) {
             {/* AI Response bubble */}
             <div className="bg-[#0D1110] border border-[#2a3632] rounded-lg p-3 relative">
               <div className="flex items-center gap-1.5 mb-2">
-                <div className="w-4 h-4 rounded-full bg-[#8BBCAD] flex items-center justify-center">
+                <div className="w-4 h-4 rounded-full bg-[#c4688a] flex items-center justify-center">
                   <MessageSquare size={9} className="text-[#0D1110]" />
                 </div>
-                <span className="text-[#8BBCAD] font-mono text-[9px] font-bold">AI RESPONSE</span>
+                <span className="text-[#c4688a] font-mono text-[9px] font-bold">AI RESPONSE</span>
               </div>
               <p className="text-[#cccccc] text-xs leading-relaxed">{call.aiResponse}</p>
             </div>

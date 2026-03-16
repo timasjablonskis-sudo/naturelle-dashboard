@@ -11,7 +11,7 @@ const initialConversations = [
     live: true,
     messages: [
       { from: 'visitor', text: 'Hi, I\'m interested in Botox. What are your prices?' },
-      { from: 'ai', text: 'Hi! Botox at Intu Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?' },
+      { from: 'ai', text: 'Hi! Botox at Wishful Beauty Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?' },
       { from: 'visitor', text: 'Yes! What availability do you have this week?' },
       { from: 'ai', text: 'I\'d love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?' },
       { from: 'visitor', text: 'Thursday afternoon works!' },
@@ -22,14 +22,14 @@ const initialConversations = [
     id: 2,
     name: 'Jordan P.',
     channel: 'Instagram',
-    preview: 'how long does iv therapy take',
+    preview: 'how long does laser hair removal take',
     time: '18m ago',
     live: false,
     messages: [
-      { from: 'visitor', text: 'do you offer iv therapy' },
-      { from: 'ai', text: 'Yes! Intu Med Spa offers IV therapy for hydration, energy, and immunity. Sessions start at $99. Would you like to book?' },
-      { from: 'visitor', text: 'how long does iv therapy take' },
-      { from: 'ai', text: 'IV therapy sessions take about 45–60 minutes. We can have you in and out during your lunch break! Want me to book you in?' },
+      { from: 'visitor', text: 'do you offer laser hair removal' },
+      { from: 'ai', text: 'Yes! Wishful Beauty Med Spa offers laser hair removal for all skin types. Sessions start at $99 depending on the area. Would you like to book?' },
+      { from: 'visitor', text: 'how long does laser hair removal take' },
+      { from: 'ai', text: 'Sessions take about 15–45 minutes depending on the area. Most clients need 6–8 sessions for full results. Want me to book you in?' },
     ],
   },
   {
@@ -40,11 +40,11 @@ const initialConversations = [
     time: '40m ago',
     live: false,
     messages: [
-      { from: 'ai', text: 'Hi Sarah! This is Intu Med Spa — we saw you called about weight loss. We offer medical weight loss with Semaglutide starting at $189/month. Want a free consultation?' },
+      { from: 'ai', text: 'Hi Sarah! This is Wishful Beauty Med Spa — we saw you called about microneedling. We offer microneedling with PRP starting at $250/session. Want a free consultation?' },
       { from: 'visitor', text: 'yes how do i sign up' },
-      { from: 'ai', text: 'We offer medical weight loss with Semaglutide & Tirzepatide starting at $189/month. Book a free consultation to see what\'s right for you!' },
+      { from: 'ai', text: 'Microneedling stimulates collagen production for smoother, firmer skin. We offer standard and PRP-enhanced sessions. Book a free consultation to find the best option for you!' },
       { from: 'visitor', text: 'ok book me for Tuesday' },
-      { from: 'ai', text: 'Done! Booking you in for a free weight loss consultation on Tuesday. You\'ll get a reminder the morning of. See you then! 🌿' },
+      { from: 'ai', text: 'Done! Booking you in for a free microneedling consultation on Tuesday. You\'ll get a reminder the morning of. See you then! 🌿' },
     ],
   },
   {
@@ -56,9 +56,9 @@ const initialConversations = [
     live: false,
     messages: [
       { from: 'visitor', text: 'What\'s included in a HydraFacial?' },
-      { from: 'ai', text: 'HydraFacials at Intu Med Spa start at $175 and leave your skin glowing for weeks. Want to book?' },
+      { from: 'ai', text: 'HydraFacials at Wishful Beauty Med Spa start at $175 and leave your skin glowing for weeks. Want to book?' },
       { from: 'visitor', text: 'How much is it?' },
-      { from: 'ai', text: 'Which service are you asking about? We offer Botox ($12/unit), HydraFacials ($175+), Fillers ($550+), IV Therapy ($99+), and Weight Loss ($189/month).' },
+      { from: 'ai', text: 'Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).' },
       { from: 'visitor', text: 'HydraFacial' },
       { from: 'ai', text: 'HydraFacials start at $175. The treatment deeply cleanses, exfoliates, and hydrates — most patients see instant results! Ready to book?' },
       { from: 'visitor', text: 'Let\'s book Saturday' },
@@ -73,30 +73,30 @@ const initialConversations = [
     time: '2h ago',
     live: false,
     messages: [
-      { from: 'ai', text: 'Hi Anna! Intu Med Spa here — following up on your inquiry about IV therapy. Our sessions start at $99. Want to schedule?' },
+      { from: 'ai', text: 'Hi Anna! Wishful Beauty Med Spa here — following up on your inquiry about laser hair removal. Sessions start at $99 depending on the area. Want to schedule?' },
       { from: 'visitor', text: 'Yes what are the options' },
-      { from: 'ai', text: 'IV therapy sessions start at $99 and take about 45–60 minutes. Great for energy, hydration, and recovery. Want to schedule?' },
+      { from: 'ai', text: 'We offer laser hair removal for face, underarms, bikini, legs, and full body. Pricing starts at $99 per session. Most clients see results in 6–8 sessions. Want to schedule?' },
       { from: 'visitor', text: 'Wednesday at noon' },
-      { from: 'ai', text: 'Confirmed! IV Therapy Wednesday at noon. We\'re at 4726 Main St, Lisle IL. See you Wednesday! 💧' },
+      { from: 'ai', text: 'Confirmed! Laser Hair Removal Wednesday at noon. We\'re at 3433 Kirchoff Rd, Rolling Meadows IL. See you Wednesday! 💧' },
     ],
   },
 ]
 
 const aiReplies = {
-  botox: "Botox at Intu Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?",
-  hydrafacial: "HydraFacials at Intu Med Spa start at $175 and leave your skin glowing for weeks. Want to book?",
-  'weight loss': "We offer medical weight loss with Semaglutide & Tirzepatide starting at $189/month. Book a free consultation to see what's right for you!",
-  glp: "We offer medical weight loss with Semaglutide & Tirzepatide starting at $189/month. Book a free consultation to see what's right for you!",
-  'iv therapy': "IV therapy sessions start at $99 and take about 45–60 minutes. Great for energy, hydration, and recovery. Want to schedule?",
-  iv: "IV therapy sessions start at $99 and take about 45–60 minutes. Great for energy, hydration, and recovery. Want to schedule?",
+  botox: "Botox at Wishful Beauty Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?",
+  hydrafacial: "HydraFacials at Wishful Beauty Med Spa start at $175 and leave your skin glowing for weeks. Want to book?",
+  microneedling: "Microneedling at Wishful Beauty starts at $250/session. We also offer PRP-enhanced microneedling for even better results. Want to book a consultation?",
+  'laser hair removal': "Laser hair removal sessions start at $99 depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
+  laser: "Laser hair removal sessions start at $99 depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
+  cryotherapy: "We offer cryotherapy sessions for recovery and wellness. Want to learn more or book a session?",
   book: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
   appointment: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
-  price: "Which service are you asking about? We offer Botox ($12/unit), HydraFacials ($175+), Fillers ($550+), IV Therapy ($99+), and Weight Loss ($189/month).",
-  cost: "Which service are you asking about? We offer Botox ($12/unit), HydraFacials ($175+), Fillers ($550+), IV Therapy ($99+), and Weight Loss ($189/month).",
-  'how much': "Which service are you asking about? We offer Botox ($12/unit), HydraFacials ($175+), Fillers ($550+), IV Therapy ($99+), and Weight Loss ($189/month).",
+  price: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
+  cost: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
+  'how much': "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
 }
 
-const defaultReply = "Great question! At Intu Med Spa we specialize in injectables, skincare, IV therapy, and medical weight loss. Would you like to book a consultation?"
+const defaultReply = "Great question! At Wishful Beauty Med Spa we specialize in Botox, fillers, facials, laser hair removal, microneedling, and cryotherapy. Would you like to book a consultation?"
 
 function getAIReply(input) {
   const lower = input.toLowerCase()
@@ -109,11 +109,11 @@ function getAIReply(input) {
 const ChannelIcon = ({ channel }) => {
   if (channel === 'Instagram') return <Instagram size={11} className="text-pink-400" />
   if (channel === 'SMS') return <Phone size={11} className="text-[#f59e0b]" />
-  return <Globe size={11} className="text-[#8BBCAD]" />
+  return <Globe size={11} className="text-[#c4688a]" />
 }
 
 const channelColor = {
-  'Website Chat': 'bg-[#8BBCAD]/10 text-[#8BBCAD]',
+  'Website Chat': 'bg-[#c4688a]/10 text-[#c4688a]',
   Instagram: 'bg-pink-500/10 text-pink-400',
   SMS: 'bg-[#f59e0b]/10 text-[#f59e0b]',
 }
@@ -173,9 +173,9 @@ export default function Conversations({ simStarted = false }) {
           <h2 className="font-display text-3xl text-white tracking-wide">Conversations</h2>
           <p className="text-[#4a6560] text-sm mt-0.5">Unified inbox — Website, Instagram, SMS.</p>
         </div>
-        <div className="flex items-center gap-2 bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-xl px-4 py-2">
-          <MessageSquare size={13} className="text-[#8BBCAD]" />
-          <span className="text-[#8BBCAD] font-mono text-xs font-bold">5 ACTIVE CONVERSATIONS</span>
+        <div className="flex items-center gap-2 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-4 py-2">
+          <MessageSquare size={13} className="text-[#c4688a]" />
+          <span className="text-[#c4688a] font-mono text-xs font-bold">5 ACTIVE CONVERSATIONS</span>
         </div>
       </div>
 
@@ -198,7 +198,7 @@ export default function Conversations({ simStarted = false }) {
                 key={conv.id}
                 onClick={() => setActiveId(conv.id)}
                 className={`w-full text-left px-4 py-3 border-b border-[#1a2420] hover:bg-[#0D1110] transition-colors ${
-                  activeId === conv.id ? 'bg-[#0D1110] border-l-2 border-l-[#8BBCAD]' : ''
+                  activeId === conv.id ? 'bg-[#0D1110] border-l-2 border-l-[#c4688a]' : ''
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -207,7 +207,7 @@ export default function Conversations({ simStarted = false }) {
                       {conv.name[0]}
                     </div>
                     {conv.live && (
-                      <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#8BBCAD] border border-[#111]"></span>
+                      <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#c4688a] border border-[#111]"></span>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -243,8 +243,8 @@ export default function Conversations({ simStarted = false }) {
                   <ChannelIcon channel={active.channel} />
                   <span className="text-[#4a6560] font-mono text-[10px]">via {active.channel}</span>
                   {active.live && (
-                    <span className="flex items-center gap-1 text-[#8BBCAD] font-mono text-[9px]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#8BBCAD] animate-pulse"></span>
+                    <span className="flex items-center gap-1 text-[#c4688a] font-mono text-[9px]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c4688a] animate-pulse"></span>
                       LIVE
                     </span>
                   )}
@@ -252,7 +252,7 @@ export default function Conversations({ simStarted = false }) {
               </div>
             </div>
             <div className="flex items-center gap-1.5 bg-[#0D1110] border border-[#333] rounded-lg px-3 py-1.5">
-              <Bot size={12} className="text-[#8BBCAD]" />
+              <Bot size={12} className="text-[#c4688a]" />
               <span className="text-[#6a8a85] font-mono text-[10px]">AI Responding</span>
             </div>
           </div>
@@ -270,12 +270,12 @@ export default function Conversations({ simStarted = false }) {
                   </div>
                 ) : (
                   <div className="max-w-[70%]">
-                    <div className="bg-[#0D1110] border border-[#8BBCAD]/20 border-l-[3px] border-l-[#8BBCAD] rounded-xl rounded-tr-sm px-4 py-2.5">
+                    <div className="bg-[#0D1110] border border-[#c4688a]/20 border-l-[3px] border-l-[#c4688a] rounded-xl rounded-tr-sm px-4 py-2.5">
                       <p className="text-[#e0e0e0] text-sm leading-relaxed">{msg.text}</p>
                     </div>
                     <div className="flex items-center justify-end gap-1 mt-1">
-                      <Bot size={9} className="text-[#8BBCAD]" />
-                      <span className="text-[#3a5550] font-mono text-[9px]">Intu AI</span>
+                      <Bot size={9} className="text-[#c4688a]" />
+                      <span className="text-[#3a5550] font-mono text-[9px]">Wishful Beauty AI</span>
                     </div>
                   </div>
                 )}
@@ -283,11 +283,11 @@ export default function Conversations({ simStarted = false }) {
             ))}
             {isTyping && (
               <div className="flex justify-end">
-                <div className="bg-[#0D1110] border border-[#8BBCAD]/20 border-l-[3px] border-l-[#8BBCAD] rounded-xl px-4 py-3">
+                <div className="bg-[#0D1110] border border-[#c4688a]/20 border-l-[3px] border-l-[#c4688a] rounded-xl px-4 py-3">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#8BBCAD] animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#8BBCAD] animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#8BBCAD] animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#c4688a] animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#c4688a] animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#c4688a] animate-bounce" style={{ animationDelay: '300ms' }}></span>
                   </div>
                 </div>
               </div>
@@ -298,7 +298,7 @@ export default function Conversations({ simStarted = false }) {
           {/* Input — only for Website Chat conversations */}
           {active.channel === 'Website Chat' && (
             <div className="px-5 py-3 border-t border-[#1E2B28]">
-              <div className="flex items-center gap-2 bg-[#0D1110] border border-[#333] rounded-xl px-4 py-2.5 focus-within:border-[#8BBCAD]/50 transition-colors">
+              <div className="flex items-center gap-2 bg-[#0D1110] border border-[#333] rounded-xl px-4 py-2.5 focus-within:border-[#c4688a]/50 transition-colors">
                 <input
                   type="text"
                   value={input}
@@ -310,14 +310,14 @@ export default function Conversations({ simStarted = false }) {
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isTyping}
-                  className="flex items-center gap-1.5 bg-[#8BBCAD] text-[#0D1110] rounded-lg px-3 py-1.5 text-xs font-bold hover:bg-[#a8d900] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex items-center gap-1.5 bg-[#c4688a] text-[#0D1110] rounded-lg px-3 py-1.5 text-xs font-bold hover:bg-[#a8d900] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Send size={12} />
                   Send
                 </button>
               </div>
               <p className="text-[#333333] font-mono text-[9px] mt-1.5 px-1">
-                Live AI chat demo — try: "botox price", "book appointment", "iv therapy"
+                Live AI chat demo — try: "botox price", "book appointment", "laser hair removal"
               </p>
             </div>
           )}

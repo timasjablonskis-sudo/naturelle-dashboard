@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --accent: #8BBCAD;
-  --accent-dim: rgba(139,188,173,0.12);
-  --accent-border: rgba(139,188,173,0.25);
-  --rose: #D4907A;
+  --accent: #c4688a;
+  --accent-dim: rgba(167,20,76,0.12);
+  --accent-border: rgba(167,20,76,0.25);
+  --rose: #e6d5b8;
   --gold: #C9A87C;
 }
 
@@ -30,8 +30,8 @@ body { background: #0D1110; }
   to   { transform: translateY(0);   opacity: 1; }
 }
 @keyframes simPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(139,188,173,0.3); }
-  50%     { box-shadow: 0 0 0 8px rgba(139,188,173,0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(196,104,138,0.3); }
+  50%     { box-shadow: 0 0 0 8px rgba(196,104,138,0); }
 }
 
 .toast-enter { animation: slideInRight 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }

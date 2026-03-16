@@ -71,7 +71,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--accent)' }} />
             <span className="font-mono text-[10px] tracking-widest" style={{ color: 'var(--accent)' }}>LIVE — TODAY</span>
           </div>
-          <h1 className="font-display text-2xl text-white tracking-wide">Good morning, Intu Med Spa.</h1>
+          <h1 className="font-display text-2xl text-white tracking-wide">Good morning, Wishful Beauty.</h1>
           <p className="text-[#6a8a85] text-sm mt-0.5">
             Your AI Front Desk handled{' '}
             <span className="font-semibold" style={{ color: 'var(--accent)' }}>{simStats.leads} leads</span>
@@ -80,7 +80,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 rounded-xl px-4 py-3 border"
-            style={{ background: 'rgba(139,188,173,0.08)', borderColor: 'rgba(139,188,173,0.2)' }}>
+            style={{ background: 'rgba(196,104,138,0.08)', borderColor: 'rgba(196,104,138,0.2)' }}>
             <TrendingUp size={18} style={{ color: 'var(--accent)' }} />
             <div>
               <div className="font-display text-xl" style={{ color: 'var(--accent)' }}>38%</div>
@@ -111,7 +111,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
       {/* Live sim banner */}
       {simRunning && (
         <div className="rounded-xl border px-5 py-3 flex items-center gap-3"
-          style={{ background: 'rgba(139,188,173,0.07)', borderColor: 'rgba(139,188,173,0.25)' }}>
+          style={{ background: 'rgba(196,104,138,0.07)', borderColor: 'rgba(196,104,138,0.25)' }}>
           <Zap size={15} style={{ color: 'var(--accent)' }} />
           <span className="text-sm" style={{ color: 'var(--accent)' }}>
             <strong>Live Simulation Running</strong> — watch the AI handle patient inquiries, book appointments, and update your metrics in real time.
@@ -130,7 +130,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
           return (
             <div key={k.label} className="bg-[#131918] border border-[#1E2B28] rounded-xl p-4 hover:border-[#2a3a36] transition-colors">
               <div className="flex items-start justify-between mb-3">
-                <div className="p-2 rounded-lg" style={{ background: k.color === 'var(--accent)' ? 'rgba(139,188,173,0.12)' : k.color === 'var(--rose)' ? 'rgba(212,144,122,0.12)' : k.color === 'var(--gold)' ? 'rgba(201,168,124,0.12)' : 'rgba(167,139,250,0.12)' }}>
+                <div className="p-2 rounded-lg" style={{ background: k.color === 'var(--accent)' ? 'rgba(196,104,138,0.12)' : k.color === 'var(--rose)' ? 'rgba(212,144,122,0.12)' : k.color === 'var(--gold)' ? 'rgba(201,168,124,0.12)' : 'rgba(167,139,250,0.12)' }}>
                   <Icon size={16} style={{ color: k.color }} />
                 </div>
                 <div className="flex items-center gap-1 text-xs font-mono" style={{ color: 'var(--accent)' }}>
@@ -149,7 +149,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
       {/* Empty state overlay when not started */}
       {!simStarted && (
         <div className="bg-[#131918] border border-[#1E2B28] rounded-xl p-12 flex flex-col items-center justify-center text-center gap-4">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'rgba(139,188,173,0.1)' }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'rgba(196,104,138,0.1)' }}>
             <Sparkles size={24} style={{ color: 'var(--accent)' }} />
           </div>
           <div>
@@ -177,21 +177,21 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
               <p className="text-[#3a5550] font-mono text-[10px]">DAILY VOLUME</p>
             </div>
             <span className="font-mono text-[10px] px-2 py-1 rounded-md border"
-              style={{ background: 'rgba(139,188,173,0.08)', borderColor: 'rgba(139,188,173,0.2)', color: 'var(--accent)' }}>+18%</span>
+              style={{ background: 'rgba(196,104,138,0.08)', borderColor: 'rgba(196,104,138,0.2)', color: 'var(--accent)' }}>+18%</span>
           </div>
           <ResponsiveContainer width="100%" height={140}>
             <AreaChart data={weekData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="leadGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#8BBCAD" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#8BBCAD" stopOpacity={0} />
+                  <stop offset="5%"  stopColor="#c4688a" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#c4688a" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#1a2420" />
               <XAxis dataKey="day" tick={{ fill: '#4a6560', fontSize: 10, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#4a6560', fontSize: 10 }} axisLine={false} tickLine={false} />
               <Tooltip content={<Tooltip_ />} />
-              <Area type="monotone" dataKey="leads" stroke="#8BBCAD" strokeWidth={2} fill="url(#leadGrad)" dot={{ fill: '#8BBCAD', r: 3 }} />
+              <Area type="monotone" dataKey="leads" stroke="#c4688a" strokeWidth={2} fill="url(#leadGrad)" dot={{ fill: '#c4688a', r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -209,7 +209,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
               <XAxis dataKey="channel" tick={{ fill: '#4a6560', fontSize: 10, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#4a6560', fontSize: 10 }} axisLine={false} tickLine={false} />
               <Tooltip content={<Tooltip_ />} />
-              <Bar dataKey="bookings" fill="#8BBCAD" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="bookings" fill="#c4688a" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -252,7 +252,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                   className="h-full rounded-full flex items-center justify-end pr-3 transition-all duration-700"
                   style={{
                     width: `${step.pct}%`,
-                    background: ['#8BBCAD', '#7aab9c', '#6a9a8b', '#5a897a'][i],
+                    background: ['#c4688a', '#7aab9c', '#6a9a8b', '#5a897a'][i],
                   }}
                 >
                   <span className="text-[#0D1110] font-mono text-[10px] font-bold">{step.pct}%</span>

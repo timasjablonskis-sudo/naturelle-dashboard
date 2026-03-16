@@ -7,11 +7,11 @@ const dayAbbr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const schedule = {
   Monday: [
     { patient: 'Anna T.', service: 'IV Therapy', time: '10:00 AM', color: '#a78bfa' },
-    { patient: 'Rachel K.', service: 'Botox', time: '2:00 PM', color: '#8BBCAD' },
+    { patient: 'Rachel K.', service: 'Botox', time: '2:00 PM', color: '#c4688a' },
   ],
   Tuesday: [
-    { patient: 'Emily R.', service: 'Botox Consultation', time: '2:30 PM', color: '#8BBCAD' },
-    { patient: 'Michael B.', service: 'HydraFacial', time: '4:00 PM', color: '#8BBCAD' },
+    { patient: 'Emily R.', service: 'Botox Consultation', time: '2:30 PM', color: '#c4688a' },
+    { patient: 'Michael B.', service: 'HydraFacial', time: '4:00 PM', color: '#c4688a' },
   ],
   Wednesday: [
     { patient: 'Sarah L.', service: 'Weight Loss Consultation', time: '11:00 AM', color: '#f59e0b' },
@@ -47,7 +47,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
     const day = sa.day || 'Thursday'
     if (!liveSchedule[day]) liveSchedule[day] = []
     liveSchedule[day] = [
-      { patient: sa.name, service: sa.service, time: sa.time, color: '#8BBCAD', isNew: true },
+      { patient: sa.name, service: sa.service, time: sa.time, color: '#c4688a', isNew: true },
       ...liveSchedule[day],
     ]
   })
@@ -61,15 +61,15 @@ export default function Appointments({ simAppointments = [], simStarted = false 
           <p className="text-[#4a6560] text-sm mt-0.5">This week's schedule — booked by AI.</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-xl px-3 py-1.5">
-            <span className="text-[#8BBCAD] font-mono text-xs font-bold">16 APPOINTMENTS THIS WEEK</span>
+          <div className="bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-3 py-1.5">
+            <span className="text-[#c4688a] font-mono text-xs font-bold">16 APPOINTMENTS THIS WEEK</span>
           </div>
           {/* View toggle */}
           <div className="flex bg-[#0D1110] border border-[#333] rounded-lg overflow-hidden">
             <button
               onClick={() => setView('calendar')}
               className={`flex items-center gap-1.5 px-3 py-2 text-xs font-mono transition-colors ${
-                view === 'calendar' ? 'bg-[#8BBCAD] text-[#0D1110]' : 'text-[#888]'
+                view === 'calendar' ? 'bg-[#c4688a] text-[#0D1110]' : 'text-[#888]'
               }`}
             >
               <Calendar size={12} />
@@ -78,14 +78,14 @@ export default function Appointments({ simAppointments = [], simStarted = false 
             <button
               onClick={() => setView('list')}
               className={`flex items-center gap-1.5 px-3 py-2 text-xs font-mono transition-colors ${
-                view === 'list' ? 'bg-[#8BBCAD] text-[#0D1110]' : 'text-[#888]'
+                view === 'list' ? 'bg-[#c4688a] text-[#0D1110]' : 'text-[#888]'
               }`}
             >
               <List size={12} />
               List
             </button>
           </div>
-          <button className="flex items-center gap-1.5 bg-[#8BBCAD] text-[#0D1110] rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#9ECFC0] transition-colors">
+          <button className="flex items-center gap-1.5 bg-[#c4688a] text-[#0D1110] rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#9ECFC0] transition-colors">
             <Plus size={14} />
             New Appointment
           </button>
@@ -109,7 +109,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
                     className="rounded-lg p-2 cursor-pointer hover:opacity-90 transition-opacity"
                     style={{ background: appt.color + '18', borderLeft: `2px solid ${appt.color}` }}
                   >
-                    {appt.isNew && <div className="font-mono text-[8px] mb-0.5 text-[#8BBCAD]">✦ AI BOOKED</div>}
+                    {appt.isNew && <div className="font-mono text-[8px] mb-0.5 text-[#c4688a]">✦ AI BOOKED</div>}
                     <div className="font-mono text-[9px] mb-0.5" style={{ color: appt.color }}>{appt.time}</div>
                     <div className="text-white text-[11px] font-medium leading-tight">{appt.patient}</div>
                     <div className="text-[#6a8a85] text-[10px] leading-tight mt-0.5">{appt.service}</div>
@@ -138,7 +138,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
               <div className="w-24 flex-shrink-0">
                 <div className="text-[#4a6560] font-mono text-[10px]">{appt.day.slice(0, 3).toUpperCase()}</div>
                 <div className="flex items-center gap-1 mt-0.5">
-                  <Clock size={11} className="text-[#8BBCAD]" />
+                  <Clock size={11} className="text-[#c4688a]" />
                   <span className="text-white font-mono text-xs">{appt.time}</span>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <span className="bg-[#8BBCAD]/10 text-[#8BBCAD] border border-[#8BBCAD]/30 font-mono text-[10px] px-2 py-0.5 rounded-full">
+                <span className="bg-[#c4688a]/10 text-[#c4688a] border border-[#c4688a]/30 font-mono text-[10px] px-2 py-0.5 rounded-full">
                   Confirmed
                 </span>
               </div>

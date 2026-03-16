@@ -10,11 +10,11 @@ const conversations = [
     status: 'Consultation Booked',
     messages: [
       { from: 'visitor', text: 'How much are lip fillers?' },
-      { from: 'ai', text: 'Hi! At Intu Med Spa, lip fillers start at $550 depending on the product and amount needed. Would you like to book a consultation to discuss the best option for you?' },
+      { from: 'ai', text: 'Hi! At Wishful Beauty Med Spa, lip fillers start at $550 depending on the product and amount needed. Would you like to book a consultation to discuss the best option for you?' },
       { from: 'visitor', text: 'Yes, what times do you have?' },
       { from: 'ai', text: 'We have availability this week! Tuesday & Thursday 10am–7pm, Wednesday & Friday 12–5pm, Saturday 10am–2pm. Which day works for you?' },
       { from: 'visitor', text: 'Thursday afternoon' },
-      { from: 'ai', text: "Perfect! I've noted Thursday afternoon for a lip filler consultation. Confirming your appointment at Intu Med Spa, 4726 Main St, Lisle IL. You'll receive a confirmation shortly! 🌿" },
+      { from: 'ai', text: "Perfect! I've noted Thursday afternoon for a lip filler consultation. Confirming your appointment at Wishful Beauty Med Spa, 3433 Kirchoff Rd, Rolling Meadows IL. You'll receive a confirmation shortly! 🌿" },
     ],
     booked: true,
   },
@@ -25,10 +25,10 @@ const conversations = [
     time: '18m ago',
     status: 'In Progress',
     messages: [
-      { from: 'visitor', text: 'Do you offer IV therapy?' },
-      { from: 'ai', text: 'Yes! Intu Med Spa offers IV therapy for hydration, energy, and immunity. Sessions start at $99. Would you like to book?' },
+      { from: 'visitor', text: 'Do you offer laser hair removal?' },
+      { from: 'ai', text: 'Yes! Wishful Beauty Med Spa offers laser hair removal for hydration, energy, and immunity. Sessions start at $99. Would you like to book?' },
       { from: 'visitor', text: 'How long does it take?' },
-      { from: 'ai', text: 'IV therapy sessions take about 45–60 minutes. We can have you in and out during your lunch break! Want me to book you in?' },
+      { from: 'ai', text: 'laser hair removal sessions take about 45–60 minutes. We can have you in and out during your lunch break! Want me to book you in?' },
     ],
     booked: false,
   },
@@ -95,7 +95,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
         <div className="flex items-center gap-2 bg-[#0D1110] border border-[#333] rounded-xl px-4 py-2">
           <InstagramIcon size={14} className="text-pink-400" />
           <span className="text-white font-mono text-xs">18 messages today</span>
-          <span className="bg-[#8BBCAD] text-[#0D1110] font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">LIVE</span>
+          <span className="bg-[#c4688a] text-[#0D1110] font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">LIVE</span>
         </div>
       </div>
 
@@ -112,7 +112,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
                 key={conv.id}
                 onClick={() => setActiveId(conv.id)}
                 className={`w-full text-left px-4 py-3 border-b border-[#1a2420] hover:bg-[#0D1110] transition-colors ${
-                  activeId === conv.id ? 'bg-[#0D1110] border-l-2 border-l-[#8BBCAD]' : ''
+                  activeId === conv.id ? 'bg-[#0D1110] border-l-2 border-l-[#c4688a]' : ''
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -120,7 +120,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
                     <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                       {conv.name[0]}
                     </div>
-                    {conv.isNew && <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#8BBCAD] animate-pulse border-2 border-[#131918]" />}
+                    {conv.isNew && <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#c4688a] animate-pulse border-2 border-[#131918]" />}
                     <div className="absolute -bottom-0.5 -right-0.5">
                       <InstagramGradient />
                     </div>
@@ -133,7 +133,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
                     <p className="text-[#4a6560] text-xs truncate mt-0.5">{conv.preview}</p>
                     <span className={`inline-block mt-1 text-[9px] font-mono px-1.5 py-0.5 rounded ${
                       conv.booked
-                        ? 'bg-[#8BBCAD]/10 text-[#8BBCAD]'
+                        ? 'bg-[#c4688a]/10 text-[#c4688a]'
                         : conv.status === 'In Progress'
                         ? 'bg-[#C9A87C]/10 text-[#C9A87C]'
                         : 'bg-[#333] text-[#888]'
@@ -164,9 +164,9 @@ export default function Instagram({ simStarted = false, simConversations = [] })
               </div>
             </div>
             {active.booked && (
-              <div className="flex items-center gap-1.5 bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-lg px-3 py-1.5">
-                <CheckCircle2 size={13} className="text-[#8BBCAD]" />
-                <span className="text-[#8BBCAD] font-mono text-[10px]">CONSULTATION BOOKED</span>
+              <div className="flex items-center gap-1.5 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-lg px-3 py-1.5">
+                <CheckCircle2 size={13} className="text-[#c4688a]" />
+                <span className="text-[#c4688a] font-mono text-[10px]">CONSULTATION BOOKED</span>
               </div>
             )}
           </div>
@@ -188,9 +188,9 @@ export default function Instagram({ simStarted = false, simConversations = [] })
                 {msg.from === 'ai' && (
                   <div className="max-w-[70%]">
                     <div className="flex items-center justify-end gap-1.5 mb-1">
-                      <span className="text-[#8BBCAD] font-mono text-[9px]">AI AGENT</span>
+                      <span className="text-[#c4688a] font-mono text-[9px]">AI AGENT</span>
                     </div>
-                    <div className="bg-[#0D1110] border border-[#8BBCAD]/20 border-l-2 border-l-[#8BBCAD] rounded-xl rounded-tr-sm px-4 py-2.5">
+                    <div className="bg-[#0D1110] border border-[#c4688a]/20 border-l-2 border-l-[#c4688a] rounded-xl rounded-tr-sm px-4 py-2.5">
                       <p className="text-[#e0e0e0] text-sm leading-relaxed">{msg.text}</p>
                     </div>
                   </div>
@@ -205,7 +205,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
               <MessageCircle size={13} className="text-[#4a6560]" />
               <span className="text-[#4a6560] font-mono text-[10px]">AI responding automatically via Instagram</span>
             </div>
-            <span className="text-[#3a5550] font-mono text-[10px]">Intu Med Spa AI</span>
+            <span className="text-[#3a5550] font-mono text-[10px]">Wishful Beauty Med Spa AI</span>
           </div>
         </div>
       </div>

@@ -1,3 +1,23 @@
+# Dependencies
 node_modules
+
+# Build
 dist
+
+# Env
+.env
+.env.*
+
+# Vercel
 .vercel
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode
+.idea

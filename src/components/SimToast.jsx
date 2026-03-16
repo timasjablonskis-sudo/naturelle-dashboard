@@ -12,7 +12,7 @@ const icons = {
 const colors = {
   instagram: '#D4907A',
   missed:    '#C9A87C',
-  booked:    '#8BBCAD',
+  booked:    '#c4688a',
   email:     '#a78bfa',
   review:    '#f59e0b',
 }
@@ -22,7 +22,7 @@ export default function SimToast({ toasts }) {
     <div className="fixed top-20 right-5 z-50 flex flex-col gap-2 pointer-events-none" style={{ width: 300 }}>
       {toasts.map((t) => {
         const Icon = icons[t.type] || CheckCircle
-        const color = colors[t.type] || '#8BBCAD'
+        const color = colors[t.type] || '#c4688a'
         return (
           <div
             key={t.id}

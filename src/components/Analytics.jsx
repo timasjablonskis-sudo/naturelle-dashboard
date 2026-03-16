@@ -27,12 +27,12 @@ const serviceData = [
   { service: 'HydraFacial', bookings: 24 },
   { service: 'Fillers', bookings: 19 },
   { service: 'Weight Loss', bookings: 15 },
-  { service: 'IV Therapy', bookings: 12 },
+  { service: 'Laser Hair Removal', bookings: 12 },
   { service: 'Other', bookings: 8 },
 ]
 
 const sourceData = [
-  { name: 'Website Chat', value: 45, color: '#8BBCAD' },
+  { name: 'Website Chat', value: 45, color: '#c4688a' },
   { name: 'Instagram', value: 30, color: '#ec4899' },
   { name: 'Missed Call', value: 25, color: '#f59e0b' },
 ]
@@ -49,9 +49,9 @@ const revenueData = [
 ]
 
 const kpis = [
-  { label: 'Total Leads', value: '847', icon: Users, color: '#8BBCAD' },
+  { label: 'Total Leads', value: '847', icon: Users, color: '#c4688a' },
   { label: 'Avg Response Time', value: '8 sec', icon: Clock, color: '#4ade80' },
-  { label: 'Conversion Rate', value: '38%', icon: Percent, color: '#8BBCAD' },
+  { label: 'Conversion Rate', value: '38%', icon: Percent, color: '#c4688a' },
   { label: 'Total Revenue', value: '$89,400', icon: DollarSign, color: '#f59e0b' },
 ]
 
@@ -128,21 +128,21 @@ export default function Analytics({ simStarted = false }) {
               <h3 className="text-white font-semibold text-sm">Leads Over Last 30 Days</h3>
               <p className="text-[#4a6560] font-mono text-[10px]">DAILY VOLUME</p>
             </div>
-            <span className="bg-[#8BBCAD]/10 text-[#8BBCAD] font-mono text-[10px] px-2 py-1 rounded-md border border-[#8BBCAD]/20">+38% growth</span>
+            <span className="bg-[#c4688a]/10 text-[#c4688a] font-mono text-[10px] px-2 py-1 rounded-md border border-[#c4688a]/20">+38% growth</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={chartLeadData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8BBCAD" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#8BBCAD" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#c4688a" stopOpacity={0.25} />
+                  <stop offset="95%" stopColor="#c4688a" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e1e1e" />
               <XAxis dataKey="day" tick={{ fill: '#444', fontSize: 9, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} interval={4} />
               <YAxis tick={{ fill: '#444', fontSize: 9 }} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Area type="monotone" dataKey="leads" stroke="#8BBCAD" strokeWidth={2} fill="url(#areaGrad)" dot={false} />
+              <Area type="monotone" dataKey="leads" stroke="#c4688a" strokeWidth={2} fill="url(#areaGrad)" dot={false} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -202,7 +202,7 @@ export default function Analytics({ simStarted = false }) {
               <XAxis dataKey="service" tick={{ fill: '#555', fontSize: 9, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#555', fontSize: 9 }} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="bookings" fill="#8BBCAD" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="bookings" fill="#c4688a" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -214,7 +214,7 @@ export default function Analytics({ simStarted = false }) {
               <h3 className="text-white font-semibold text-sm">Revenue Trend</h3>
               <p className="text-[#4a6560] font-mono text-[10px]">WEEKLY — LAST 8 WEEKS</p>
             </div>
-            <span className="text-[#8BBCAD] font-mono text-xs">$89,400 total</span>
+            <span className="text-[#c4688a] font-mono text-xs">$89,400 total</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <LineChart data={chartRevenueData} margin={{ top: 5, right: 5, left: -5, bottom: 0 }}>
@@ -222,7 +222,7 @@ export default function Analytics({ simStarted = false }) {
               <XAxis dataKey="week" tick={{ fill: '#555', fontSize: 10, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#555', fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
               <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="revenue" stroke="#8BBCAD" strokeWidth={2.5} dot={{ fill: '#8BBCAD', r: 4, strokeWidth: 0 }} activeDot={{ r: 6, fill: '#8BBCAD' }} />
+              <Line type="monotone" dataKey="revenue" stroke="#c4688a" strokeWidth={2.5} dot={{ fill: '#c4688a', r: 4, strokeWidth: 0 }} activeDot={{ r: 6, fill: '#c4688a' }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

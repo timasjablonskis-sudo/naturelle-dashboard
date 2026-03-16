@@ -26,10 +26,10 @@ export default function Header({ simStats }) {
     <header className="h-[60px] bg-[#131918] border-b border-[#1E2B28] px-6 flex items-center gap-4 flex-shrink-0">
       {/* Left */}
       <div className="flex-shrink-0 min-w-[160px]">
-        <div className="font-display text-white text-lg leading-none tracking-wide">Intu Med Spa</div>
+        <div className="font-display text-white text-lg leading-none tracking-wide">Wishful Beauty</div>
         <div className="flex items-center gap-1 mt-0.5">
           <MapPin size={10} className="text-[#4a6560]" />
-          <span className="text-[10px] text-[#4a6560] font-mono">Lisle / Naperville Area</span>
+          <span className="text-[10px] text-[#4a6560] font-mono">Rolling Meadows, IL</span>
         </div>
       </div>
 
@@ -49,7 +49,7 @@ export default function Header({ simStats }) {
       {/* Right */}
       <div className="flex-shrink-0 flex items-center gap-3">
         <div className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 border"
-          style={{ background: 'rgba(139,188,173,0.08)', borderColor: 'rgba(139,188,173,0.25)' }}>
+          style={{ background: 'rgba(196,104,138,0.08)', borderColor: 'rgba(196,104,138,0.25)' }}>
           <Bot size={13} style={{ color: 'var(--accent)' }} />
           <span className="font-mono text-[10px] font-bold tracking-wider" style={{ color: 'var(--accent)' }}>AI FRONT DESK</span>
         </div>

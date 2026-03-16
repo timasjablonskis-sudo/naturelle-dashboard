@@ -6,14 +6,14 @@ const reviews = [
     name: 'Jessica L.',
     rating: 2,
     text: 'I had to wait too long for my appointment. The treatment was okay but the wait was frustrating.',
-    aiResponse: 'Hi Jessica, thank you for sharing your feedback. We sincerely apologize for the wait during your visit — this is not the experience we aim for at Intu Med Spa. We\'d love to make it right. Please call us at (630) 225-7323 so we can address this personally.',
+    aiResponse: 'Hi Jessica, thank you for sharing your feedback. We sincerely apologize for the wait during your visit — this is not the experience we aim for at Wishful Beauty Med Spa. We\'d love to make it right. Please call us at (630) 284-0212 so we can address this personally.',
     status: 'Response Posted',
     time: '12m ago',
   },
   {
     name: 'Emily R.',
     rating: 5,
-    text: 'Absolutely love Intu Med Spa! Got my Botox done and the results are amazing. Staff was so professional and welcoming!',
+    text: 'Absolutely love Wishful Beauty Med Spa! Got my Botox done and the results are amazing. Staff was so professional and welcoming!',
     aiResponse: "Thank you so much, Emily! We're thrilled you love your results! Our team works hard to make every visit special. We can't wait to see you again! 💚",
     status: 'Response Posted',
     time: '1h ago',
@@ -22,7 +22,7 @@ const reviews = [
     name: 'Sarah M.',
     rating: 5,
     text: 'Best HydraFacial I\'ve ever had. My skin literally glowed for two weeks. Will definitely be back!',
-    aiResponse: 'Sarah, this made our day! A glowing review for a glowing face 😊 Thank you for trusting Intu Med Spa. See you for your next session!',
+    aiResponse: 'Sarah, this made our day! A glowing review for a glowing face 😊 Thank you for trusting Wishful Beauty Med Spa. See you for your next session!',
     status: 'Response Posted',
     time: '3h ago',
   },
@@ -37,8 +37,8 @@ const reviews = [
   {
     name: 'Ana G.',
     rating: 5,
-    text: "Dr. Kim is amazing! My weight loss journey has been incredible with their GLP-1 program. Down 18 lbs in 2 months!",
-    aiResponse: "Ana, that's incredible — congratulations on 18 lbs! 🎉 We're so proud of your progress and honored to support your journey. See you at your next check-in!",
+    text: "Got my lashes and brows done here and I'm obsessed! The attention to detail is incredible. Already booked my next appointment!",
+    aiResponse: "Ana, we love hearing this! 🎉 Your lashes looked stunning — thank you for trusting us with your look. Can't wait for your next visit!",
     status: 'Response Posted',
     time: '8h ago',
   },
@@ -75,9 +75,9 @@ export default function Reviews({ simReviews = [] }) {
           <h2 className="font-display text-3xl text-white tracking-wide">Review Management</h2>
           <p className="text-[#4a6560] text-sm mt-0.5">AI monitors and responds to every Google review.</p>
         </div>
-        <div className="flex items-center gap-2 bg-[#8BBCAD]/10 border border-[#8BBCAD]/30 rounded-xl px-4 py-2">
-          <Clock size={13} className="text-[#8BBCAD]" />
-          <span className="text-[#8BBCAD] font-mono text-xs font-bold">AI AUTO-RESPONDS WITHIN 2 MINUTES</span>
+        <div className="flex items-center gap-2 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-4 py-2">
+          <Clock size={13} className="text-[#c4688a]" />
+          <span className="text-[#c4688a] font-mono text-xs font-bold">AI AUTO-RESPONDS WITHIN 2 MINUTES</span>
         </div>
       </div>
 
@@ -104,7 +104,7 @@ export default function Reviews({ simReviews = [] }) {
             key={i}
             className={`bg-[#131918] border rounded-xl p-5 transition-colors ${
               review.isNew
-                ? 'border-[#8BBCAD]/40'
+                ? 'border-[#c4688a]/40'
                 : review.rating <= 2
                   ? 'border-red-500/30 hover:border-red-500/50'
                   : 'border-[#1E2B28] hover:border-[#333333]'
@@ -112,8 +112,8 @@ export default function Reviews({ simReviews = [] }) {
           >
             {review.isNew && (
               <div className="flex items-center gap-1.5 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-[#8BBCAD]" />
-                <span className="font-mono text-[9px] text-[#8BBCAD] tracking-widest">NEW REVIEW — AI RESPONDED AUTOMATICALLY</span>
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-[#c4688a]" />
+                <span className="font-mono text-[9px] text-[#c4688a] tracking-widest">NEW REVIEW — AI RESPONDED AUTOMATICALLY</span>
               </div>
             )}
             <div className="flex items-start justify-between">
@@ -139,7 +139,7 @@ export default function Reviews({ simReviews = [] }) {
               </div>
               <span className={`flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded-full border flex-shrink-0 ml-4 ${
                 review.status === 'Response Posted'
-                  ? 'bg-[#8BBCAD]/10 text-[#8BBCAD] border-[#8BBCAD]/30'
+                  ? 'bg-[#c4688a]/10 text-[#c4688a] border-[#c4688a]/30'
                   : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30'
               }`}>
                 <CheckCircle2 size={10} />
@@ -151,18 +151,18 @@ export default function Reviews({ simReviews = [] }) {
             <div className="mt-3">
               <button
                 onClick={() => toggle(i)}
-                className="flex items-center gap-1.5 text-[#4a6560] hover:text-[#8BBCAD] font-mono text-[10px] transition-colors"
+                className="flex items-center gap-1.5 text-[#4a6560] hover:text-[#c4688a] font-mono text-[10px] transition-colors"
               >
                 {expanded[i] ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
                 {expanded[i] ? 'HIDE AI RESPONSE' : 'VIEW AI RESPONSE'}
               </button>
               {expanded[i] && (
-                <div className="mt-2 bg-[#0D1110] border border-[#8BBCAD]/20 border-l-2 border-l-[#8BBCAD] rounded-lg p-3">
+                <div className="mt-2 bg-[#0D1110] border border-[#c4688a]/20 border-l-2 border-l-[#c4688a] rounded-lg p-3">
                   <div className="flex items-center gap-1.5 mb-1.5">
-                    <div className="w-3.5 h-3.5 rounded-full bg-[#8BBCAD] flex items-center justify-center">
+                    <div className="w-3.5 h-3.5 rounded-full bg-[#c4688a] flex items-center justify-center">
                       <span className="text-[#0D1110] text-[8px] font-bold">AI</span>
                     </div>
-                    <span className="text-[#8BBCAD] font-mono text-[9px]">INTU MED SPA · OWNER RESPONSE</span>
+                    <span className="text-[#c4688a] font-mono text-[9px]">WISHFUL BEAUTY MED SPA · OWNER RESPONSE</span>
                   </div>
                   <p className="text-[#cccccc] text-sm leading-relaxed">{review.aiResponse}</p>
                 </div>
