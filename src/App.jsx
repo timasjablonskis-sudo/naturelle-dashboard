@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react'
-import Sidebar from './components/Sidebar'
+import InteractiveBackground from './components/InteractiveBackground'
+import FloatingNav from './components/FloatingNav'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard'
 import Conversations from './components/Conversations'
@@ -153,27 +154,13 @@ export default function App() {
             revenue:   prev.revenue   + (event.stat.revenue   || 0),
           }))
         }
-        if (event.feed) {
-          setSimFeed((prev) => [event.feed, ...prev])
-        }
-        if (event.appointment) {
-          setSimAppointments((prev) => [event.appointment, ...prev])
-        }
-        if (event.lead) {
-          setSimLeads((prev) => [event.lead, ...prev])
-        }
-        if (event.missedCall) {
-          setSimMissedCalls((prev) => [event.missedCall, ...prev])
-        }
-        if (event.emailExample) {
-          setSimEmails((prev) => [event.emailExample, ...prev])
-        }
-        if (event.review) {
-          setSimReviews((prev) => [event.review, ...prev])
-        }
-        if (event.igConversation) {
-          setSimIgConversations((prev) => [event.igConversation, ...prev])
-        }
+        if (event.feed)              setSimFeed((prev) => [event.feed, ...prev])
+        if (event.appointment)       setSimAppointments((prev) => [event.appointment, ...prev])
+        if (event.lead)              setSimLeads((prev) => [event.lead, ...prev])
+        if (event.missedCall)        setSimMissedCalls((prev) => [event.missedCall, ...prev])
+        if (event.emailExample)      setSimEmails((prev) => [event.emailExample, ...prev])
+        if (event.review)            setSimReviews((prev) => [event.review, ...prev])
+        if (event.igConversation)    setSimIgConversations((prev) => [event.igConversation, ...prev])
         if (event.igUpdate) {
           setSimIgConversations((prev) => prev.map((c) =>
             c.id === event.igUpdate.id
@@ -229,14 +216,15 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-[#0D1110] overflow-hidden font-sans">
-      <Sidebar active={active} setActive={setActive} />
-      <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="relative h-screen overflow-hidden font-sans" style={{ background: 'var(--bg-deep)' }}>
+      <InteractiveBackground />
+      <div className="relative z-10 flex flex-col h-full">
         <Header simStats={simStats} />
-        <main className="flex-1 overflow-y-auto p-6 bg-[#0D1110]">
+        <main className="flex-1 overflow-y-auto px-6 pt-4 pb-28">
           {panels[active] || panels.dashboard}
         </main>
       </div>
+      <FloatingNav active={active} setActive={setActive} />
       <SimToast toasts={toasts} />
     </div>
   )

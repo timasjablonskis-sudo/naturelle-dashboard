@@ -5,9 +5,10 @@ import {
   BarChart, Bar,
   PieChart, Pie, Cell,
   LineChart, Line,
-  XAxis, YAxis, Tooltip, CartesianGrid, Legend
+  Tooltip,
 } from 'recharts'
 import { TrendingUp, Users, Clock, DollarSign, Percent } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 // 30 days of lead data
 const leadData = Array.from({ length: 30 }, (_, i) => ({
@@ -27,14 +28,14 @@ const serviceData = [
   { service: 'HydraFacial', bookings: 24 },
   { service: 'Fillers', bookings: 19 },
   { service: 'Weight Loss', bookings: 15 },
-  { service: 'Laser Hair Removal', bookings: 12 },
+  { service: 'Laser', bookings: 12 },
   { service: 'Other', bookings: 8 },
 ]
 
 const sourceData = [
-  { name: 'Website Chat', value: 45, color: '#c4688a' },
-  { name: 'Instagram', value: 30, color: '#ec4899' },
-  { name: 'Missed Call', value: 25, color: '#f59e0b' },
+  { name: 'Website Chat', value: 45, color: '#D4AF37' },
+  { name: 'Instagram', value: 30, color: '#c4688a' },
+  { name: 'Missed Call', value: 25, color: 'rgba(212,175,55,0.5)' },
 ]
 
 const revenueData = [
@@ -49,29 +50,34 @@ const revenueData = [
 ]
 
 const kpis = [
-  { label: 'Total Leads', value: '847', icon: Users, color: '#c4688a' },
+  { label: 'Total Leads', value: '847', icon: Users, color: '#D4AF37' },
   { label: 'Avg Response Time', value: '8 sec', icon: Clock, color: '#4ade80' },
-  { label: 'Conversion Rate', value: '38%', icon: Percent, color: '#c4688a' },
-  { label: 'Total Revenue', value: '$89,400', icon: DollarSign, color: '#f59e0b' },
+  { label: 'Conversion Rate', value: '38%', icon: Percent, color: '#D4AF37' },
+  { label: 'Total Revenue', value: '$89,400', icon: DollarSign, color: '#D4AF37' },
 ]
 
-const CustomTooltip = ({ active, payload, label }) => {
+const GoldTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#1a2420] border border-[#333] rounded-lg px-3 py-2">
-        <p className="text-[#888] font-mono text-[10px] mb-1">{label}</p>
-        {payload.map((p, i) => (
-          <p key={i} className="text-white text-sm font-semibold" style={{ color: p.color }}>
-            {typeof p.value === 'number' && p.dataKey === 'revenue' ? `$${p.value.toLocaleString()}` : p.value}
-          </p>
-        ))}
+      <div style={{
+        background: 'rgba(5,5,5,0.9)',
+        border: '1px solid rgba(212,175,55,0.3)',
+        borderRadius: 10,
+        padding: '8px 14px',
+      }}>
+        <p style={{ fontFamily: 'Playfair Display, serif', fontSize: 11, color: '#D4AF37', marginBottom: 2 }}>{label}</p>
+        <p style={{ color: '#fff', fontSize: 14, fontWeight: 600 }}>
+          {typeof payload[0].value === 'number' && payload[0].dataKey === 'revenue'
+            ? `$${payload[0].value.toLocaleString()}`
+            : payload[0].value}
+        </p>
       </div>
     )
   }
   return null
 }
 
-const CustomPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, value }) => {
+const CustomPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
   const RADIAN = Math.PI / 180
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
   const x = cx + radius * Math.cos(-midAngle * RADIAN)
@@ -83,33 +89,40 @@ const CustomPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, valu
   )
 }
 
+const springTransition = { type: 'spring', stiffness: 260, damping: 28 }
+
 export default function Analytics({ simStarted = false }) {
   const chartLeadData = simStarted ? leadData : zeroLeadData
   const chartRevenueData = simStarted ? revenueData : zeroRevenueData
 
   return (
     <div className="space-y-5">
-      {/* Header */}
       <div>
-        <h2 className="font-display text-3xl text-white tracking-wide">Analytics</h2>
+        <h2 className="font-display text-3xl text-white">Analytics</h2>
         <p className="text-[#4a6560] text-sm mt-0.5">AI performance overview — all channels, all time.</p>
       </div>
 
       {/* KPI row */}
       <div className="grid grid-cols-4 gap-4">
-        {kpis.map((k) => {
+        {kpis.map((k, idx) => {
           const Icon = k.icon
           return (
-            <div key={k.label} className="bg-[#131918] border border-[#1E2B28] rounded-xl p-4 hover:border-[#333] transition-colors">
+            <motion.div
+              key={k.label}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springTransition, delay: idx * 0.06 }}
+              className="rounded-xl p-4 hover:border-[#D4AF37]/20 transition-colors glass"
+            >
               <div className="flex items-center justify-between mb-3">
-                <div className="p-2 rounded-lg" style={{ background: k.color + '18' }}>
-                  <Icon size={16} style={{ color: k.color }} />
+                <div className="p-2 rounded-lg" style={{ background: 'rgba(212,175,55,0.08)' }}>
+                  <Icon size={16} style={{ color: '#D4AF37' }} />
                 </div>
-                <TrendingUp size={14} className="text-green-400" />
+                <TrendingUp size={14} style={{ color: '#D4AF37' }} />
               </div>
-              <div className="text-white font-display text-3xl leading-none mb-1">{k.value}</div>
+              <div className="text-white font-data text-3xl font-semibold leading-none mb-1">{k.value}</div>
               <div className="text-[#4a6560] text-xs">{k.label}</div>
-            </div>
+            </motion.div>
           )
         })}
       </div>
@@ -117,50 +130,52 @@ export default function Analytics({ simStarted = false }) {
       {/* Charts row 1 */}
       <div className="grid grid-cols-3 gap-4">
         {/* Area: Leads 30d */}
-        <div className="col-span-2 bg-[#131918] border border-[#1E2B28] rounded-xl p-5 relative">
+        <div className="col-span-2 rounded-xl p-5 relative glass">
           {!simStarted && (
-            <div className="absolute inset-0 flex items-center justify-center z-10 rounded-xl" style={{ background: 'rgba(13,17,16,0.7)' }}>
+            <div className="absolute inset-0 flex items-center justify-center z-10 rounded-xl" style={{ background: 'rgba(5,5,5,0.75)' }}>
               <span className="text-[#4a6560] font-mono text-xs">Run simulation to see analytics</span>
             </div>
           )}
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-white font-semibold text-sm">Leads Over Last 30 Days</h3>
+              <h3 className="text-white font-display text-sm">Leads Over Last 30 Days</h3>
               <p className="text-[#4a6560] font-mono text-[10px]">DAILY VOLUME</p>
             </div>
-            <span className="bg-[#c4688a]/10 text-[#c4688a] font-mono text-[10px] px-2 py-1 rounded-md border border-[#c4688a]/20">+38% growth</span>
+            <span style={{ background: 'rgba(212,175,55,0.08)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.2)' }}
+              className="font-mono text-[10px] px-2 py-1 rounded-md">+38% growth</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={chartLeadData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
               <defs>
-                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#c4688a" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#c4688a" stopOpacity={0} />
+                <linearGradient id="goldAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#D4AF37" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#D4AF37" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e1e1e" />
-              <XAxis dataKey="day" tick={{ fill: '#444', fontSize: 9, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} interval={4} />
-              <YAxis tick={{ fill: '#444', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip content={<CustomTooltip />} />
-              <Area type="monotone" dataKey="leads" stroke="#c4688a" strokeWidth={2} fill="url(#areaGrad)" dot={false} />
+              <Tooltip content={<GoldTooltip />} />
+              <Area
+                type="monotone" dataKey="leads"
+                stroke="#D4AF37" strokeWidth={2}
+                fill="url(#goldAreaGrad)"
+                dot={false}
+                style={{ filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' }}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
         {/* Pie: Sources */}
-        <div className="bg-[#131918] border border-[#1E2B28] rounded-xl p-5">
+        <div className="rounded-xl p-5 glass">
           <div className="mb-4">
-            <h3 className="text-white font-semibold text-sm">Lead Sources</h3>
+            <h3 className="text-white font-display text-sm">Lead Sources</h3>
             <p className="text-[#4a6560] font-mono text-[10px]">ALL TIME</p>
           </div>
           <ResponsiveContainer width="100%" height={160}>
             <PieChart>
               <Pie
                 data={sourceData}
-                cx="50%"
-                cy="50%"
-                innerRadius={45}
-                outerRadius={75}
+                cx="50%" cy="50%"
+                innerRadius={45} outerRadius={75}
                 dataKey="value"
                 labelLine={false}
                 label={<CustomPieLabel />}
@@ -169,14 +184,17 @@ export default function Analytics({ simStarted = false }) {
                   <Cell key={i} fill={entry.color} stroke="transparent" />
                 ))}
               </Pie>
-              <Tooltip formatter={(v) => `${v}%`} contentStyle={{ background: '#1a1a1a', border: '1px solid #333', borderRadius: 8 }} />
+              <Tooltip
+                formatter={(v) => `${v}%`}
+                contentStyle={{ background: 'rgba(5,5,5,0.9)', border: '1px solid rgba(212,175,55,0.3)', borderRadius: 10 }}
+              />
             </PieChart>
           </ResponsiveContainer>
           <div className="space-y-1.5 mt-2">
             {sourceData.map((s) => (
               <div key={s.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ background: s.color }}></div>
+                  <div className="w-2 h-2 rounded-full" style={{ background: s.color }} />
                   <span className="text-[#6a8a85] font-mono text-[10px]">{s.name}</span>
                 </div>
                 <span className="text-white font-mono text-[10px]">{s.value}%</span>
@@ -189,40 +207,41 @@ export default function Analytics({ simStarted = false }) {
       {/* Charts row 2 */}
       <div className="grid grid-cols-2 gap-4">
         {/* Bar: Bookings by service */}
-        <div className="bg-[#131918] border border-[#1E2B28] rounded-xl p-5">
+        <div className="rounded-xl p-5 glass">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-white font-semibold text-sm">Bookings by Service</h3>
+              <h3 className="text-white font-display text-sm">Bookings by Service</h3>
               <p className="text-[#4a6560] font-mono text-[10px]">THIS MONTH</p>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={serviceData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e1e1e" vertical={false} />
-              <XAxis dataKey="service" tick={{ fill: '#555', fontSize: 9, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#555', fontSize: 9 }} axisLine={false} tickLine={false} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="bookings" fill="#c4688a" radius={[4, 4, 0, 0]} />
+              <Tooltip content={<GoldTooltip />} />
+              <Bar dataKey="bookings" fill="#D4AF37" radius={[4, 4, 0, 0]}
+                style={{ filter: 'drop-shadow(0 0 6px rgba(212,175,55,0.45))' }} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Line: Revenue trend */}
-        <div className="bg-[#131918] border border-[#1E2B28] rounded-xl p-5">
+        <div className="rounded-xl p-5 glass">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-white font-semibold text-sm">Revenue Trend</h3>
+              <h3 className="text-white font-display text-sm">Revenue Trend</h3>
               <p className="text-[#4a6560] font-mono text-[10px]">WEEKLY — LAST 8 WEEKS</p>
             </div>
-            <span className="text-[#c4688a] font-mono text-xs">$89,400 total</span>
+            <span style={{ color: '#D4AF37' }} className="font-mono text-xs">$89,400 total</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <LineChart data={chartRevenueData} margin={{ top: 5, right: 5, left: -5, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e1e1e" />
-              <XAxis dataKey="week" tick={{ fill: '#555', fontSize: 10, fontFamily: 'Space Mono' }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#555', fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
-              <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="revenue" stroke="#c4688a" strokeWidth={2.5} dot={{ fill: '#c4688a', r: 4, strokeWidth: 0 }} activeDot={{ r: 6, fill: '#c4688a' }} />
+              <Tooltip content={<GoldTooltip />} />
+              <Line
+                type="monotone" dataKey="revenue"
+                stroke="#D4AF37" strokeWidth={2.5}
+                dot={{ fill: '#D4AF37', r: 4, strokeWidth: 0 }}
+                activeDot={{ r: 6, fill: '#D4AF37' }}
+                style={{ filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' }}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>

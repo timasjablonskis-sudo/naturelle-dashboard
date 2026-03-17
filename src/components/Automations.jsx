@@ -1,121 +1,23 @@
 import React, { useState } from 'react'
-import { Zap, PhoneMissed, Instagram, Globe, Star, Calendar, Mail, ToggleLeft, ToggleRight, Clock, Activity, MessageSquare } from 'lucide-react'
+import { Zap, Activity } from 'lucide-react'
+import { motion } from 'framer-motion'
+import AutomationFlow from './AutomationFlow'
 
 const initialAutomations = [
-  // — Tier 1: Digital Entry —
-  {
-    id: 1,
-    title: 'Website Chat AI',
-    description: 'Captures inquiries 24/7 so you never lose a lead after hours. Answers treatment questions, qualifies leads, and books consultations.',
-    icon: Globe,
-    color: '#c4688a',
-    triggers: 312,
-    lastTriggered: '1 minute ago',
-    active: true,
-    tag: 'Website',
-    tier: 'Tier 1',
-  },
-  {
-    id: 2,
-    title: 'Email Lead Follow-Up',
-    description: 'Sends a personalized follow-up email to every new lead within 60 seconds of their inquiry. Includes service info, pricing, and a booking link.',
-    icon: Mail,
-    color: '#a78bfa',
-    triggers: 284,
-    lastTriggered: '6 minutes ago',
-    active: true,
-    tag: 'Email',
-    tier: 'Tier 1',
-  },
-  {
-    id: 3,
-    title: 'Monthly Email Newsletter',
-    description: 'Sends a branded email to all patients highlighting promotions, new services, and seasonal offers to drive recurring bookings.',
-    icon: Mail,
-    color: '#D4907A',
-    triggers: 12,
-    lastTriggered: '18 days ago',
-    active: true,
-    tag: 'Email',
-    tier: 'Tier 1',
-  },
-  // — Tier 2: Retention Pro —
-  {
-    id: 4,
-    title: 'Missed Call Text-Back',
-    description: 'Texts the patient within 8 seconds of a missed call with service info and a booking link. No lead left behind.',
-    icon: PhoneMissed,
-    color: '#C9A87C',
-    triggers: 247,
-    lastTriggered: '4 minutes ago',
-    active: true,
-    tag: 'SMS',
-    tier: 'Tier 2',
-  },
-  {
-    id: 5,
-    title: 'Appointment Reminder',
-    description: 'The no-show killer — sends automated SMS reminders at 24h and 1h before each appointment.',
-    icon: Calendar,
-    color: '#c4688a',
-    triggers: 203,
-    lastTriggered: '12 minutes ago',
-    active: true,
-    tag: 'SMS',
-    tier: 'Tier 2',
-  },
-  {
-    id: 6,
-    title: 'Post-Visit Review Request',
-    description: 'Automatically texts a Google review link 2 hours after each completed appointment. Automates your reputation on autopilot.',
-    icon: Star,
-    color: '#f59e0b',
-    triggers: 156,
-    lastTriggered: '3 hours ago',
-    active: true,
-    tag: 'SMS',
-    tier: 'Tier 2',
-  },
-  // — Tier 3: Full Front Desk —
-  {
-    id: 7,
-    title: 'Instagram Auto-Reply',
-    description: 'Treats your DMs like a booking channel — responds to inquiries 24/7 with personalized service info and books consultations instantly.',
-    icon: Instagram,
-    color: '#D4907A',
-    triggers: 189,
-    lastTriggered: '2 minutes ago',
-    active: true,
-    tag: 'Instagram',
-    tier: 'Tier 3',
-  },
-  {
-    id: 8,
-    title: 'Lead Re-Engagement Sequence',
-    description: 'Proactively chases leads who haven\'t booked using a smart SMS + Email sequence. Fires 24 hours after first contact with no booking.',
-    icon: MessageSquare,
-    color: '#4ade80',
-    triggers: 94,
-    lastTriggered: '45 minutes ago',
-    active: true,
-    tag: 'Email + SMS',
-    tier: 'Tier 3',
-  },
+  { id: 1, title: 'Website Chat AI',              triggers: 312, active: true },
+  { id: 2, title: 'Email Lead Follow-Up',          triggers: 284, active: true },
+  { id: 3, title: 'Monthly Email Newsletter',       triggers: 12,  active: true },
+  { id: 4, title: 'Missed Call Text-Back',          triggers: 247, active: true },
+  { id: 5, title: 'Appointment Reminder',           triggers: 203, active: true },
+  { id: 6, title: 'Post-Visit Review Request',      triggers: 156, active: true },
+  { id: 7, title: 'Instagram Auto-Reply',           triggers: 189, active: true },
+  { id: 8, title: 'Lead Re-Engagement Sequence',   triggers: 94,  active: true },
 ]
 
-const tagColor = {
-  SMS:          'bg-[#C9A87C]/10 text-[#C9A87C]',
-  Instagram:    'bg-[#D4907A]/10 text-[#D4907A]',
-  Website:      'bg-[#c4688a]/10 text-[#c4688a]',
-  Email:        'bg-purple-500/10 text-purple-400',
-  'Email + SMS':'bg-green-500/10 text-green-400',
-}
+const springTransition = { type: 'spring', stiffness: 260, damping: 28 }
 
 export default function Automations() {
-  const [automations, setAutomations] = useState(initialAutomations)
-
-  const toggle = (id) =>
-    setAutomations((prev) => prev.map((a) => (a.id === id ? { ...a, active: !a.active } : a)))
+  const [automations] = useState(initialAutomations)
 
   const totalTriggers = automations.reduce((a, b) => a + b.triggers, 0)
   const activeCount   = automations.filter((a) => a.active).length
@@ -125,104 +27,63 @@ export default function Automations() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-display text-3xl text-white tracking-wide">Automations</h2>
+          <h2 className="font-display text-3xl text-white">Automations</h2>
           <p className="text-[#6a8a85] text-sm mt-0.5">Every automation running in the background — 24/7, zero manual intervention.</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl px-4 py-2 border"
-            style={{ background: 'rgba(196,104,138,0.08)', borderColor: 'rgba(196,104,138,0.25)' }}>
-            <Zap size={13} style={{ color: 'var(--accent)' }} />
-            <span className="font-mono text-xs font-bold" style={{ color: 'var(--accent)' }}>{activeCount} ACTIVE</span>
+          <div className="flex items-center gap-2 rounded-xl px-4 py-2 glass"
+            style={{ borderColor: 'rgba(212,175,55,0.25)', background: 'rgba(212,175,55,0.05)' }}>
+            <Zap size={13} style={{ color: '#D4AF37' }} />
+            <span className="font-mono text-xs font-bold" style={{ color: '#D4AF37' }}>{activeCount} ACTIVE</span>
           </div>
-          <div className="bg-[#131918] border border-[#1E2B28] rounded-xl px-4 py-2">
+          <div className="rounded-xl px-4 py-2 glass">
             <span className="text-[#6a8a85] font-mono text-xs">{totalTriggers.toLocaleString()} triggers this month</span>
           </div>
         </div>
       </div>
 
-      {/* Summary */}
+      {/* Summary stats */}
       <div className="grid grid-cols-4 gap-3">
         {[
           { label: 'Active Automations', value: activeCount.toString() },
           { label: 'Total Triggers',     value: totalTriggers.toLocaleString() },
           { label: 'Leads Captured',     value: '847' },
           { label: 'Revenue Attributed', value: '$89k' },
-        ].map((s) => (
-          <div key={s.label} className="bg-[#131918] border border-[#1E2B28] rounded-xl p-4 text-center">
-            <div className="font-display text-3xl text-white">{s.value}</div>
+        ].map((s, idx) => (
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...springTransition, delay: idx * 0.06 }}
+            className="rounded-xl p-4 text-center glass"
+          >
+            <div className="font-data text-3xl font-semibold text-white" style={{ color: '#D4AF37' }}>{s.value}</div>
             <div className="text-[#4a6560] font-mono text-[10px] mt-0.5">{s.label}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-2 gap-4">
-        {automations.map((auto) => {
-          const Icon = auto.icon
-          return (
-            <div
-              key={auto.id}
-              className={`bg-[#131918] border rounded-xl p-5 transition-all duration-200 ${
-                auto.active ? 'border-[#1E2B28] hover:border-[#2a3a36]' : 'border-[#1a2420] opacity-50'
-              }`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: auto.color + '18' }}>
-                    <Icon size={18} style={{ color: auto.color }} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-white font-semibold text-sm">{auto.title}</h3>
-                      <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${tagColor[auto.tag] || ''}`}>
-                        {auto.tag}
-                      </span>
-                    </div>
-                    <p className="text-[#6a8a85] text-xs mt-1 leading-relaxed">{auto.description}</p>
-                  </div>
-                </div>
-                <button onClick={() => toggle(auto.id)} className="flex-shrink-0 ml-3 transition-colors">
-                  {auto.active
-                    ? <ToggleRight size={28} style={{ color: auto.color }} />
-                    : <ToggleLeft size={28} className="text-[#333]" />}
-                </button>
-              </div>
-              <div className="flex items-center justify-between pt-3 border-t border-[#1a2420]">
-                <div>
-                  <div className="text-white font-display text-xl">{auto.triggers}</div>
-                  <div className="text-[#3a5550] font-mono text-[9px]">triggers this month</div>
-                </div>
-                <div className="flex flex-col items-end">
-                  <div className="flex items-center gap-1.5">
-                    {auto.active ? (
-                      <>
-                        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: auto.color }} />
-                        <span className="font-mono text-[10px]" style={{ color: auto.color }}>ACTIVE</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#444]" />
-                        <span className="font-mono text-[10px] text-[#444]">PAUSED</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Clock size={9} className="text-[#3a5550]" />
-                    <span className="text-[#3a5550] font-mono text-[9px]">{auto.lastTriggered}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      {/* Node graph */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ...springTransition, delay: 0.15 }}
+      >
+        <div className="mb-3 flex items-center gap-2">
+          <h3 className="text-white font-display text-base">Automation Network</h3>
+          <span className="flex items-center gap-1.5 ml-2">
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#D4AF37' }} />
+            <span className="font-mono text-[9px]" style={{ color: '#D4AF37' }}>LIVE</span>
+          </span>
+        </div>
+        <AutomationFlow />
+      </motion.div>
 
-      <div className="bg-[#131918] border border-[#1E2B28] rounded-xl px-5 py-4 flex items-center gap-3">
-        <Activity size={16} style={{ color: 'var(--accent)' }} />
+      <div className="rounded-xl px-5 py-4 flex items-center gap-3 glass">
+        <Activity size={16} style={{ color: '#D4AF37' }} />
         <p className="text-[#6a8a85] text-sm">
           All automations run 24/7 without manual intervention.{' '}
-          <span style={{ color: 'var(--accent)' }}>1,497 actions taken this month</span> — saving the team an estimated 100+ hours.
+          <span style={{ color: '#D4AF37' }}>1,497 actions taken this month</span> — saving the team an estimated 100+ hours.
         </p>
       </div>
     </div>
