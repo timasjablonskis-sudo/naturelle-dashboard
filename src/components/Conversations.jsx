@@ -73,30 +73,54 @@ const initialConversations = [
     time: '2h ago',
     live: false,
     messages: [
-      { from: 'ai', text: 'Hi Anna! Wishful Beauty Med Spa here — following up on your inquiry about laser hair removal. Sessions start at $99 depending on the area. Want to schedule?' },
+      { from: 'ai', text: 'Hi Anna! Wishful Beauty Med Spa here — following up on your inquiry about laser hair removal. Sessions start at $150–$400 depending on the area. Want to schedule?' },
       { from: 'visitor', text: 'Yes what are the options' },
-      { from: 'ai', text: 'We offer laser hair removal for face, underarms, bikini, legs, and full body. Pricing starts at $99 per session. Most clients see results in 6–8 sessions. Want to schedule?' },
+      { from: 'ai', text: 'We offer laser hair removal for face, underarms, bikini, legs, and full body. Most clients see full results in 6–8 sessions. Want to schedule?' },
       { from: 'visitor', text: 'Wednesday at noon' },
-      { from: 'ai', text: 'Confirmed! Laser Hair Removal Wednesday at noon. We\'re at 3433 Kirchoff Rd, Rolling Meadows IL. See you Wednesday! 💧' },
+      { from: 'ai', text: 'Confirmed! Laser Hair Removal Wednesday at noon. See you Wednesday! 💧' },
+    ],
+  },
+  {
+    id: 6,
+    name: 'Rachel V.',
+    channel: 'Website Chat',
+    preview: 'AI: See you Friday! 💄',
+    time: '30m ago',
+    live: false,
+    messages: [
+      { from: 'visitor', text: 'How much is lip filler?' },
+      { from: 'ai', text: 'Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?' },
+      { from: 'visitor', text: "Oh that's not bad. What does it look like?" },
+      { from: 'ai', text: 'Most clients go for a natural, subtle enhancement — fuller lips without looking overdone. We use premium hyaluronic acid filler, lasts 6–12 months. Want to book a free consultation?' },
+      { from: 'visitor', text: "Yes, I'm interested!" },
+      { from: 'ai', text: 'I have Thursday at 2pm and Friday at 11am open this week. Which works for you?' },
+      { from: 'visitor', text: 'Friday works!' },
+      { from: 'ai', text: "Done! Booking you in for Friday at 11am for a lip filler consultation. You'll get a reminder text the morning of. See you then! 💄" },
     ],
   },
 ]
 
 const aiReplies = {
-  botox: "Botox at Wishful Beauty Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?",
-  hydrafacial: "HydraFacials at Wishful Beauty Med Spa start at $175 and leave your skin glowing for weeks. Want to book?",
-  microneedling: "Microneedling at Wishful Beauty starts at $250/session. We also offer PRP-enhanced microneedling for even better results. Want to book a consultation?",
-  'laser hair removal': "Laser hair removal sessions start at $99 depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
-  laser: "Laser hair removal sessions start at $99 depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
+  botox: "Botox starts at $12/unit — most clients need 20–40 units. We have a current special: 20 units for $179! Would you like to book a consultation?",
+  hydrafacial: "HydraFacials start at $175 and leave your skin glowing for weeks — zero downtime. Want to book?",
+  microneedling: "Microneedling starts at $300/session. We also offer PRP-enhanced sessions for even better collagen results. 3-session packages are most common. Want to book a consultation?",
+  'laser hair removal': "Laser hair removal starts at $150–$400/session depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
+  laser: "Laser hair removal starts at $150–$400/session depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
   cryotherapy: "We offer cryotherapy sessions for recovery and wellness. Want to learn more or book a session?",
+  'lip filler': "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?",
+  'lip fillers': "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?",
+  filler: "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability?",
+  cheek: "Cheek filler starts at $700 — or as low as $58/month with Cherry patient financing. Results last 12–18 months. Want to book a consultation?",
+  cherry: "Cherry patient financing lets you split any service over $600 into monthly payments — starting as low as $46/month. Takes 60 seconds with no credit impact. Want to check your rate?",
+  financing: "We offer Cherry patient financing — pay as low as $46/month on services over $600. Takes 60 seconds to check your rate with no credit impact!",
   book: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
   appointment: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
-  price: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
-  cost: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
-  'how much': "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).",
+  price: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+). Anything over $600 qualifies for Cherry financing!",
+  cost: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+).",
+  'how much': "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+).",
 }
 
-const defaultReply = "Great question! At Wishful Beauty Med Spa we specialize in Botox, fillers, facials, laser hair removal, microneedling, and cryotherapy. Would you like to book a consultation?"
+const defaultReply = "Great question! We specialize in Botox, fillers, facials, laser hair removal, and microneedling. Services over $600 qualify for Cherry patient financing — as low as $46/month. Would you like to book a consultation?"
 
 function getAIReply(input) {
   const lower = input.toLowerCase()
@@ -151,7 +175,7 @@ export default function Conversations({ simStarted = false }) {
       setConversations((prev) =>
         prev.map((c) =>
           c.id === activeId
-            ? { ...c, messages: [...c.messages, { from: 'visitor', text }, { from: 'ai', text: reply }], preview: reply }
+            ? { ...c, messages: [...c.messages, { from: 'ai', text: reply }], preview: reply }
             : c
         )
       )
@@ -175,7 +199,7 @@ export default function Conversations({ simStarted = false }) {
         </div>
         <div className="flex items-center gap-2 bg-[#c4688a]/10 border border-[#c4688a]/30 rounded-xl px-4 py-2">
           <MessageSquare size={13} className="text-[#c4688a]" />
-          <span className="text-[#c4688a] font-mono text-xs font-bold">5 ACTIVE CONVERSATIONS</span>
+          <span className="text-[#c4688a] font-mono text-xs font-bold">6 ACTIVE CONVERSATIONS</span>
         </div>
       </div>
 

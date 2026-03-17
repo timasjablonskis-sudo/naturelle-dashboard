@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Zap, PhoneMissed, Instagram, Globe, Star, Users, Calendar, Mail, ToggleLeft, ToggleRight, Clock, Activity } from 'lucide-react'
+import { Zap, PhoneMissed, Instagram, Globe, Star, Calendar, Mail, ToggleLeft, ToggleRight, Clock, Activity, MessageSquare } from 'lucide-react'
 
 const initialAutomations = [
   {
@@ -57,17 +57,7 @@ const initialAutomations = [
     active: true,
     tag: 'SMS',
   },
-  {
-    id: 6,
-    title: 'Lead Re-Engagement Sequence',
-    description: 'Sends follow-up messages + emails to leads who haven\'t booked after 24 hours.',
-    icon: Users,
-    color: '#4ade80',
-    triggers: 94,
-    lastTriggered: '45 minutes ago',
-    active: true,
-    tag: 'Email + SMS',
-  },
+
   {
     id: 7,
     title: 'Appointment Reminder',
@@ -78,6 +68,18 @@ const initialAutomations = [
     lastTriggered: '12 minutes ago',
     active: true,
     tag: 'SMS',
+  },
+  {
+    id: 9,
+    title: 'SMS Abandonment Recovery',
+    description: '3-touch sequence fires when a lead visits but doesn\'t book. Recovers 10–18% of abandoned leads automatically.',
+    icon: MessageSquare,
+    color: '#4ade80',
+    triggers: 14,
+    lastTriggered: '22 minutes ago',
+    active: true,
+    tag: 'SMS',
+    stat: '14 leads recovered this month',
   },
   {
     id: 8,
