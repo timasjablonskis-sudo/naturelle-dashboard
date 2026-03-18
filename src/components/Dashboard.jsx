@@ -142,7 +142,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             <span className="w-2 h-2 rounded-full animate-pulse bg-primary" />
             <span className="font-mono text-[10px] tracking-widest text-primary">LIVE — TODAY</span>
           </div>
-          <h1 className="font-semibold text-2xl text-white tracking-tight">Good morning, Wishful Beauty.</h1>
+          <h1 className="font-display font-bold text-2xl text-white tracking-tight">Good morning, Wishful Beauty.</h1>
           <p className="text-zinc-400 text-sm mt-0.5">
             Your AI Front Desk handled{' '}
             <span className="font-semibold text-white">{simStats.leads} leads</span>
@@ -270,9 +270,10 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             transition={springTransition}
             className="space-y-4"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Row 1: Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Leads chart */}
-              <motion.div {...hoverScale} className="rounded-xl p-4 bg-surface-1 border border-white/10">
+              <motion.div {...hoverScale} className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-white font-semibold text-sm tracking-tight">Leads This Week</h3>
@@ -280,7 +281,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                   </div>
                   <span className="font-mono text-[10px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary">+18%</span>
                 </div>
-                <ResponsiveContainer width="100%" height={140}>
+                <ResponsiveContainer width="100%" height={200}>
                   <AreaChart data={weekData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="primaryGrad" x1="0" y1="0" x2="0" y2="1">
@@ -290,25 +291,20 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                     </defs>
                     <CartesianGrid stroke={CHART_COLORS.grid} strokeDasharray="3 3" vertical={false} />
                     <Tooltip content={<ChartTooltip />} />
-                    <Area
-                      type="monotone" dataKey="leads"
-                      stroke={CHART_COLORS.primary} strokeWidth={2}
-                      fill="url(#primaryGrad)"
-                      dot={false}
-                    />
+                    <Area type="monotone" dataKey="leads" stroke={CHART_COLORS.primary} strokeWidth={2} fill="url(#primaryGrad)" dot={false} />
                   </AreaChart>
                 </ResponsiveContainer>
               </motion.div>
 
               {/* Bookings chart */}
-              <motion.div {...hoverScale} className="rounded-xl p-4 bg-surface-1 border border-white/10">
+              <motion.div {...hoverScale} className="rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-white font-semibold text-sm tracking-tight">Bookings by Channel</h3>
                     <p className="text-zinc-600 font-mono text-[10px]">TODAY</p>
                   </div>
                 </div>
-                <ResponsiveContainer width="100%" height={140}>
+                <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={channelData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
                     <CartesianGrid stroke={CHART_COLORS.grid} strokeDasharray="3 3" vertical={false} />
                     <Tooltip content={<ChartTooltip />} />
@@ -316,9 +312,12 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                   </BarChart>
                 </ResponsiveContainer>
               </motion.div>
+            </div>
 
+            {/* Row 2: Activity Feed + Pulse Map */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Activity Feed */}
-              <motion.div {...hoverScale} className="rounded-xl p-4 bg-surface-1 border border-white/10">
+              <motion.div {...hoverScale} className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-white font-semibold text-sm tracking-tight">Live Activity</h3>
                   <span className="flex items-center gap-1.5">
@@ -326,7 +325,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                     <span className="font-mono text-[9px] text-primary">LIVE</span>
                   </span>
                 </div>
-                <div className="space-y-2.5 overflow-y-auto max-h-[160px]">
+                <div className="space-y-2.5 max-h-[240px] overflow-y-auto">
                   {feed.map((item, i) => (
                     <div key={i} className={cn('flex items-start gap-2.5 transition-opacity', i === 0 ? 'opacity-100' : 'opacity-60')}>
                       <span className="text-sm leading-none mt-0.5 flex-shrink-0">{item.icon}</span>
@@ -338,39 +337,37 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                   ))}
                 </div>
               </motion.div>
+
+              {/* Lead Pulse Map */}
+              <LeadPulseMap simStarted={simStarted} />
             </div>
 
-            {/* Lead Pulse Map + Funnel */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <LeadPulseMap simStarted={simStarted} />
-
-              {/* Conversion Funnel */}
-              <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
-                <h3 className="text-white font-semibold text-sm mb-4 tracking-tight">Conversion Funnel — Today</h3>
-                <div className="space-y-3">
-                  {funnelSteps.map((step, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                      <div className="w-32 text-right">
-                        <span className="text-white font-semibold text-sm">{step.base}</span>
-                        <span className="text-zinc-500 text-xs ml-1.5">{step.label}</span>
-                      </div>
-                      <div className="flex-1 h-7 rounded-full overflow-hidden bg-white/[0.04]">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${step.pct}%` }}
-                          transition={{ duration: 0.8, delay: i * 0.12, ease: 'easeOut' }}
-                          className="h-full rounded-full flex items-center justify-end pr-3"
-                          style={{
-                            background: i === 0 ? CHART_COLORS.primary : `rgba(59,130,246,${0.7 - i * 0.15})`,
-                            boxShadow: i === 0 ? '0 0 12px rgba(59,130,246,0.3)' : 'none',
-                          }}
-                        >
-                          <span className="text-white font-mono text-[10px] font-bold">{step.pct}%</span>
-                        </motion.div>
-                      </div>
+            {/* Row 3: Conversion Funnel */}
+            <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
+              <h3 className="text-white font-semibold text-sm mb-4 tracking-tight">Conversion Funnel — Today</h3>
+              <div className="space-y-3">
+                {funnelSteps.map((step, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-32 text-right">
+                      <span className="text-white font-semibold text-sm">{step.base}</span>
+                      <span className="text-zinc-500 text-xs ml-1.5">{step.label}</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="flex-1 h-7 rounded-full overflow-hidden bg-white/[0.04]">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${step.pct}%` }}
+                        transition={{ duration: 0.8, delay: i * 0.12, ease: 'easeOut' }}
+                        className="h-full rounded-full flex items-center justify-end pr-3"
+                        style={{
+                          background: i === 0 ? CHART_COLORS.primary : `rgba(59,130,246,${0.7 - i * 0.15})`,
+                          boxShadow: i === 0 ? '0 0 12px rgba(59,130,246,0.3)' : 'none',
+                        }}
+                      >
+                        <span className="text-white font-mono text-[10px] font-bold">{step.pct}%</span>
+                      </motion.div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>

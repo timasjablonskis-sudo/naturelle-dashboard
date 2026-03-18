@@ -14,6 +14,8 @@ import Automations from './components/Automations'
 import EmailFollowup from './components/EmailFollowup'
 import SimToast from './components/SimToast'
 import CommandPalette, { openCommandPalette } from './components/CommandPalette'
+import AgentTerminal from './components/AgentTerminal'
+import RevenueTicker from './components/RevenueTicker'
 
 const BASE_STATS = {
   leads: 42,
@@ -220,13 +222,14 @@ export default function App() {
     <div className="relative h-screen overflow-hidden font-sans" style={{ background: 'var(--bg-deep)' }}>
       <InteractiveBackground />
       <div className="relative z-10 flex flex-col h-full">
+        <RevenueTicker />
         <Header simStats={simStats} />
         <main className="flex-1 overflow-y-auto px-6 pt-4 pb-32">
           {panels[active] || panels.dashboard}
         </main>
       </div>
       <FloatingNav active={active} setActive={setActive} onCommandOpen={openCommandPalette} />
-      <CommandPalette setActive={setActive} />
+      <CommandPalette setActive={setActive} addToast={addToast} />
       <SimToast toasts={toasts} />
     </div>
   )
