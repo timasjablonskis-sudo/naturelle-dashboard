@@ -111,6 +111,64 @@ body::before {
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Tabular numerals for data display */
+.font-data {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 24px rgba(59,130,246,0.06);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Pulse ring for center AI node */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  70% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* ReactFlow dark theme overrides */
+.react-flow__controls {
+  background: #18181b !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+  overflow: hidden;
+}
+.react-flow__controls-button {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  fill: #a1a1aa !important;
+  width: 28px !important;
+  height: 28px !important;
+  padding: 5px !important;
+  transition: background 0.15s ease, fill 0.15s ease;
+}
+.react-flow__controls-button:hover {
+  background: rgba(255,255,255,0.06) !important;
+  fill: #fafafa !important;
+}
+.react-flow__controls-button:last-child {
+  border-bottom: none !important;
+}
+.react-flow__minimap {
+  background: #09090b !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+  overflow: hidden;
+}
+.react-flow__attribution {
+  display: none !important;
+}
+
 /* cmdk overrides */
 [cmdk-input] { caret-color: var(--accent); }
 [cmdk-group-heading] { padding: 4px 8px; }

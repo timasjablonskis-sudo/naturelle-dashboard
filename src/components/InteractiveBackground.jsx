@@ -24,12 +24,37 @@ export default function InteractiveBackground() {
           backgroundSize: '60px 60px',
         }}
       />
-      {/* Subtle top radial glow */}
+      {/* Blue orb — top left */}
       <div
         style={{
           position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59,130,246,0.04) 0%, transparent 70%)',
+          top: '-10%',
+          left: '-5%',
+          width: '50%',
+          height: '50%',
+          background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)',
+        }}
+      />
+      {/* Purple orb — bottom right */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-10%',
+          right: '-5%',
+          width: '50%',
+          height: '50%',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)',
+        }}
+      />
+      {/* Emerald orb — mid right */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '30%',
+          right: '10%',
+          width: '30%',
+          height: '30%',
+          background: 'radial-gradient(circle, rgba(16,185,129,0.03) 0%, transparent 70%)',
         }}
       />
     </div>

@@ -221,7 +221,7 @@ export default function App() {
       <InteractiveBackground />
       <div className="relative z-10 flex flex-col h-full">
         <Header simStats={simStats} />
-        <main className="flex-1 overflow-y-auto px-6 pt-4 pb-28">
+        <main className="flex-1 overflow-y-auto px-6 pt-4 pb-32">
           {panels[active] || panels.dashboard}
         </main>
       </div>
