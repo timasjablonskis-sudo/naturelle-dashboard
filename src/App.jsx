@@ -13,6 +13,7 @@ import Analytics from './components/Analytics'
 import Automations from './components/Automations'
 import EmailFollowup from './components/EmailFollowup'
 import SimToast from './components/SimToast'
+import CommandPalette, { openCommandPalette } from './components/CommandPalette'
 
 const BASE_STATS = {
   leads: 42,
@@ -224,7 +225,8 @@ export default function App() {
           {panels[active] || panels.dashboard}
         </main>
       </div>
-      <FloatingNav active={active} setActive={setActive} />
+      <FloatingNav active={active} setActive={setActive} onCommandOpen={openCommandPalette} />
+      <CommandPalette setActive={setActive} />
       <SimToast toasts={toasts} />
     </div>
   )

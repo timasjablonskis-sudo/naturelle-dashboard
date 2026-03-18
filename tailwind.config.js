@@ -3,19 +3,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        lime: { DEFAULT: '#C8FF00', 50: '#f5ffe0', 100: '#eaffb8', 500: '#C8FF00', 600: '#a8d900' },
-        dark: { DEFAULT: '#0A0A0A', 1: '#111111', 2: '#181818', 3: '#222222', 4: '#2a2a2a' },
-        gold: {
-          DEFAULT: '#D4AF37',
-          dim: 'rgba(212,175,55,0.35)',
-        },
+        background: '#09090b',
+        surface: { 1: '#18181b', 2: '#27272a' },
+        primary: { DEFAULT: '#3b82f6', dim: 'rgba(59,130,246,0.12)' },
+        success: { DEFAULT: '#10b981', dim: 'rgba(16,185,129,0.12)' },
+        gold: { DEFAULT: '#D4AF37', dim: 'rgba(212,175,55,0.35)' },
       },
       fontFamily: {
-        sans:    ['Inter', 'DM Sans', 'sans-serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
         mono:    ['Space Mono', 'monospace'],
-        display: ['Playfair Display', 'serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
         data:    ['Inter', 'sans-serif'],
-      }
+      },
+      borderColor: {
+        DEFAULT: 'rgba(255,255,255,0.10)',
+      },
     }
   },
   plugins: []

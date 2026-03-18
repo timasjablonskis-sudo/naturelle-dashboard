@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Zap, Activity } from 'lucide-react'
 import { motion } from 'framer-motion'
 import AutomationFlow from './AutomationFlow'
+import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 
 const initialAutomations = [
   { id: 1, title: 'Website Chat AI',              triggers: 312, active: true },
@@ -14,8 +15,6 @@ const initialAutomations = [
   { id: 8, title: 'Lead Re-Engagement Sequence',   triggers: 94,  active: true },
 ]
 
-const springTransition = { type: 'spring', stiffness: 260, damping: 28 }
-
 export default function Automations() {
   const [automations] = useState(initialAutomations)
 
@@ -24,66 +23,56 @@ export default function Automations() {
 
   return (
     <div className="space-y-5">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-display text-3xl text-white">Automations</h2>
-          <p className="text-[#6a8a85] text-sm mt-0.5">Every automation running in the background — 24/7, zero manual intervention.</p>
+          <h2 className="font-semibold text-3xl text-white tracking-tight">Automations</h2>
+          <p className="text-zinc-400 text-sm mt-0.5">Every automation running in the background — 24/7, zero manual intervention.</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl px-4 py-2 glass"
-            style={{ borderColor: 'rgba(212,175,55,0.25)', background: 'rgba(212,175,55,0.05)' }}>
-            <Zap size={13} style={{ color: '#D4AF37' }} />
-            <span className="font-mono text-xs font-bold" style={{ color: '#D4AF37' }}>{activeCount} ACTIVE</span>
+          <div className="flex items-center gap-2 rounded-xl px-4 py-2 bg-primary/10 border border-primary/25">
+            <Zap size={13} className="text-primary" />
+            <span className="font-mono text-xs font-bold text-primary">{activeCount} ACTIVE</span>
           </div>
-          <div className="rounded-xl px-4 py-2 glass">
-            <span className="text-[#6a8a85] font-mono text-xs">{totalTriggers.toLocaleString()} triggers this month</span>
+          <div className="rounded-xl px-4 py-2 bg-surface-1 border border-white/10">
+            <span className="text-zinc-400 font-mono text-xs">{totalTriggers.toLocaleString()} triggers this month</span>
           </div>
         </div>
       </div>
 
-      {/* Summary stats */}
-      <div className="grid grid-cols-4 gap-3">
+      <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-3" variants={staggerContainer} initial="initial" animate="animate">
         {[
           { label: 'Active Automations', value: activeCount.toString() },
           { label: 'Total Triggers',     value: totalTriggers.toLocaleString() },
           { label: 'Leads Captured',     value: '847' },
           { label: 'Revenue Attributed', value: '$89k' },
-        ].map((s, idx) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...springTransition, delay: idx * 0.06 }}
-            className="rounded-xl p-4 text-center glass"
-          >
-            <div className="font-data text-3xl font-semibold text-white" style={{ color: '#D4AF37' }}>{s.value}</div>
-            <div className="text-[#4a6560] font-mono text-[10px] mt-0.5">{s.label}</div>
+        ].map((s) => (
+          <motion.div key={s.label} variants={staggerItem} {...hoverScale} className="rounded-xl p-4 text-center bg-surface-1 border border-white/10">
+            <div className="font-data text-3xl font-semibold text-white">{s.value}</div>
+            <div className="text-zinc-500 font-mono text-[10px] mt-0.5">{s.label}</div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Node graph */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ ...springTransition, delay: 0.15 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 28, delay: 0.15 }}
       >
         <div className="mb-3 flex items-center gap-2">
-          <h3 className="text-white font-display text-base">Automation Network</h3>
+          <h3 className="text-white font-semibold text-base tracking-tight">Automation Network</h3>
           <span className="flex items-center gap-1.5 ml-2">
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#D4AF37' }} />
-            <span className="font-mono text-[9px]" style={{ color: '#D4AF37' }}>LIVE</span>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-primary" />
+            <span className="font-mono text-[9px] text-primary">LIVE</span>
           </span>
         </div>
         <AutomationFlow />
       </motion.div>
 
-      <div className="rounded-xl px-5 py-4 flex items-center gap-3 glass">
-        <Activity size={16} style={{ color: '#D4AF37' }} />
-        <p className="text-[#6a8a85] text-sm">
+      <div className="rounded-xl px-5 py-4 flex items-center gap-3 bg-surface-1 border border-white/10">
+        <Activity size={16} className="text-primary" />
+        <p className="text-zinc-400 text-sm">
           All automations run 24/7 without manual intervention.{' '}
-          <span style={{ color: '#D4AF37' }}>1,497 actions taken this month</span> — saving the team an estimated 100+ hours.
+          <span className="text-primary">1,497 actions taken this month</span> — saving the team an estimated 100+ hours.
         </p>
       </div>
     </div>

@@ -12,9 +12,9 @@ npm run preview  # Preview production build
 
 ## Deployment
 
-- Production URL: **https://intu-dashboard.vercel.app**
+- Production URL: **https://aria-dashboard-black.vercel.app**
 - Deployed via Vercel GitHub integration — push to `main` to deploy
-- When asked to "open the dashboard", open https://intu-dashboard.vercel.app (not localhost)
+- When asked to "open the dashboard", open https://aria-dashboard-black.vercel.app (not localhost)
 
 ## Architecture
 
