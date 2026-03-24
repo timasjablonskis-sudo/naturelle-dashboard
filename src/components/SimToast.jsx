@@ -13,17 +13,17 @@ const icons = {
 const colors = {
   instagram: '#f472b6',
   missed:    '#f59e0b',
-  booked:    '#3b82f6',
+  booked:    '#059669',
   email:     '#a78bfa',
   review:    '#f59e0b',
 }
 
 export default function SimToast({ toasts }) {
   return (
-    <div className="fixed top-20 right-5 z-50 flex flex-col gap-2 pointer-events-none w-[300px]">
+    <div className="fixed top-16 md:top-20 right-2 left-2 md:left-auto md:right-5 z-50 flex flex-col gap-2 pointer-events-none md:w-[300px]">
       {toasts.map((t) => {
         const Icon = icons[t.type] || CheckCircle
-        const color = colors[t.type] || '#3b82f6'
+        const color = colors[t.type] || '#059669'
         return (
           <div
             key={t.id}

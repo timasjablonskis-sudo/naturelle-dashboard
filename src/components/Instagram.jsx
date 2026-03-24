@@ -1,47 +1,17 @@
 import React, { useState } from 'react'
 import { Instagram as InstagramIcon, CheckCircle2, MessageCircle } from 'lucide-react'
 import { cn } from '../lib/utils'
+import { instagramLeads, instagramTotalMessages } from '../data/stats'
 
-const conversations = [
-  {
-    id: 1, name: 'Ashley R.', preview: 'Thursday afternoon', time: '2m ago', status: 'Consultation Booked', booked: true,
-    messages: [
-      { from: 'visitor', text: 'How much are lip fillers?' },
-      { from: 'ai', text: 'Hi! At Wishful Beauty Med Spa, lip fillers start at $550 depending on the product and amount needed. Would you like to book a consultation to discuss the best option for you?' },
-      { from: 'visitor', text: 'Yes, what times do you have?' },
-      { from: 'ai', text: 'We have availability this week! Tuesday & Thursday 10am–7pm, Wednesday & Friday 12–5pm, Saturday 10am–2pm. Which day works for you?' },
-      { from: 'visitor', text: 'Thursday afternoon' },
-      { from: 'ai', text: "Perfect! I've noted Thursday afternoon for a lip filler consultation. Confirming your appointment at Wishful Beauty Med Spa, 3433 Kirchoff Rd, Rolling Meadows IL. You'll receive a confirmation shortly!" },
-    ],
-  },
-  {
-    id: 2, name: 'Jordan P.', preview: 'How long does it take?', time: '18m ago', status: 'In Progress', booked: false,
-    messages: [
-      { from: 'visitor', text: 'Do you offer laser hair removal?' },
-      { from: 'ai', text: 'Yes! Wishful Beauty Med Spa offers laser hair removal for hydration, energy, and immunity. Sessions start at $99. Would you like to book?' },
-      { from: 'visitor', text: 'How long does it take?' },
-      { from: 'ai', text: 'laser hair removal sessions take about 45–60 minutes. We can have you in and out during your lunch break! Want me to book you in?' },
-    ],
-  },
-  {
-    id: 3, name: 'Kayla M.', preview: 'yes omg book me', time: '35m ago', status: 'Consultation Booked', booked: true,
-    messages: [
-      { from: 'visitor', text: "What's your Botox special?" },
-      { from: 'ai', text: "Great timing! We're running a Botox special: 20 units for $179 (regular $240). Want to grab that deal this week?" },
-      { from: 'visitor', text: 'yes omg book me' },
-      { from: 'ai', text: 'Done! Booking you in for the Botox special. What day works best this week?' },
-    ],
-  },
-  {
-    id: 4, name: 'Nina C.', preview: 'What skin treatments do you offer?', time: '1h ago', status: 'Replied', booked: false,
-    messages: [
-      { from: 'visitor', text: 'What skin treatments do you offer?' },
-      { from: 'ai', text: 'We offer HydraFacials ($175+), microneedling, chemical peels, and PRP facials! Each is tailored to your skin goals. Want to book a skin consultation?' },
-      { from: 'visitor', text: 'Ooh yes, what does the consultation involve?' },
-      { from: 'ai', text: "It's a 15-minute call with one of our aesthetic nurses to review your skin goals and recommend the best treatment path. Completely free! Want me to schedule you in?" },
-    ],
-  },
-]
+const conversations = instagramLeads.map(l => ({
+  id: l.id,
+  name: l.name,
+  preview: l.instagramDM.preview,
+  time: l.instagramDM.time,
+  status: l.status,
+  booked: l.booked,
+  messages: l.instagramDM.messages,
+}))
 
 const InstagramGradient = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -62,29 +32,29 @@ const InstagramGradient = () => (
 
 export default function Instagram({ simStarted = false, simConversations = [] }) {
   const allConversations = [...simConversations, ...conversations]
-  const [activeId, setActiveId] = useState(1)
+  const [activeId, setActiveId] = useState(conversations[0]?.id)
   const active = allConversations.find((c) => c.id === activeId) || allConversations[0]
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Instagram DM Automation</h2>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Instagram DM Automation</h2>
           <p className="text-zinc-500 text-sm mt-0.5">AI handles every DM — 24/7, instant, on-brand.</p>
         </div>
         <div className="flex items-center gap-2 bg-surface-1 border border-white/10 rounded-xl px-4 py-2">
           <InstagramIcon size={14} className="text-pink-400" />
-          <span className="text-white font-mono text-xs">18 messages today</span>
+          <span className="text-white font-mono text-xs">{instagramTotalMessages} messages today</span>
           <span className="bg-primary text-white font-mono text-[10px] font-bold px-1.5 py-0.5 rounded">LIVE</span>
         </div>
       </div>
 
-      <div className="flex gap-4 h-[580px]">
-        <div className="w-[280px] bg-surface-1 border border-white/10 rounded-xl flex flex-col flex-shrink-0">
+      <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[580px]">
+        <div className="w-full md:w-[280px] bg-surface-1 border border-white/10 rounded-xl flex flex-col flex-shrink-0">
           <div className="px-4 py-3 border-b border-white/[0.06]">
             <span className="text-zinc-500 font-mono text-[10px]">CONVERSATIONS</span>
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="max-h-[180px] md:max-h-none flex-1 overflow-y-auto">
             {allConversations.map((conv) => (
               <button
                 key={conv.id}
@@ -174,7 +144,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
               <MessageCircle size={13} className="text-zinc-500" />
               <span className="text-zinc-500 font-mono text-[10px]">AI responding automatically via Instagram</span>
             </div>
-            <span className="text-zinc-600 font-mono text-[10px]">Wishful Beauty Med Spa AI</span>
+            <span className="text-zinc-600 font-mono text-[10px]">Naturelle Med Spa AI</span>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import AutomationFlow from './AutomationFlow'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 import { cn } from '../lib/utils'
+import { analyticsKPIs } from '../data/stats'
 
 const initialAutomations = [
   { id: 1, title: 'Website Chat AI',              triggers: 312, active: true,  lastTriggered: '2m ago' },
@@ -29,17 +30,17 @@ export default function Automations() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Automations</h2>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Automations</h2>
           <p className="text-zinc-400 text-sm mt-0.5">Every automation running in the background — 24/7, zero manual intervention.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl px-4 py-2 bg-primary/10 border border-primary/25">
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 rounded-xl px-3 md:px-4 py-2 bg-primary/10 border border-primary/25">
             <Zap size={13} className="text-primary" />
             <span className="font-mono text-xs font-bold text-primary">{activeCount} ACTIVE</span>
           </div>
-          <div className="rounded-xl px-4 py-2 bg-surface-1 border border-white/10">
+          <div className="rounded-xl px-3 md:px-4 py-2 bg-surface-1 border border-white/10">
             <span className="text-zinc-400 font-mono text-xs">{totalTriggers.toLocaleString()} triggers this month</span>
           </div>
         </div>
@@ -49,10 +50,10 @@ export default function Automations() {
         {[
           { label: 'Active Automations', value: activeCount.toString() },
           { label: 'Total Triggers',     value: totalTriggers.toLocaleString() },
-          { label: 'Leads Captured',     value: '847' },
-          { label: 'Revenue Attributed', value: '$89k' },
+          { label: 'Leads Captured',     value: analyticsKPIs.totalLeads.toLocaleString() },
+          { label: 'Revenue Attributed', value: `$${Math.round(analyticsKPIs.totalRevenue / 1000)}k` },
         ].map((s) => (
-          <motion.div key={s.label} variants={staggerItem} {...hoverScale} className="rounded-xl p-4 text-center bg-surface-1 border border-white/10 card-hover">
+          <motion.div key={s.label} variants={staggerItem} className="rounded-xl p-4 text-center bg-surface-1 border border-white/10 card-hover">
             <div className="font-data text-3xl font-semibold text-white">{s.value}</div>
             <div className="text-zinc-500 font-mono text-[10px] mt-0.5">{s.label}</div>
           </motion.div>
@@ -120,7 +121,7 @@ export default function Automations() {
                       style={{
                         width: `${(auto.triggers / maxTriggers) * 100}%`,
                         background: auto.active
-                          ? 'linear-gradient(90deg, #3b82f6, #10b981)'
+                          ? 'linear-gradient(90deg, #059669, #10b981)'
                           : '#3f3f46',
                       }}
                     />

@@ -26,7 +26,7 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 260, damping: 28, delay: 0.1 }}
-        className="flex items-center gap-1 px-3 py-2.5 rounded-full border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+        className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-2 md:py-2.5 rounded-full border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
         style={{
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
@@ -36,13 +36,13 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
         {/* Cmd+K trigger */}
         <button
           onClick={onCommandOpen}
-          className="relative flex flex-col items-center gap-1 px-2.5 py-2 rounded-xl cursor-pointer outline-none group"
+          className="relative hidden md:flex flex-col items-center gap-1 px-2.5 py-2 rounded-xl cursor-pointer outline-none group"
         >
           <Search size={16} className="text-zinc-500 group-hover:text-zinc-300 transition-colors" />
           <span className="text-[8px] font-mono text-zinc-600">⌘K</span>
         </button>
 
-        <div className="w-px h-6 bg-white/10 mx-1" />
+        <div className="w-px h-6 bg-white/10 mx-1 hidden md:block" />
 
         {NAV_ITEMS.map(({ id, label, Icon }) => {
           const isActive = active === id
@@ -80,7 +80,7 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 className={cn(
-                  'relative flex flex-col items-center gap-1 px-2.5 py-2 rounded-xl cursor-pointer outline-none border-none',
+                  'relative flex flex-col items-center gap-1 px-1.5 py-1.5 md:px-2.5 md:py-2 rounded-xl cursor-pointer outline-none border-none',
                 )}
               >
                 {/* Active glow background */}
@@ -88,7 +88,7 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
                   <motion.div
                     layoutId="activeNavPill"
                     className="absolute inset-0 rounded-xl bg-primary/15"
-                    style={{ boxShadow: '0 0 16px rgba(59,130,246,0.25)' }}
+                    style={{ boxShadow: '0 0 16px rgba(5,150,105,0.25)' }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -104,7 +104,7 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
                   <motion.div
                     layoutId="activeNavDot"
                     className="w-1 h-1 rounded-full bg-primary"
-                    style={{ boxShadow: '0 0 6px rgba(59,130,246,0.8)' }}
+                    style={{ boxShadow: '0 0 6px rgba(5,150,105,0.8)' }}
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}

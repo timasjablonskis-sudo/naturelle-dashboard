@@ -24,13 +24,13 @@ export default function Header({ simStats }) {
     d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
 
   return (
-    <header className="h-[56px] border-b border-white/10 px-6 flex items-center gap-4 flex-shrink-0 backdrop-blur-md bg-surface-1/60">
+    <header className="h-[48px] md:h-[56px] border-b border-white/10 px-3 md:px-6 flex items-center gap-2 md:gap-4 flex-shrink-0 backdrop-blur-md bg-surface-1/60">
       {/* Left */}
       <div className="flex-shrink-0 min-w-[160px]">
-        <div className="font-sans font-semibold text-white text-base leading-none tracking-tight">Wishful Beauty</div>
+        <div className="font-sans font-semibold text-white text-base leading-none tracking-tight">Naturelle Med Spa</div>
         <div className="flex items-center gap-1 mt-0.5">
           <MapPin size={10} className="text-zinc-500" />
-          <span className="text-[10px] text-zinc-500 font-mono">Rolling Meadows, IL</span>
+          <span className="text-[10px] text-zinc-500 font-mono">Wheaton, IL</span>
         </div>
       </div>
 
@@ -48,12 +48,12 @@ export default function Header({ simStats }) {
       </div>
 
       {/* Right */}
-      <div className="flex-shrink-0 flex items-center gap-3">
-        <div className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 border border-primary/25 bg-primary/8">
+      <div className="flex-shrink-0 flex items-center gap-2 md:gap-3">
+        <div className="flex items-center gap-1.5 rounded-lg px-2 md:px-3 py-1.5 border border-primary/25 bg-primary/8">
           <Bot size={13} className="text-primary" />
-          <span className="font-mono text-[10px] font-bold tracking-wider text-primary">AI FRONT DESK</span>
+          <span className="hidden md:inline font-mono text-[10px] font-bold tracking-wider text-primary">AI FRONT DESK</span>
         </div>
-        <div className="text-right">
+        <div className="hidden md:block text-right">
           <div className="text-white font-mono text-xs">{formatTime(time)}</div>
           <div className="text-zinc-500 font-mono text-[10px]">{formatDate(time)}</div>
         </div>

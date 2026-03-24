@@ -7,40 +7,48 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 import { CHART_COLORS, CHART_TOOLTIP } from '../lib/chart-theme'
+import { bookingsByChannel, funnelSteps as computedFunnel, conversionRate } from '../data/stats'
 
 const weekData = [
-  { day: 'Mon', leads: 28 },
-  { day: 'Tue', leads: 35 },
-  { day: 'Wed', leads: 31 },
-  { day: 'Thu', leads: 42 },
-  { day: 'Fri', leads: 38 },
-  { day: 'Sat', leads: 44 },
-  { day: 'Sun', leads: 42 },
+  { day: 'Mon', leads: 14 },
+  { day: 'Tue', leads: 18 },
+  { day: 'Wed', leads: 16 },
+  { day: 'Thu', leads: 21 },
+  { day: 'Fri', leads: 19 },
+  { day: 'Sat', leads: 22 },
+  { day: 'Sun', leads: 18 },
 ]
 
-const channelData = [
-  { channel: 'Website', bookings: 8 },
-  { channel: 'Instagram', bookings: 5 },
-  { channel: 'SMS', bookings: 3 },
-  { channel: 'Email', bookings: 2 },
-]
+const channelData = bookingsByChannel
 
-const funnelSteps = [
-  { label: 'Leads',         pct: 100, base: 42  },
-  { label: 'Conversations', pct: 74,  base: 31  },
-  { label: 'Consultations', pct: 52,  base: 22  },
-  { label: 'Booked',        pct: 38,  base: 16  },
-]
+const funnelSteps = computedFunnel
 
 const STATIC_FEED = [
-  { icon: '🤖', text: 'AI booked Botox consultation for Emily R.', time: '2m ago' },
-  { icon: '📞', text: 'Missed call recovered → Sarah L. booked Weight Loss consult', time: '8m ago' },
-  { icon: '💬', text: 'Instagram DM converted → Anna T. booked IV Therapy', time: '15m ago' },
+  // Recent — last hour
+  { icon: '🤖', text: 'AI booked Neuromodulator consultation for Emily R.', time: '2m ago' },
+  { icon: '📞', text: 'Missed call recovered → Sarah L. booked PRP Treatment', time: '8m ago' },
+  { icon: '💬', text: 'Instagram DM converted → Anna T. booked Sculptra consult', time: '15m ago' },
   { icon: '📧', text: 'Follow-up email sent to 4 leads — 2 opened within 5 min', time: '22m ago' },
   { icon: '⭐', text: 'AI responded to 2-star review from Jessica L.', time: '31m ago' },
-  { icon: '🤖', text: 'AI booked Lip Filler consult for Jessica M.', time: '45m ago' },
-  { icon: '🔄', text: 'Email sequence triggered for 3 unbooked leads', time: '1h ago' },
-  { icon: '📅', text: 'Appointment reminder sent to tomorrow\'s patients', time: '2h ago' },
+  { icon: '🤖', text: 'AI booked Dermal Filler consult for Jessica M.', time: '45m ago' },
+  // Mid-day
+  { icon: '📞', text: 'Missed call recovered → David W. booked Microneedling', time: '1h ago' },
+  { icon: '🔄', text: 'Email sequence triggered for 3 unbooked leads', time: '1.5h ago' },
+  { icon: '💬', text: 'Instagram DM → Kayla M. asked about Kybella, AI responded', time: '2h ago' },
+  { icon: '🤖', text: 'AI booked SkinVive treatment for Michael B.', time: '2h ago' },
+  { icon: '📞', text: 'Missed call recovered → Marcus H. texted back about Kybella', time: '2.5h ago' },
+  { icon: '📧', text: 'Follow-up emails sent to 6 overnight leads — 4 opened', time: '3h ago' },
+  // Late morning
+  { icon: '🤖', text: 'AI booked PDO Thread consultation for Anna T.', time: '3.5h ago' },
+  { icon: '📞', text: '3 missed calls recovered via AI text-back (Sculptra, PRP, Fillers)', time: '4h ago' },
+  { icon: '💬', text: '5 Instagram DMs handled — 2 converted to consultations', time: '4.5h ago' },
+  { icon: '🤖', text: 'AI booked PRP Facial for Maria C. via website chat', time: '5h ago' },
+  // Early morning
+  { icon: '📞', text: '4 overnight missed calls detected → AI texted all back by 8:01 AM', time: '5.5h ago' },
+  { icon: '📧', text: 'Morning follow-up batch: 8 emails sent to leads from yesterday', time: '6h ago' },
+  { icon: '💬', text: '7 overnight Instagram DMs answered by AI within seconds', time: '6h ago' },
+  { icon: '📅', text: 'Appointment reminders sent to 11 patients for today', time: '7h ago' },
+  { icon: '🤖', text: 'AI Front Desk online — monitoring all channels', time: '8h ago' },
 ]
 
 const PULSE_CITIES = [
@@ -130,7 +138,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
     { label: 'Leads Captured',       value: simStats.leads,                         change: '+18%', icon: Users,       color: CHART_COLORS.primary },
     { label: 'Consultations Booked', value: simStats.bookings,                       change: '+33%', icon: Calendar,    color: CHART_COLORS.success },
     { label: 'Calls Recovered',      value: simStats.missed,                         change: '+25%', icon: PhoneMissed, color: CHART_COLORS.accent },
-    { label: 'Revenue Generated',    value: '$' + simStats.revenue.toLocaleString(), change: '+$2,400', icon: DollarSign, color: CHART_COLORS.primary },
+    { label: 'Revenue Generated',    value: '$' + simStats.revenue.toLocaleString(), change: '+12%', icon: DollarSign, color: CHART_COLORS.primary },
   ]
 
   return (
@@ -142,18 +150,18 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             <span className="w-2 h-2 rounded-full animate-pulse bg-primary" />
             <span className="font-mono text-[10px] tracking-widest text-primary">LIVE — TODAY</span>
           </div>
-          <h1 className="font-display font-bold text-2xl text-white tracking-tight">Good morning, Wishful Beauty.</h1>
+          <h1 className="font-display font-bold text-2xl text-white tracking-tight">Good morning, Naturelle Med Spa.</h1>
           <p className="text-zinc-400 text-sm mt-0.5">
-            Your AI Front Desk handled{' '}
+            Your AI Front Desk has handled{' '}
             <span className="font-semibold text-white">{simStats.leads} leads</span>
-            {' '}today — converting {simStats.bookings} into consultations.
+            {' '}today so far — converting {simStats.bookings} into consultations.
           </p>
         </div>
         <div className="flex items-center gap-3 mt-3 md:mt-0">
           <div className="flex items-center gap-2 rounded-xl px-4 py-3 bg-surface-1 border border-white/10">
             <TrendingUp size={18} className="text-primary" />
             <div>
-              <div className="font-semibold text-xl text-white tracking-tight">38%</div>
+              <div className="font-semibold text-xl text-white tracking-tight">{conversionRate}%</div>
               <div className="text-zinc-500 font-mono text-[10px]">CONVERSION</div>
             </div>
           </div>
@@ -213,7 +221,6 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             <motion.div
               key={k.label}
               variants={staggerItem}
-              {...hoverScale}
               className="rounded-xl p-4 bg-surface-1 border border-white/10 hover:border-white/20 transition-colors"
             >
               <div className="flex items-start justify-between mb-3">
@@ -227,7 +234,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
               </div>
               <div key={k.value} className="text-white font-data text-3xl font-semibold leading-none mb-1 count-up">{k.value}</div>
               <div className="text-zinc-400 text-xs">{k.label}</div>
-              <div className="text-zinc-600 font-mono text-[10px] mt-0.5">from yesterday</div>
+              <div className="text-zinc-600 font-mono text-[10px] mt-0.5">today so far</div>
             </motion.div>
           )
         })}
@@ -273,7 +280,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             {/* Row 1: Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Leads chart */}
-              <motion.div {...hoverScale} className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
+              <div className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-white font-semibold text-sm tracking-tight">Leads This Week</h3>
@@ -294,10 +301,10 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                     <Area type="monotone" dataKey="leads" stroke={CHART_COLORS.primary} strokeWidth={2} fill="url(#primaryGrad)" dot={false} />
                   </AreaChart>
                 </ResponsiveContainer>
-              </motion.div>
+              </div>
 
               {/* Bookings chart */}
-              <motion.div {...hoverScale} className="rounded-xl p-5 bg-surface-1 border border-white/10">
+              <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-white font-semibold text-sm tracking-tight">Bookings by Channel</h3>
@@ -311,15 +318,15 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                     <Bar dataKey="bookings" fill={CHART_COLORS.success} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
-              </motion.div>
+              </div>
             </div>
 
             {/* Row 2: Activity Feed + Pulse Map */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Activity Feed */}
-              <motion.div {...hoverScale} className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
+              <div className="lg:col-span-2 rounded-xl p-5 bg-surface-1 border border-white/10">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-white font-semibold text-sm tracking-tight">Live Activity</h3>
+                  <h3 className="text-white font-semibold text-sm tracking-tight">Today's Activity</h3>
                   <span className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-primary" />
                     <span className="font-mono text-[9px] text-primary">LIVE</span>
@@ -336,7 +343,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Lead Pulse Map */}
               <LeadPulseMap simStarted={simStarted} />
@@ -347,10 +354,10 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
               <h3 className="text-white font-semibold text-sm mb-4 tracking-tight">Conversion Funnel — Today</h3>
               <div className="space-y-3">
                 {funnelSteps.map((step, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="w-32 text-right">
-                      <span className="text-white font-semibold text-sm">{step.base}</span>
-                      <span className="text-zinc-500 text-xs ml-1.5">{step.label}</span>
+                  <div key={i} className="flex items-center gap-2 md:gap-4">
+                    <div className="w-20 md:w-32 text-right">
+                      <span className="text-white font-semibold text-xs md:text-sm">{step.base}</span>
+                      <span className="text-zinc-500 text-[10px] md:text-xs ml-1">{step.label}</span>
                     </div>
                     <div className="flex-1 h-7 rounded-full overflow-hidden bg-white/[0.04]">
                       <motion.div
@@ -359,8 +366,8 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
                         transition={{ duration: 0.8, delay: i * 0.12, ease: 'easeOut' }}
                         className="h-full rounded-full flex items-center justify-end pr-3"
                         style={{
-                          background: i === 0 ? CHART_COLORS.primary : `rgba(59,130,246,${0.7 - i * 0.15})`,
-                          boxShadow: i === 0 ? '0 0 12px rgba(59,130,246,0.3)' : 'none',
+                          background: i === 0 ? CHART_COLORS.primary : `rgba(5,150,105,${0.7 - i * 0.15})`,
+                          boxShadow: i === 0 ? '0 0 12px rgba(5,150,105,0.3)' : 'none',
                         }}
                       >
                         <span className="text-white font-mono text-[10px] font-bold">{step.pct}%</span>

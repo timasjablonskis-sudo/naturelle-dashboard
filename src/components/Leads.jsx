@@ -3,22 +3,13 @@ import { Users, X, Phone, Mail, Calendar, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
+import { LEADS } from '../data/leads'
+import { totalLeads, sourceBreakdown } from '../data/stats'
 
-const allLeads = [
-  { name: 'Emily R.',    service: 'Botox',            source: 'Website Chat', status: 'Consultation Booked',    date: 'Today 2:30pm',   phone: '(312) 555-0182', email: 'emily.r@email.com' },
-  { name: 'Jessica M.',  service: 'Lip Filler',        source: 'Instagram DM', status: 'Follow-up Sent',         date: 'Today 1:15pm',   phone: '(773) 555-0241', email: 'jess.m@email.com' },
-  { name: 'Sarah L.',    service: 'GLP-1 Weight Loss', source: 'Missed Call',  status: 'Interested',             date: 'Today 12:40pm',  phone: '(847) 555-0374', email: 'sarah.l@email.com' },
-  { name: 'Anna T.',     service: 'IV Therapy',        source: 'Website Form', status: 'Consultation Scheduled', date: 'Today 11:20am',  phone: '(630) 555-0198', email: 'anna.t@email.com' },
-  { name: 'Michael B.',  service: 'HydraFacial',       source: 'Instagram DM', status: 'Consultation Booked',    date: 'Today 10:05am',  phone: '(312) 555-0527', email: 'mike.b@email.com' },
-  { name: 'Rachel K.',   service: 'Botox',             source: 'Website Chat', status: 'Contacted',              date: 'Yesterday',      phone: '(773) 555-0639', email: 'rachel.k@email.com' },
-  { name: 'David W.',    service: 'Microneedling',     source: 'Missed Call',  status: 'Follow-up Sent',         date: 'Yesterday',      phone: '(847) 555-0712', email: 'david.w@email.com' },
-  { name: 'Lisa P.',     service: 'Fillers',           source: 'Instagram DM', status: 'Consultation Booked',    date: 'Yesterday',      phone: '(630) 555-0845', email: 'lisa.p@email.com' },
-  { name: 'James T.',    service: 'Weight Loss',       source: 'Website Chat', status: 'Interested',             date: 'Yesterday',      phone: '(312) 555-0956', email: 'james.t@email.com' },
-  { name: 'Maria C.',    service: 'PRP',               source: 'Missed Call',  status: 'Consultation Booked',    date: '2 days ago',     phone: '(773) 555-0107', email: 'maria.c@email.com' },
-]
+const allLeads = LEADS
 
 const statusStyle = {
-  'Consultation Booked':    'bg-primary/10 text-blue-400 border-primary/30',
+  'Consultation Booked':    'bg-primary/10 text-emerald-400 border-primary/30',
   'Follow-up Sent':         'bg-amber-500/10 text-amber-400 border-amber-500/30',
   'Interested':             'bg-yellow-500/10 text-yellow-400 border-yellow-500/30',
   'Contacted':              'bg-zinc-700/40 text-zinc-400 border-zinc-600',
@@ -29,7 +20,7 @@ const sourceStyle = {
   'Website Chat': 'bg-purple-500/10 text-purple-400',
   'Instagram DM': 'bg-pink-500/10 text-pink-400',
   'Missed Call':  'bg-amber-500/10 text-amber-400',
-  'Website Form': 'bg-blue-500/10 text-blue-400',
+  'Website Form': 'bg-emerald-500/10 text-emerald-400',
 }
 
 const filters = ['All', 'Website', 'Instagram', 'SMS']
@@ -54,7 +45,7 @@ function LeadDetailPanel({ lead, onClose }) {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: '100%', opacity: 0 }}
             transition={springTransition}
-            className="fixed right-0 top-0 bottom-0 w-[400px] z-50 bg-background/95 border-l border-white/10 backdrop-blur-xl flex flex-col"
+            className="fixed right-0 top-0 bottom-0 w-full md:w-[400px] z-50 bg-background/95 border-l border-white/10 backdrop-blur-xl flex flex-col"
           >
             <div className="px-6 pt-6 pb-4 border-b border-white/[0.06]">
               <div className="flex items-center justify-between mb-4">
@@ -121,7 +112,7 @@ function LeadDetailPanel({ lead, onClose }) {
             </div>
 
             <div className="px-6 py-4 border-t border-white/[0.06]">
-              <button className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm cursor-pointer hover:bg-blue-600 transition-colors">
+              <button className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm cursor-pointer hover:bg-emerald-600 transition-colors">
                 <Calendar size={14} className="inline mr-2" />
                 Book Consultation
               </button>
@@ -149,9 +140,9 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Lead Management</h2>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Lead Management</h2>
           <p className="text-zinc-500 text-sm mt-0.5">All leads captured by AI across every channel.</p>
         </div>
         <div className="flex items-center gap-2 rounded-xl px-4 py-2 bg-primary/10 border border-primary/25">
@@ -163,11 +154,11 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
       <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-3" variants={staggerContainer} initial="initial" animate="animate">
         {[
           { label: 'Total Leads Today', value: (simLeads.length + allLeads.length).toString() },
-          { label: 'Website Chat',      value: '18' },
-          { label: 'Instagram DM',      value: '14' },
-          { label: 'Missed Calls',      value: '10' },
+          { label: 'Website Chat',      value: sourceBreakdown['Website Chat'].toString() },
+          { label: 'Instagram DM',      value: sourceBreakdown['Instagram DM'].toString() },
+          { label: 'Missed Calls',      value: sourceBreakdown['Missed Call'].toString() },
         ].map((s) => (
-          <motion.div key={s.label} variants={staggerItem} {...hoverScale} className="rounded-xl p-4 text-center bg-surface-1 border border-white/10">
+          <motion.div key={s.label} variants={staggerItem} className="rounded-xl p-4 text-center bg-surface-1 border border-white/10">
             <div className="text-primary font-data text-3xl font-semibold">{s.value}</div>
             <div className="text-zinc-500 font-mono text-[10px] mt-0.5">{s.label}</div>
           </motion.div>
@@ -192,12 +183,12 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
         <span className="ml-auto text-zinc-500 font-mono text-xs">{filtered.length} leads</span>
       </div>
 
-      <div className="rounded-xl overflow-hidden bg-surface-1 border border-white/10">
-        <table className="w-full">
+      <div className="rounded-xl overflow-hidden bg-surface-1 border border-white/10 overflow-x-auto">
+        <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-white/[0.06]">
               {['Name', 'Service', 'Source', 'Status', 'Date', ''].map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-zinc-500 font-mono text-[10px] uppercase tracking-wider">{h}</th>
+                <th key={h} className={cn("px-4 py-3 text-left text-zinc-500 font-mono text-[10px] uppercase tracking-wider", (h === 'Source' || h === 'Date') && 'hidden md:table-cell')}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -225,7 +216,7 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
                       </div>
                     </td>
                     <td className="px-4 py-3"><span className="text-zinc-300 text-sm">{lead.service}</span></td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 hidden md:table-cell">
                       <span className={cn('text-xs font-mono px-2 py-0.5 rounded-full', sourceStyle[lead.source] || 'bg-zinc-800 text-zinc-400')}>
                         {lead.source}
                       </span>
@@ -242,7 +233,7 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3"><span className="text-zinc-500 font-mono text-xs">{lead.date}</span></td>
+                    <td className="px-4 py-3 hidden md:table-cell"><span className="text-zinc-500 font-mono text-xs">{lead.date}</span></td>
                     <td className="px-4 py-3">
                       <span className="text-primary font-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
                     </td>

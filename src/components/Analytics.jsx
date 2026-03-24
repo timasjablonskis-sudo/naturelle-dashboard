@@ -11,6 +11,7 @@ import { TrendingUp, Users, Clock, DollarSign, Percent } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 import { CHART_COLORS, CHART_TOOLTIP } from '../lib/chart-theme'
+import { analyticsKPIs, sourcePercentages } from '../data/stats'
 
 const leadData = Array.from({ length: 30 }, (_, i) => ({
   day: `${i + 1}`,
@@ -25,19 +26,18 @@ const zeroRevenueData = [
 ]
 
 const serviceData = [
-  { service: 'Botox', bookings: 38 },
-  { service: 'HydraFacial', bookings: 24 },
-  { service: 'Fillers', bookings: 19 },
-  { service: 'Weight Loss', bookings: 15 },
-  { service: 'Laser', bookings: 12 },
+  { service: 'Neuromodulators', bookings: 38 },
+  { service: 'Dermal Fillers', bookings: 24 },
+  { service: 'Sculptra', bookings: 19 },
+  { service: 'PRP/PRF', bookings: 15 },
+  { service: 'Microneedling', bookings: 12 },
   { service: 'Other', bookings: 8 },
 ]
 
-const sourceData = [
-  { name: 'Website Chat', value: 45, color: CHART_COLORS.primary },
-  { name: 'Instagram', value: 30, color: CHART_COLORS.success },
-  { name: 'Missed Call', value: 25, color: CHART_COLORS.accent },
-]
+const sourceData = sourcePercentages.map((s, i) => ({
+  ...s,
+  color: [CHART_COLORS.primary, CHART_COLORS.success, CHART_COLORS.accent][i],
+}))
 
 const revenueData = [
   { week: 'Wk 1', revenue: 6200 },
@@ -51,10 +51,10 @@ const revenueData = [
 ]
 
 const kpis = [
-  { label: 'Total Leads', value: '847', icon: Users, color: CHART_COLORS.primary },
-  { label: 'Avg Response Time', value: '8 sec', icon: Clock, color: CHART_COLORS.success },
-  { label: 'Conversion Rate', value: '38%', icon: Percent, color: CHART_COLORS.accent },
-  { label: 'Total Revenue', value: '$89,400', icon: DollarSign, color: CHART_COLORS.primary },
+  { label: 'Total Leads', value: analyticsKPIs.totalLeads.toLocaleString(), icon: Users, color: CHART_COLORS.primary },
+  { label: 'Avg Response Time', value: analyticsKPIs.avgResponse, icon: Clock, color: CHART_COLORS.success },
+  { label: 'Conversion Rate', value: analyticsKPIs.conversionRate, icon: Percent, color: CHART_COLORS.accent },
+  { label: 'Total Revenue', value: `$${analyticsKPIs.totalRevenue.toLocaleString()}`, icon: DollarSign, color: CHART_COLORS.primary },
 ]
 
 const ChartTooltip = ({ active, payload, label }) => {
@@ -92,7 +92,7 @@ export default function Analytics({ simStarted = false }) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-semibold text-3xl text-white tracking-tight">Analytics</h2>
+        <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Analytics</h2>
         <p className="text-zinc-500 text-sm mt-0.5">AI performance overview — all channels, all time.</p>
       </div>
 
@@ -104,7 +104,7 @@ export default function Analytics({ simStarted = false }) {
             <motion.div
               key={k.label}
               variants={staggerItem}
-              {...hoverScale}
+
               className="rounded-xl p-4 bg-surface-1 border border-white/10 hover:border-white/20 transition-colors"
             >
               <div className="flex items-center justify-between mb-3">
@@ -123,7 +123,7 @@ export default function Analytics({ simStarted = false }) {
       {/* Charts row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Area: Leads 30d */}
-        <motion.div {...hoverScale} className="lg:col-span-2 rounded-xl p-5 relative bg-surface-1 border border-white/10">
+        <div className="lg:col-span-2 rounded-xl p-5 relative bg-surface-1 border border-white/10">
           {!simStarted && (
             <div className="absolute inset-0 flex items-center justify-center z-10 rounded-xl bg-background/75 backdrop-blur-sm">
               <span className="text-zinc-500 font-mono text-xs">Run simulation to see analytics</span>
@@ -149,10 +149,10 @@ export default function Analytics({ simStarted = false }) {
               <Area type="monotone" dataKey="leads" stroke={CHART_COLORS.primary} strokeWidth={2} fill="url(#primaryAreaGrad)" dot={false} />
             </AreaChart>
           </ResponsiveContainer>
-        </motion.div>
+        </div>
 
         {/* Pie: Sources */}
-        <motion.div {...hoverScale} className="rounded-xl p-5 bg-surface-1 border border-white/10">
+        <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
           <div className="mb-4">
             <h3 className="text-white font-semibold text-sm tracking-tight">Lead Sources</h3>
             <p className="text-zinc-500 font-mono text-[10px]">ALL TIME</p>
@@ -178,13 +178,13 @@ export default function Analytics({ simStarted = false }) {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Charts row 2 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Bar: Bookings by service */}
-        <motion.div {...hoverScale} className="rounded-xl p-5 bg-surface-1 border border-white/10">
+        <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-white font-semibold text-sm tracking-tight">Bookings by Service</h3>
@@ -198,16 +198,16 @@ export default function Analytics({ simStarted = false }) {
               <Bar dataKey="bookings" fill={CHART_COLORS.success} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
-        </motion.div>
+        </div>
 
         {/* Line: Revenue trend */}
-        <motion.div {...hoverScale} className="rounded-xl p-5 bg-surface-1 border border-white/10">
+        <div className="rounded-xl p-5 bg-surface-1 border border-white/10">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-white font-semibold text-sm tracking-tight">Revenue Trend</h3>
               <p className="text-zinc-500 font-mono text-[10px]">WEEKLY — LAST 8 WEEKS</p>
             </div>
-            <span className="text-primary font-mono text-xs">$89,400 total</span>
+            <span className="text-primary font-mono text-xs">${analyticsKPIs.totalRevenue.toLocaleString()} total</span>
           </div>
           <ResponsiveContainer width="100%" height={180}>
             <LineChart data={chartRevenueData} margin={{ top: 5, right: 5, left: -5, bottom: 0 }}>
@@ -219,7 +219,7 @@ export default function Analytics({ simStarted = false }) {
               />
             </LineChart>
           </ResponsiveContainer>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

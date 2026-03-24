@@ -1,35 +1,12 @@
 import React, { useState } from 'react'
 import { Calendar, List, Plus, Clock } from 'lucide-react'
 import { cn } from '../lib/utils'
+import { getAppointmentSchedule, totalAppointments } from '../data/stats'
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const dayAbbr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-const schedule = {
-  Monday: [
-    { patient: 'Anna T.', service: 'IV Therapy', time: '10:00 AM', color: '#a78bfa' },
-    { patient: 'Rachel K.', service: 'Botox', time: '2:00 PM', color: '#3b82f6' },
-  ],
-  Tuesday: [
-    { patient: 'Emily R.', service: 'Botox Consultation', time: '2:30 PM', color: '#3b82f6' },
-    { patient: 'Michael B.', service: 'HydraFacial', time: '4:00 PM', color: '#10b981' },
-  ],
-  Wednesday: [
-    { patient: 'Sarah L.', service: 'Weight Loss Consultation', time: '11:00 AM', color: '#f59e0b' },
-    { patient: 'Lisa P.', service: 'Lip Fillers', time: '3:00 PM', color: '#f472b6' },
-  ],
-  Thursday: [
-    { patient: 'Anna T.', service: 'IV Therapy Follow-up', time: '4:00 PM', color: '#a78bfa' },
-    { patient: 'Jessica M.', service: 'Lip Filler Consult', time: '1:30 PM', color: '#f472b6' },
-  ],
-  Friday: [
-    { patient: 'Maria C.', service: 'PRP Treatment', time: '11:30 AM', color: '#4ade80' },
-  ],
-  Saturday: [
-    { patient: 'David W.', service: 'Microneedling', time: '10:30 AM', color: '#fb923c' },
-    { patient: 'James T.', service: 'Weight Loss Consult', time: '12:00 PM', color: '#f59e0b' },
-  ],
-}
+const schedule = getAppointmentSchedule()
 
 const allAppts = Object.entries(schedule).flatMap(([day, appts]) =>
   appts.map((a) => ({ ...a, day }))
@@ -47,7 +24,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
     const day = sa.day || 'Thursday'
     if (!liveSchedule[day]) liveSchedule[day] = []
     liveSchedule[day] = [
-      { patient: sa.name, service: sa.service, time: sa.time, color: '#3b82f6', isNew: true },
+      { patient: sa.name, service: sa.service, time: sa.time, color: '#059669', isNew: true },
       ...liveSchedule[day],
     ]
   })
@@ -56,12 +33,12 @@ export default function Appointments({ simAppointments = [], simStarted = false 
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Appointments</h2>
+          <h2 className="font-display font-bold text-3xl text-white tracking-tight">Appointments</h2>
           <p className="text-zinc-500 text-sm mt-0.5">This week's schedule — booked by AI.</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="bg-primary/10 border border-primary/25 rounded-xl px-3 py-1.5">
-            <span className="text-primary font-mono text-xs font-bold">16 APPOINTMENTS THIS WEEK</span>
+            <span className="text-primary font-mono text-xs font-bold">{totalAppointments} APPOINTMENTS THIS WEEK</span>
           </div>
           <div className="flex bg-background border border-white/10 rounded-lg overflow-hidden">
             <button onClick={() => setView('calendar')} className={cn('flex items-center gap-1.5 px-3 py-2 text-xs font-mono transition-colors', view === 'calendar' ? 'bg-primary text-white' : 'text-zinc-500')}>
@@ -71,7 +48,7 @@ export default function Appointments({ simAppointments = [], simStarted = false 
               <List size={12} />List
             </button>
           </div>
-          <button className="flex items-center gap-1.5 bg-primary text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-600 transition-colors">
+          <button className="flex items-center gap-1.5 bg-primary text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-emerald-600 transition-colors">
             <Plus size={14} />New Appointment
           </button>
         </div>

@@ -1,6 +1,6 @@
 export const CHART_COLORS = {
-  primary: '#3b82f6',
-  primaryDim: 'rgba(59,130,246,0.3)',
+  primary: '#059669',
+  primaryDim: 'rgba(5,150,105,0.3)',
   success: '#10b981',
   successDim: 'rgba(16,185,129,0.3)',
   accent: '#8b5cf6',

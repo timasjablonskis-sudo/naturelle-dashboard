@@ -28,19 +28,19 @@ function GlassNode({ data }) {
       style={{
         position: 'relative',
         background: isCenter
-          ? 'rgba(59,130,246,0.08)'
+          ? 'rgba(5,150,105,0.08)'
           : hovered
             ? `rgba(${accentColor},0.06)`
             : 'rgba(255,255,255,0.03)',
         border: isCenter
-          ? '1px solid rgba(59,130,246,0.4)'
+          ? '1px solid rgba(5,150,105,0.4)'
           : `1px solid rgba(${accentColor},${hovered ? '0.3' : '0.15'})`,
         borderRadius: 16,
         padding: isCenter ? '16px 24px' : '12px 18px',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         boxShadow: isCenter
-          ? '0 0 32px rgba(59,130,246,0.2), 0 4px 24px rgba(0,0,0,0.4)'
+          ? '0 0 32px rgba(5,150,105,0.2), 0 4px 24px rgba(0,0,0,0.4)'
           : hovered
             ? `0 0 20px rgba(${accentColor},0.15), 0 4px 20px rgba(0,0,0,0.3)`
             : '0 4px 16px rgba(0,0,0,0.3)',
@@ -55,7 +55,7 @@ function GlassNode({ data }) {
         <div style={{
           position: 'absolute', inset: -6,
           borderRadius: 22,
-          border: '2px solid rgba(59,130,246,0.3)',
+          border: '2px solid rgba(5,150,105,0.3)',
           animation: 'pulse-ring 2s ease-out infinite',
           pointerEvents: 'none',
         }} />
@@ -67,17 +67,17 @@ function GlassNode({ data }) {
       <div style={{
         width: 36, height: 36, borderRadius: 10,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: isCenter ? 'rgba(59,130,246,0.18)' : `rgba(${accentColor},0.12)`,
+        background: isCenter ? 'rgba(5,150,105,0.18)' : `rgba(${accentColor},0.12)`,
         transition: 'background 0.2s ease',
       }}>
         <Icon size={18} style={{
           color: `rgb(${accentColor})`,
-          filter: isCenter ? 'drop-shadow(0 0 6px rgba(59,130,246,0.8))' : 'none',
+          filter: isCenter ? 'drop-shadow(0 0 6px rgba(5,150,105,0.8))' : 'none',
         }} />
       </div>
 
       <span style={{
-        color: isCenter ? '#3b82f6' : 'rgba(255,255,255,0.9)',
+        color: isCenter ? '#059669' : 'rgba(255,255,255,0.9)',
         fontSize: isCenter ? 13 : 12,
         fontFamily: 'Inter, sans-serif',
         textAlign: 'center',
@@ -117,7 +117,7 @@ const initialNodes = [
   { id: 'trigger-2', type: 'glass', position: { x: 0, y: 110 },  data: { label: 'Website Visit', icon: Globe,         colorRgb: '59,130,246',  stat: '312 triggers', hideLeft: true } },
   { id: 'trigger-3', type: 'glass', position: { x: 0, y: 220 },  data: { label: 'Instagram DM',  icon: Instagram,     colorRgb: '244,114,182', stat: '189 triggers', hideLeft: true } },
   { id: 'trigger-4', type: 'glass', position: { x: 0, y: 330 },  data: { label: 'Form Fill',     icon: Mail,          colorRgb: '167,139,250', stat: '94 triggers',  hideLeft: true } },
-  { id: 'ai-brain',  type: 'glass', position: { x: 240, y: 135 }, data: { label: 'Aria AI',       icon: Brain,         type: 'center' } },
+  { id: 'ai-brain',  type: 'glass', position: { x: 240, y: 135 }, data: { label: 'AI Front Desk', icon: Brain,         type: 'center' } },
   { id: 'action-1',  type: 'glass', position: { x: 480, y: 0 },   data: { label: 'Text-Back',     icon: MessageSquare, colorRgb: '74,222,128',  stat: '8s avg',       hideRight: true } },
   { id: 'action-2',  type: 'glass', position: { x: 480, y: 100 }, data: { label: 'Email Follow-Up', icon: Mail,        colorRgb: '167,139,250', stat: '60s send',     hideRight: true } },
   { id: 'action-3',  type: 'glass', position: { x: 480, y: 200 }, data: { label: 'Appointment',   icon: Calendar,      colorRgb: '59,130,246',  stat: 'AI booked',    hideRight: true } },
@@ -125,9 +125,9 @@ const initialNodes = [
   { id: 'action-5',  type: 'glass', position: { x: 480, y: 400 }, data: { label: 'Re-Engagement', icon: Zap,           colorRgb: '139,92,246',  stat: '24h sequence', hideRight: true } },
 ]
 
-const triggerEdgeStyle = { stroke: 'rgba(59,130,246,0.4)', strokeWidth: 1.5 }
-const actionEdgeStyle  = { stroke: 'rgba(59,130,246,0.35)', strokeWidth: 1.5 }
-const edgeMarker = { type: MarkerType.ArrowClosed, width: 14, height: 14, color: 'rgba(59,130,246,0.5)' }
+const triggerEdgeStyle = { stroke: 'rgba(5,150,105,0.4)', strokeWidth: 1.5 }
+const actionEdgeStyle  = { stroke: 'rgba(5,150,105,0.35)', strokeWidth: 1.5 }
+const edgeMarker = { type: MarkerType.ArrowClosed, width: 14, height: 14, color: 'rgba(5,150,105,0.5)' }
 
 const initialEdges = [
   { id: 'e1', source: 'trigger-1', target: 'ai-brain', type: 'smoothstep', animated: true, style: triggerEdgeStyle, markerEnd: edgeMarker },
@@ -142,7 +142,7 @@ const initialEdges = [
 ]
 
 const miniMapNodeColor = (node) => {
-  if (node.data?.type === 'center') return '#3b82f6'
+  if (node.data?.type === 'center') return '#059669'
   if (node.id.startsWith('trigger')) return '#f59e0b'
   return '#10b981'
 }
@@ -155,7 +155,7 @@ export default function AutomationFlow() {
     <div className="relative w-full h-[600px] rounded-2xl overflow-hidden border border-white/[0.06]">
       {/* Ambient glow behind center */}
       <div className="absolute inset-0 pointer-events-none z-0" style={{
-        background: 'radial-gradient(ellipse 40% 50% at 50% 45%, rgba(59,130,246,0.06) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse 40% 50% at 50% 45%, rgba(5,150,105,0.06) 0%, transparent 70%)',
       }} />
 
       <ReactFlow

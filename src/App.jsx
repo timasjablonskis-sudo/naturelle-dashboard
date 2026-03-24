@@ -16,77 +16,70 @@ import SimToast from './components/SimToast'
 import CommandPalette, { openCommandPalette } from './components/CommandPalette'
 import AgentTerminal from './components/AgentTerminal'
 import RevenueTicker from './components/RevenueTicker'
-
-const BASE_STATS = {
-  leads: 42,
-  bookings: 16,
-  missed: 12,
-  instagram: 18,
-  revenue: 13600,
-}
+import { BASE_STATS } from './data/stats'
 
 const SIM_EVENTS = [
   {
     delay: 1200,
-    toast: { type: 'instagram', title: '📱 New Instagram DM', body: '@glowgirl22: "Hi! Do you offer Botox and how much does it cost?"' },
+    toast: { type: 'instagram', title: '📱 New Instagram DM', body: '@skinglowqueen: "Hi! Do you offer Sculptra and how much does it cost?"' },
     igConversation: {
       id: 99,
       name: 'Olivia K.',
-      handle: '@glowgirl22',
-      preview: 'Hi! Do you offer Botox?',
+      handle: '@skinglowqueen',
+      preview: 'Hi! Do you offer Sculptra?',
       time: 'just now',
       status: 'In Progress',
       booked: false,
       isNew: true,
       messages: [
-        { from: 'visitor', text: 'Hi! Do you offer Botox and how much does it cost?' },
+        { from: 'visitor', text: 'Hi! Do you offer Sculptra and how much does it cost?' },
       ],
     },
   },
   {
     delay: 3000,
-    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Wishful Beauty Med Spa offers Botox from $12/unit. Want to book a consult?"' },
-    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Wishful Beauty Med Spa offers Botox starting at $12/unit. We also have a special right now: 20 units for $179! Would you like to book a consultation?' } },
+    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Naturelle Med Spa offers Sculptra starting at $750/vial. Want to book a consult?"' },
+    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Naturelle Med Spa offers Sculptra starting at $750/vial. It\'s a collagen stimulator that gives natural, long-lasting results over 2+ years! Would you like to book a consultation?' } },
   },
   {
     delay: 5200,
-    toast: { type: 'booked', title: '✅ Consultation Booked!', body: 'Botox consult confirmed for @glowgirl22 — Thursday 2:00 PM' },
-    stat: { leads: 1, bookings: 1, instagram: 1, revenue: 550 },
-    feed: { icon: '📸', text: 'AI booked Botox consultation from Instagram DM — @glowgirl22', time: 'just now' },
-    appointment: { name: 'Olivia K.', service: 'Botox Consultation', day: 'Thursday', time: '2:00 PM' },
-    lead: { name: 'Olivia K.', service: 'Botox', source: 'Instagram DM', status: 'Consultation Booked', date: 'Just now' },
+    toast: { type: 'booked', title: '✅ Consultation Booked!', body: 'Sculptra consult confirmed for @skinglowqueen — Thursday 2:00 PM' },
+    stat: { leads: 1, bookings: 1, instagram: 1, revenue: 750 },
+    feed: { icon: '📸', text: 'AI booked Sculptra consultation from Instagram DM — @skinglowqueen', time: 'just now' },
+    appointment: { name: 'Olivia K.', service: 'Sculptra Consultation', day: 'Thursday', time: '2:00 PM' },
+    lead: { name: 'Olivia K.', service: 'Sculptra', source: 'Instagram DM', status: 'Consultation Booked', date: 'Just now' },
     igUpdate: { id: 99, message: { from: 'visitor', text: 'Yes please! That deal sounds amazing' }, status: 'Consultation Booked', booked: true, preview: 'Consultation booked ✅' },
   },
   {
     delay: 8000,
-    toast: { type: 'missed', title: '📞 Missed Call Detected', body: 'Sarah M. called about Laser Hair Removal — AI texting back now' },
+    toast: { type: 'missed', title: '📞 Missed Call Detected', body: 'Lauren B. called about Microneedling — AI texting back now' },
     missedCall: {
-      name: 'Sarah M.',
+      name: 'Lauren B.',
       time: 'Just now',
-      service: 'Laser Hair Removal',
+      service: 'Microneedling',
       status: 'AI Responding',
       isNew: true,
-      aiResponse: 'Hi Sarah! You just missed a call from Wishful Beauty Med Spa. We saw you were inquiring about Laser Hair Removal. Want to book an appointment this week?',
+      aiResponse: 'Hi Lauren! You just missed a call from Naturelle Med Spa. We saw you were inquiring about Microneedling. Want to book an appointment this week?',
     },
   },
   {
     delay: 10000,
-    toast: { type: 'missed', title: '💬 AI Texted Back in 8 Seconds', body: '"Hi Sarah! You called about Laser Hair Removal — want to book an appointment?"' },
+    toast: { type: 'missed', title: '💬 AI Texted Back in 8 Seconds', body: '"Hi Lauren! You called about Microneedling — want to book an appointment?"' },
   },
   {
     delay: 12500,
-    toast: { type: 'booked', title: '✅ Laser Hair Removal Appointment Booked!', body: 'Sarah M. confirmed — Friday 11:00 AM' },
-    stat: { leads: 1, missed: 1, revenue: 250 },
-    feed: { icon: '📞', text: 'Missed call recovered — Sarah M. booked Laser Hair Removal appointment', time: 'just now' },
-    appointment: { name: 'Sarah M.', service: 'Laser Hair Removal', day: 'Friday', time: '11:00 AM' },
-    lead: { name: 'Sarah M.', service: 'Laser Hair Removal', source: 'Missed Call', status: 'Consultation Booked', date: 'Just now' },
-    missedCallUpdate: { name: 'Sarah M.', status: 'Consultation Booked' },
+    toast: { type: 'booked', title: '✅ Microneedling Appointment Booked!', body: 'Lauren B. confirmed — Friday 11:00 AM' },
+    stat: { leads: 1, missed: 1, revenue: 350 },
+    feed: { icon: '📞', text: 'Missed call recovered — Lauren B. booked Microneedling appointment', time: 'just now' },
+    appointment: { name: 'Lauren B.', service: 'Microneedling', day: 'Friday', time: '11:00 AM' },
+    lead: { name: 'Lauren B.', service: 'Microneedling', source: 'Missed Call', status: 'Consultation Booked', date: 'Just now' },
+    missedCallUpdate: { name: 'Lauren B.', status: 'Consultation Booked' },
   },
   {
     delay: 15500,
     toast: { type: 'email', title: '📧 Follow-Up Emails Sent', body: 'AI sent follow-up to 3 leads who have not booked in 24h' },
     feed: { icon: '📧', text: 'Automated follow-up email sent to 3 unbooked leads', time: 'just now' },
-    emailExample: { to: 'Jessica M.', service: 'Lip Filler', subject: 'Your consultation at Wishful Beauty Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in lip fillers...' },
+    emailExample: { to: 'Jessica M.', service: 'Dermal Fillers', subject: 'Your consultation at Naturelle Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in dermal fillers...' },
   },
   {
     delay: 18500,
@@ -95,7 +88,7 @@ const SIM_EVENTS = [
     review: {
       name: 'Mia T.',
       rating: 5,
-      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Wishful Beauty Med Spa is next level.',
+      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Naturelle Med Spa is next level.',
       aiResponse: "Mia, thank you so much! We're thrilled our AI front desk made booking effortless — and even more thrilled you love your results! Can't wait to see you again. 💚",
       status: 'Response Posted',
       time: 'just now',
@@ -224,7 +217,7 @@ export default function App() {
       <div className="relative z-10 flex flex-col h-full">
         <RevenueTicker />
         <Header simStats={simStats} />
-        <main className="flex-1 overflow-y-auto px-6 pt-4 pb-32">
+        <main className="flex-1 overflow-y-auto px-3 md:px-6 pt-4 pb-24 md:pb-32">
           {panels[active] || panels.dashboard}
         </main>
       </div>

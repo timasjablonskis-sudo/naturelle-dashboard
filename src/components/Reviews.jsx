@@ -3,11 +3,11 @@ import { Star, CheckCircle2, Clock, ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const reviews = [
-  { name: 'Jessica L.', rating: 2, text: 'I had to wait too long for my appointment. The treatment was okay but the wait was frustrating.', aiResponse: 'Hi Jessica, thank you for sharing your feedback. We sincerely apologize for the wait during your visit — this is not the experience we aim for at Wishful Beauty Med Spa. We\'d love to make it right. Please call us at (630) 284-0212 so we can address this personally.', status: 'Response Posted', time: '12m ago' },
-  { name: 'Emily R.', rating: 5, text: 'Absolutely love Wishful Beauty Med Spa! Got my Botox done and the results are amazing. Staff was so professional and welcoming!', aiResponse: "Thank you so much, Emily! We're thrilled you love your results! Our team works hard to make every visit special. We can't wait to see you again!", status: 'Response Posted', time: '1h ago' },
-  { name: 'Sarah M.', rating: 5, text: 'Best HydraFacial I\'ve ever had. My skin literally glowed for two weeks. Will definitely be back!', aiResponse: 'Sarah, this made our day! A glowing review for a glowing face! Thank you for trusting Wishful Beauty Med Spa. See you for your next session!', status: 'Response Posted', time: '3h ago' },
-  { name: 'Mark D.', rating: 3, text: 'Decent experience but the parking was a bit of a hassle. The treatment itself was good.', aiResponse: "Hi Mark, thank you for the honest feedback! We understand parking can be tricky — there's a public lot just behind the building that's often more available. We hope to see you back for another treatment!", status: 'Response Posted', time: '5h ago' },
-  { name: 'Ana G.', rating: 5, text: "Got my lashes and brows done here and I'm obsessed! The attention to detail is incredible. Already booked my next appointment!", aiResponse: "Ana, we love hearing this! Your lashes looked stunning — thank you for trusting us with your look. Can't wait for your next visit!", status: 'Response Posted', time: '8h ago' },
+  { name: 'Jessica L.', rating: 2, text: 'I had to wait too long for my appointment. The treatment was okay but the wait was frustrating.', aiResponse: 'Hi Jessica, thank you for sharing your feedback. We sincerely apologize for the wait during your visit — this is not the experience we aim for at Naturelle Med Spa. We\'d love to make it right. Please call us at (773) 592-9781 so we can address this personally.', status: 'Response Posted', time: '12m ago' },
+  { name: 'Emily R.', rating: 5, text: 'Absolutely love Naturelle Med Spa! Got my neuromodulators done and the results look so natural. Staff was incredibly professional and made me feel so comfortable!', aiResponse: "Thank you so much, Emily! We're thrilled you love your natural-looking results! Our team takes pride in personalized care. We can't wait to see you again!", status: 'Response Posted', time: '1h ago' },
+  { name: 'Sarah M.', rating: 5, text: 'Had a PRP facial and my skin has never looked better. The glow lasted for weeks! The whole experience was so relaxing and personalized.', aiResponse: 'Sarah, this made our day! We love that your natural glow is shining through! Thank you for trusting Naturelle Med Spa. See you for your next session!', status: 'Response Posted', time: '3h ago' },
+  { name: 'Mark D.', rating: 3, text: 'Decent experience but the parking was a bit of a hassle. The Sculptra treatment itself was excellent though.', aiResponse: "Hi Mark, thank you for the honest feedback! We're glad you loved the Sculptra results. Regarding parking — there's additional parking around the back of the building on Liberty Dr. We hope to see you again!", status: 'Response Posted', time: '5h ago' },
+  { name: 'Ana G.', rating: 5, text: 'Got my dermal fillers done here and the results are perfection! So natural — exactly what I wanted. Already booked my next appointment!', aiResponse: "Ana, we love hearing this! Natural-looking results are our specialty. Thank you for trusting Naturelle Med Spa with your look. Can't wait for your next visit!", status: 'Response Posted', time: '8h ago' },
 ]
 
 function StarRating({ rating }) {
@@ -32,7 +32,7 @@ export default function Reviews({ simReviews = [] }) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Review Management</h2>
+          <h2 className="font-display font-bold text-3xl text-white tracking-tight">Review Management</h2>
           <p className="text-zinc-500 text-sm mt-0.5">AI monitors and responds to every Google review.</p>
         </div>
         <div className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-xl px-4 py-2">
@@ -100,7 +100,7 @@ export default function Reviews({ simReviews = [] }) {
                     <div className="w-3.5 h-3.5 rounded-full bg-primary flex items-center justify-center">
                       <span className="text-white text-[8px] font-bold">AI</span>
                     </div>
-                    <span className="text-primary font-mono text-[9px]">WISHFUL BEAUTY MED SPA · OWNER RESPONSE</span>
+                    <span className="text-primary font-mono text-[9px]">NATURELLE MED SPA · OWNER RESPONSE</span>
                   </div>
                   <p className="text-zinc-300 text-sm leading-relaxed">{review.aiResponse}</p>
                 </div>

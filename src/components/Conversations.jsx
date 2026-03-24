@@ -1,93 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { MessageSquare, Globe, Instagram, Phone, Send, Bot } from 'lucide-react'
 import { cn } from '../lib/utils'
+import { conversationLeads } from '../data/stats'
 
-const initialConversations = [
-  {
-    id: 1, name: 'Emily R.', channel: 'Website Chat', preview: 'That works for me!', time: '2m ago', live: true,
-    messages: [
-      { from: 'visitor', text: 'Hi, I\'m interested in Botox. What are your prices?' },
-      { from: 'ai', text: 'Hi! Botox at Wishful Beauty Med Spa starts at $12/unit. We have a current special: 20 units for $179! Would you like to book a consultation?' },
-      { from: 'visitor', text: 'Yes! What availability do you have this week?' },
-      { from: 'ai', text: 'I\'d love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?' },
-      { from: 'visitor', text: 'Thursday afternoon works!' },
-      { from: 'ai', text: 'Perfect! I\'ve reserved Thursday afternoon for your Botox consultation. You\'ll receive a confirmation text shortly. See you then!' },
-    ],
-  },
-  {
-    id: 2, name: 'Jordan P.', channel: 'Instagram', preview: 'how long does laser hair removal take', time: '18m ago', live: false,
-    messages: [
-      { from: 'visitor', text: 'do you offer laser hair removal' },
-      { from: 'ai', text: 'Yes! Wishful Beauty Med Spa offers laser hair removal for all skin types. Sessions start at $99 depending on the area. Would you like to book?' },
-      { from: 'visitor', text: 'how long does laser hair removal take' },
-      { from: 'ai', text: 'Sessions take about 15–45 minutes depending on the area. Most clients need 6–8 sessions for full results. Want me to book you in?' },
-    ],
-  },
-  {
-    id: 3, name: 'Sarah L.', channel: 'SMS', preview: 'AI: Free consult booked!', time: '40m ago', live: false,
-    messages: [
-      { from: 'ai', text: 'Hi Sarah! This is Wishful Beauty Med Spa — we saw you called about microneedling. We offer microneedling with PRP starting at $250/session. Want a free consultation?' },
-      { from: 'visitor', text: 'yes how do i sign up' },
-      { from: 'ai', text: 'Microneedling stimulates collagen production for smoother, firmer skin. We offer standard and PRP-enhanced sessions. Book a free consultation to find the best option for you!' },
-      { from: 'visitor', text: 'ok book me for Tuesday' },
-      { from: 'ai', text: 'Done! Booking you in for a free microneedling consultation on Tuesday. You\'ll get a reminder the morning of. See you then!' },
-    ],
-  },
-  {
-    id: 4, name: 'Michael B.', channel: 'Website Chat', preview: 'What\'s a HydraFacial?', time: '1h ago', live: false,
-    messages: [
-      { from: 'visitor', text: 'What\'s included in a HydraFacial?' },
-      { from: 'ai', text: 'HydraFacials at Wishful Beauty Med Spa start at $175 and leave your skin glowing for weeks. Want to book?' },
-      { from: 'visitor', text: 'How much is it?' },
-      { from: 'ai', text: 'Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($99+), and Microneedling ($250+).' },
-      { from: 'visitor', text: 'HydraFacial' },
-      { from: 'ai', text: 'HydraFacials start at $175. The treatment deeply cleanses, exfoliates, and hydrates — most patients see instant results! Ready to book?' },
-      { from: 'visitor', text: 'Let\'s book Saturday' },
-      { from: 'ai', text: 'I\'d love to help you book! Saturday 10am–2pm works great. Confirming your HydraFacial appointment. See you Saturday!' },
-    ],
-  },
-  {
-    id: 5, name: 'Anna T.', channel: 'SMS', preview: 'See you Wednesday!', time: '2h ago', live: false,
-    messages: [
-      { from: 'ai', text: 'Hi Anna! Wishful Beauty Med Spa here — following up on your inquiry about laser hair removal. Sessions start at $150–$400 depending on the area. Want to schedule?' },
-      { from: 'visitor', text: 'Yes what are the options' },
-      { from: 'ai', text: 'We offer laser hair removal for face, underarms, bikini, legs, and full body. Most clients see full results in 6–8 sessions. Want to schedule?' },
-      { from: 'visitor', text: 'Wednesday at noon' },
-      { from: 'ai', text: 'Confirmed! Laser Hair Removal Wednesday at noon. See you Wednesday!' },
-    ],
-  },
-  {
-    id: 6, name: 'Rachel V.', channel: 'Website Chat', preview: 'AI: See you Friday!', time: '30m ago', live: false,
-    messages: [
-      { from: 'visitor', text: 'How much is lip filler?' },
-      { from: 'ai', text: 'Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?' },
-      { from: 'visitor', text: "Oh that's not bad. What does it look like?" },
-      { from: 'ai', text: 'Most clients go for a natural, subtle enhancement — fuller lips without looking overdone. We use premium hyaluronic acid filler, lasts 6–12 months. Want to book a free consultation?' },
-      { from: 'visitor', text: "Yes, I'm interested!" },
-      { from: 'ai', text: 'I have Thursday at 2pm and Friday at 11am open this week. Which works for you?' },
-      { from: 'visitor', text: 'Friday works!' },
-      { from: 'ai', text: "Done! Booking you in for Friday at 11am for a lip filler consultation. You'll get a reminder text the morning of. See you then!" },
-    ],
-  },
-]
+const initialConversations = conversationLeads.map(l => ({
+  id: l.id,
+  name: l.name,
+  channel: l.conversation.channel,
+  preview: l.conversation.preview,
+  time: l.conversation.time,
+  live: l.conversation.live,
+  messages: l.conversation.messages,
+}))
 
 const aiReplies = {
-  botox: "Botox starts at $12/unit — most clients need 20–40 units. We have a current special: 20 units for $179! Would you like to book a consultation?",
-  hydrafacial: "HydraFacials start at $175 and leave your skin glowing for weeks — zero downtime. Want to book?",
-  microneedling: "Microneedling starts at $300/session. We also offer PRP-enhanced sessions for even better collagen results. 3-session packages are most common. Want to book a consultation?",
-  'laser hair removal': "Laser hair removal starts at $150–$400/session depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
-  laser: "Laser hair removal starts at $150–$400/session depending on the area. Most clients need 6–8 sessions for full results. Want to schedule?",
-  'lip filler': "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?",
-  'lip fillers': "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability after?",
-  filler: "Lip filler starts at $550 — or as low as $46/month with Cherry patient financing. Takes 60 seconds to check your rate, no credit impact. Want me to pull up availability?",
-  book: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
-  appointment: "I'd love to help you book! We have availability this week: Tue & Thu 10am–7pm, Wed & Fri 12–5pm, Sat 10am–2pm. What day works for you?",
-  price: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+). Anything over $600 qualifies for Cherry financing!",
-  cost: "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+).",
-  'how much': "Which service are you asking about? We offer Botox ($12/unit), Facials ($175+), Fillers ($550+), Laser Hair Removal ($150+), and Microneedling ($300+).",
+  botox: "Neuromodulators (Botox/Dysport) start at $12/unit — most clients need 20–40 units. We focus on natural-looking results tailored to your features. Would you like to book a consultation?",
+  neuromodulator: "Neuromodulators (Botox/Dysport) start at $12/unit — most clients need 20–40 units. Our providers specialize in natural-looking results. Would you like to book a consultation?",
+  sculptra: "Sculptra starts at $750/vial — it's a collagen stimulator that builds volume naturally over 2+ years. Most clients need 2–3 vials per session. Want to book a consultation?",
+  microneedling: "Microneedling starts at $300/session. We also offer PRP-enhanced sessions for incredible collagen results. 3-session packages are most popular. Want to book a consultation?",
+  prp: "PRP (Platelet-Rich Plasma) therapy uses your body's own growth factors for natural rejuvenation. Sessions start at $350. Great for skin rejuvenation and hair restoration. Want to learn more?",
+  prf: "PRF (Platelet-Rich Fibrin) is the next evolution of PRP — it releases growth factors over a longer period for enhanced results. Want to book a consultation to see if it's right for you?",
+  filler: "Dermal fillers start at $550/syringe. We use premium hyaluronic acid fillers for natural enhancement — lips, cheeks, jawline, and more. Results last 6–18 months. Want to book?",
+  'dermal filler': "Dermal fillers start at $550/syringe. We offer treatment for lips, cheeks, jawline, chin, and under-eyes. Natural-looking results that last 6–18 months. Want to schedule a consultation?",
+  kybella: "Kybella is an injectable treatment that permanently destroys fat cells under the chin — no surgery needed. Typically 2–4 sessions. Want to book a consultation?",
+  'pdo thread': "PDO Threads provide a non-surgical lift for jawline, cheeks, neck, and brows. Results last 12–18 months with minimal downtime. Want to learn more?",
+  skinvive: "SkinVive is an injectable that improves skin quality from within — better hydration, smoothness, and glow. Results last about 6 months. Want to book?",
+  b12: "Vitamin B12 injections boost energy, metabolism, and overall wellness. Quick and easy — just a few minutes. Want to schedule one?",
+  book: "I'd love to help you book! We have availability at our Wheaton location. What day works best for you?",
+  appointment: "I'd love to help you book! We have availability at our Wheaton location. What day works best for you?",
+  price: "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
+  cost: "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
+  'how much': "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
 }
 
-const defaultReply = "Great question! We specialize in Botox, fillers, facials, laser hair removal, and microneedling. Services over $600 qualify for Cherry patient financing — as low as $46/month. Would you like to book a consultation?"
+const defaultReply = "Great question! At Naturelle Med Spa, we specialize in neuromodulators, dermal fillers, Sculptra, PRP, PRF, PDO Threads, Kybella, microneedling, and SkinVive — all focused on enhancing your natural beauty. Would you like to book a consultation?"
 
 function getAIReply(input) {
   const lower = input.toLowerCase()
@@ -145,9 +91,9 @@ export default function Conversations({ simStarted = false }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Conversations</h2>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Conversations</h2>
           <p className="text-zinc-500 text-sm mt-0.5">Unified inbox — Website, Instagram, SMS.</p>
         </div>
         <div className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-xl px-4 py-2">
@@ -157,18 +103,18 @@ export default function Conversations({ simStarted = false }) {
       </div>
 
       {!simStarted ? (
-        <div className="bg-surface-1 border border-white/10 rounded-xl h-[600px] flex flex-col items-center justify-center gap-3">
+        <div className="bg-surface-1 border border-white/10 rounded-xl h-[300px] md:h-[600px] flex flex-col items-center justify-center gap-3">
           <MessageSquare size={32} className="text-zinc-700" />
           <p className="text-zinc-600 font-mono text-xs">No conversations yet — start the simulation</p>
         </div>
       ) : (
-      <div className="flex gap-4 h-[600px]">
+      <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[600px]">
         {/* Conversation List */}
-        <div className="w-[280px] bg-surface-1 border border-white/10 rounded-xl flex flex-col flex-shrink-0">
+        <div className="w-full md:w-[280px] bg-surface-1 border border-white/10 rounded-xl flex flex-col flex-shrink-0">
           <div className="px-4 py-3 border-b border-white/[0.06]">
             <span className="text-zinc-500 font-mono text-[10px]">ALL CHANNELS</span>
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="max-h-[200px] md:max-h-none flex-1 overflow-y-auto">
             {conversations.map((conv) => (
               <button
                 key={conv.id}
@@ -248,7 +194,7 @@ export default function Conversations({ simStarted = false }) {
                     </div>
                     <div className="flex items-center justify-end gap-1 mt-1">
                       <Bot size={9} className="text-primary" />
-                      <span className="text-zinc-600 font-mono text-[9px]">Wishful Beauty AI</span>
+                      <span className="text-zinc-600 font-mono text-[9px]">Naturelle Med Spa AI</span>
                     </div>
                   </div>
                 )}
@@ -282,14 +228,14 @@ export default function Conversations({ simStarted = false }) {
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isTyping}
-                  className="flex items-center gap-1.5 bg-primary text-white rounded-lg px-3 py-1.5 text-xs font-bold hover:bg-blue-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex items-center gap-1.5 bg-primary text-white rounded-lg px-3 py-1.5 text-xs font-bold hover:bg-emerald-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Send size={12} />
                   Send
                 </button>
               </div>
               <p className="text-zinc-700 font-mono text-[9px] mt-1.5 px-1">
-                Live AI chat demo — try: "botox price", "book appointment", "laser hair removal"
+                Live AI chat demo — try: "sculptra", "dermal filler", "microneedling", "PRP"
               </p>
             </div>
           )}

@@ -17,5 +17,11 @@ export const staggerItem = {
 export const hoverScale = {
   whileHover: { scale: 1.02 },
   whileTap: { scale: 0.98 },
-  transition: { type: 'spring', stiffness: 300, damping: 25 },
+  transition: { type: 'spring', stiffness: 400, damping: 20 },
+}
+
+export const hoverGlow = {
+  whileHover: { scale: 1.01 },
+  whileTap: { scale: 0.99 },
+  transition: { type: 'spring', stiffness: 400, damping: 20 },
 }

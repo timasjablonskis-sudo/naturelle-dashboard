@@ -1,42 +1,38 @@
 import React from 'react'
 import { PhoneMissed, Zap, CheckCircle2, Clock, MessageSquare } from 'lucide-react'
 import { cn } from '../lib/utils'
+import { missedCallLeads, missedCallsRecovered, missedCallRecoveryRate } from '../data/stats'
 
-const calls = [
-  { name: 'Sarah M.', time: '7:42 PM', topic: 'Botox', aiResponse: 'Hi Sarah! Thanks for contacting Wishful Beauty Med Spa. We saw you called about Botox. Would you like to book a consultation this week?', status: 'Consultation Booked', responseTime: '8 seconds' },
-  { name: 'Michael T.', time: '6:15 PM', topic: 'Microneedling', aiResponse: 'Hi Michael! You called about microneedling at Wishful Beauty. Sessions start at $250. Want to book a free consultation?', status: 'Follow-up Sent', responseTime: '6 seconds' },
-  { name: 'Jennifer K.', time: '5:30 PM', topic: 'HydraFacial', aiResponse: 'Hi Jennifer! You missed a call to Wishful Beauty Med Spa. Our HydraFacials start at $175. Ready to book?', status: 'Consultation Booked', responseTime: '9 seconds' },
-  { name: 'David R.', time: '4:48 PM', topic: 'Laser Hair Removal', aiResponse: 'Hi David! Wishful Beauty Med Spa here. Our laser hair removal sessions start at $99. Want to schedule?', status: 'Replied', responseTime: '7 seconds' },
-  {
-    name: 'Lisa W.', time: '3:22 PM', topic: 'Lip Fillers', aiResponse: 'Hi Lisa! We saw you called about lip fillers at Wishful Beauty Med Spa, starting at $550. Shall we book a consult?', status: 'Consultation Booked', responseTime: '5 seconds',
-    sequence: [
-      { touch: 1, delay: '2 hrs', message: 'Hey — saw you were checking out lip filler pricing. Any questions? I can help right now.', badge: 'Opened' },
-      { touch: 2, delay: '24 hrs', message: 'Still thinking it over? Here\'s what clients say about their first visit: "Absolutely love my results — natural and beautiful!" Want to grab a time?', badge: 'Replied' },
-      { touch: 3, delay: '72 hrs', message: 'Last chance — we have openings this week. Want me to grab you a spot?', badge: 'Booked ✓' },
-    ],
-  },
-  { name: 'Marcus H.', time: '2:10 PM', topic: 'Botox', aiResponse: 'Hi Marcus! Wishful Beauty Med Spa here — we have a current Botox special: 20 units for $179. Book this week?', status: 'Follow-up Sent', responseTime: '11 seconds' },
-]
+const calls = missedCallLeads.map(l => ({
+  name: l.name,
+  time: l.missedCall.time,
+  topic: l.service,
+  aiResponse: l.missedCall.aiResponse,
+  status: l.status,
+  responseTime: l.missedCall.responseTime,
+  sequence: l.missedCall.sequence || null,
+}))
 
 const statusStyle = {
-  'Consultation Booked': 'bg-primary/10 text-blue-400 border-primary/30',
+  'Consultation Booked': 'bg-primary/10 text-emerald-400 border-primary/30',
   'Follow-up Sent': 'bg-amber-500/10 text-amber-400 border-amber-500/30',
   'Replied': 'bg-purple-500/10 text-purple-400 border-purple-500/30',
 }
 
 const topicColor = {
-  'Botox': '#3b82f6',
+  'Neuromodulators': '#059669',
   'Microneedling': '#f59e0b',
-  'HydraFacial': '#10b981',
-  'Laser Hair Removal': '#a78bfa',
-  'Lip Fillers': '#f472b6',
+  'Sculptra': '#10b981',
+  'PRP': '#a78bfa',
+  'Dermal Fillers': '#f472b6',
+  'Kybella': '#059669',
 }
 
 export default function MissedCalls({ simMissedCalls = [] }) {
   const liveCalls = [
     ...simMissedCalls.map((mc) => ({
       name: mc.name, time: mc.time, topic: mc.service,
-      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Wishful Beauty Med Spa. Want to book an appointment?`,
+      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Naturelle Med Spa. Want to book an appointment?`,
       status: mc.status, responseTime: '8 seconds', isNew: mc.isNew,
     })),
     ...calls,
@@ -44,17 +40,17 @@ export default function MissedCalls({ simMissedCalls = [] }) {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="font-semibold text-3xl text-white tracking-tight">Missed Call Recovery</h2>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Missed Call Recovery</h2>
           <p className="text-zinc-500 text-sm mt-0.5">AI texts back within seconds. No lead left behind.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-xl px-4 py-2">
+        <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+          <div className="flex items-center gap-2 bg-primary/10 border border-primary/25 rounded-xl px-3 md:px-4 py-2">
             <CheckCircle2 size={14} className="text-primary" />
-            <span className="text-primary font-mono text-xs font-bold">12 CALLS RECOVERED TODAY</span>
+            <span className="text-primary font-mono text-xs font-bold">{missedCallsRecovered} CALLS RECOVERED TODAY</span>
           </div>
-          <div className="flex items-center gap-2 bg-surface-1 border border-white/10 rounded-xl px-4 py-2">
+          <div className="flex items-center gap-2 bg-surface-1 border border-white/10 rounded-xl px-3 md:px-4 py-2">
             <Zap size={14} className="text-amber-400" />
             <span className="text-amber-400 font-mono text-xs">AVG 8 SEC RESPONSE</span>
           </div>
@@ -63,10 +59,10 @@ export default function MissedCalls({ simMissedCalls = [] }) {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Missed Calls', value: '14' },
-          { label: 'AI Responded', value: '12' },
-          { label: 'Bookings Generated', value: '7' },
-          { label: 'Recovery Rate', value: '86%' },
+          { label: 'Missed Calls', value: missedCallLeads.length.toString() },
+          { label: 'AI Responded', value: missedCallLeads.length.toString() },
+          { label: 'Bookings Generated', value: missedCallsRecovered.toString() },
+          { label: 'Recovery Rate', value: `${missedCallRecoveryRate}%` },
         ].map((s) => (
           <div key={s.label} className="bg-surface-1 border border-white/10 rounded-xl p-4 text-center">
             <div className="font-semibold text-3xl text-white tracking-tight">{s.value}</div>
@@ -80,14 +76,14 @@ export default function MissedCalls({ simMissedCalls = [] }) {
           <div key={i} className={cn('bg-surface-1 border rounded-xl p-4 hover:border-white/20 transition-colors', call.isNew ? 'border-primary/30' : 'border-white/10')}>
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center text-background font-bold text-sm flex-shrink-0" style={{ background: topicColor[call.topic] || '#3b82f6' }}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-background font-bold text-sm flex-shrink-0" style={{ background: topicColor[call.topic] || '#059669' }}>
                   {call.name[0]}
                 </div>
                 <div>
                   <div className="text-white font-semibold text-sm">{call.name}</div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="flex items-center gap-1 text-zinc-500 font-mono text-[10px]"><Clock size={10} />{call.time}</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded" style={{ color: topicColor[call.topic], background: (topicColor[call.topic] || '#3b82f6') + '18' }}>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded" style={{ color: topicColor[call.topic], background: (topicColor[call.topic] || '#059669') + '18' }}>
                       {call.topic}
                     </span>
                   </div>
