@@ -47,7 +47,7 @@ const initialAutomations = [
   { id: 2, tier: 'tier1', title: 'Omni-Channel Chat AI',   description: 'Website + Instagram + FB DM — unified auto-reply',   icon: 'MessageSquare', triggers: 501, active: true,  lastTriggered: '2m ago' },
 
   // Tier 2: The AI Front Desk
-  { id: 3, tier: 'tier2', title: 'AI Voice Receptionist',   description: 'Answers calls, qualifies leads, books appointments', icon: 'Phone',    triggers: 0,   active: false, lastTriggered: null, badge: 'Coming Soon' },
+  { id: 3, tier: 'tier2', title: 'AI Voice Receptionist',   description: 'Answers calls, qualifies leads, books appointments', icon: 'Phone',    triggers: 132, active: true,  lastTriggered: '15m ago' },
   { id: 4, tier: 'tier2', title: 'Instant Lead Handshake',  description: 'Personalized email within 60 seconds of any inquiry', icon: 'Mail',     triggers: 284, active: true,  lastTriggered: '5m ago' },
   { id: 5, tier: 'tier2', title: 'Smart Reminders',         description: 'Appointment confirms, day-before reminders, no-show follow-ups', icon: 'Calendar', triggers: 203, active: true,  lastTriggered: '12m ago' },
 

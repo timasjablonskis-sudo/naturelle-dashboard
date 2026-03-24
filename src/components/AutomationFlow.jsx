@@ -124,7 +124,7 @@ const EMERALD = '5,150,105'
 
 const initialNodes = [
   // ──── INBOUND CAPTURE (Left) ────
-  { id: 'voice',       type: 'glass', position: { x: 0, y: 0 },   data: { label: 'AI Voice',       icon: Phone,         colorRgb: AMBER,   stat: 'Coming Soon', hideLeft: true } },
+  { id: 'voice',       type: 'glass', position: { x: 0, y: 0 },   data: { label: 'AI Voice',       icon: Phone,         colorRgb: AMBER,   stat: '132 triggers', hideLeft: true } },
   { id: 'omni-chat',   type: 'glass', position: { x: 0, y: 110 }, data: { label: 'Omni-Chat AI',   icon: MessageSquare, colorRgb: AMBER,   stat: '501 triggers', hideLeft: true } },
   { id: 'missed-call', type: 'glass', position: { x: 0, y: 220 }, data: { label: 'Missed Call TB',  icon: PhoneMissed,   colorRgb: AMBER,   stat: '247 triggers', hideLeft: true } },
 
