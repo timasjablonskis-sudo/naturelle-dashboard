@@ -47,7 +47,7 @@ export default function CommandPalette({ setActive, addToast }) {
       addToast?.({ type: 'review', title: 'Lead Audit Started', body: 'Scanning all leads for engagement gaps and follow-up opportunities...' })
       setActive('leads')
     } else if (action === 'pause') {
-      addToast?.({ type: 'missed', title: 'Automations Paused', body: 'All 8 automations paused. Resume anytime from the Automations panel.' })
+      addToast?.({ type: 'missed', title: 'Automations Paused', body: 'All 8 automations paused across 3 tiers. Resume anytime from the Automations panel.' })
     }
   }, [addToast, setActive])
 

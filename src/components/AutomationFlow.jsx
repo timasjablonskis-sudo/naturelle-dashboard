@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import {
   ReactFlow,
   Background,
@@ -12,14 +12,14 @@ import {
   MarkerType,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { PhoneMissed, Globe, Instagram, Mail, MessageSquare, Calendar, Star, Zap, Brain } from 'lucide-react'
+import { PhoneMissed, Phone, MessageSquare, Mail, Calendar, Star, Zap, Brain, Clock } from 'lucide-react'
 
 function GlassNode({ data }) {
   const Icon = data.icon
   const isCenter = data.type === 'center'
   const [hovered, setHovered] = useState(false)
 
-  const accentColor = isCenter ? '59,130,246' : (data.colorRgb || '255,255,255')
+  const accentColor = isCenter ? '5,150,105' : (data.colorRgb || '255,255,255')
 
   return (
     <div
@@ -50,7 +50,6 @@ function GlassNode({ data }) {
         transition: 'box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease',
       }}
     >
-      {/* Pulse ring behind center node */}
       {isCenter && (
         <div style={{
           position: 'absolute', inset: -6,
@@ -89,15 +88,19 @@ function GlassNode({ data }) {
 
       {data.stat && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <span style={{
-            width: 5, height: 5, borderRadius: '50%',
-            background: '#10b981',
-            boxShadow: '0 0 4px rgba(16,185,129,0.6)',
-            animation: 'simPulse 2s ease-in-out infinite',
-          }} />
+          {data.stat !== 'Coming Soon' && (
+            <span style={{
+              width: 5, height: 5, borderRadius: '50%',
+              background: '#10b981',
+              boxShadow: '0 0 4px rgba(16,185,129,0.6)',
+              animation: 'simPulse 2s ease-in-out infinite',
+            }} />
+          )}
           <span style={{
             fontSize: 10, fontFamily: 'Space Mono, monospace',
-            color: 'rgba(255,255,255,0.4)', letterSpacing: '0.03em',
+            color: data.stat === 'Coming Soon' ? `rgb(${accentColor})` : 'rgba(255,255,255,0.4)',
+            letterSpacing: '0.03em',
+            fontWeight: data.stat === 'Coming Soon' ? 700 : 400,
           }}>
             {data.stat}
           </span>
@@ -112,38 +115,57 @@ function GlassNode({ data }) {
 
 const nodeTypes = { glass: GlassNode }
 
+// Inbound Capture (left) — amber
+const AMBER = '245,158,11'
+// Lead Nurture (right top) — blue
+const BLUE = '59,130,246'
+// Revenue Engine (right bottom) — emerald
+const EMERALD = '5,150,105'
+
 const initialNodes = [
-  { id: 'trigger-1', type: 'glass', position: { x: 0, y: 0 },   data: { label: 'Missed Call',   icon: PhoneMissed,   colorRgb: '245,158,11',  stat: '247 triggers', hideLeft: true } },
-  { id: 'trigger-2', type: 'glass', position: { x: 0, y: 110 },  data: { label: 'Website Visit', icon: Globe,         colorRgb: '59,130,246',  stat: '312 triggers', hideLeft: true } },
-  { id: 'trigger-3', type: 'glass', position: { x: 0, y: 220 },  data: { label: 'Instagram DM',  icon: Instagram,     colorRgb: '244,114,182', stat: '189 triggers', hideLeft: true } },
-  { id: 'trigger-4', type: 'glass', position: { x: 0, y: 330 },  data: { label: 'Form Fill',     icon: Mail,          colorRgb: '167,139,250', stat: '94 triggers',  hideLeft: true } },
-  { id: 'ai-brain',  type: 'glass', position: { x: 240, y: 135 }, data: { label: 'AI Front Desk', icon: Brain,         type: 'center' } },
-  { id: 'action-1',  type: 'glass', position: { x: 480, y: 0 },   data: { label: 'Text-Back',     icon: MessageSquare, colorRgb: '74,222,128',  stat: '8s avg',       hideRight: true } },
-  { id: 'action-2',  type: 'glass', position: { x: 480, y: 100 }, data: { label: 'Email Follow-Up', icon: Mail,        colorRgb: '167,139,250', stat: '60s send',     hideRight: true } },
-  { id: 'action-3',  type: 'glass', position: { x: 480, y: 200 }, data: { label: 'Appointment',   icon: Calendar,      colorRgb: '59,130,246',  stat: 'AI booked',    hideRight: true } },
-  { id: 'action-4',  type: 'glass', position: { x: 480, y: 300 }, data: { label: 'Review Request', icon: Star,          colorRgb: '245,158,11',  stat: '2h post-visit', hideRight: true } },
-  { id: 'action-5',  type: 'glass', position: { x: 480, y: 400 }, data: { label: 'Re-Engagement', icon: Zap,           colorRgb: '139,92,246',  stat: '24h sequence', hideRight: true } },
+  // ──── INBOUND CAPTURE (Left) ────
+  { id: 'voice',       type: 'glass', position: { x: 0, y: 0 },   data: { label: 'AI Voice',       icon: Phone,         colorRgb: AMBER,   stat: 'Coming Soon', hideLeft: true } },
+  { id: 'omni-chat',   type: 'glass', position: { x: 0, y: 110 }, data: { label: 'Omni-Chat AI',   icon: MessageSquare, colorRgb: AMBER,   stat: '501 triggers', hideLeft: true } },
+  { id: 'missed-call', type: 'glass', position: { x: 0, y: 220 }, data: { label: 'Missed Call TB',  icon: PhoneMissed,   colorRgb: AMBER,   stat: '247 triggers', hideLeft: true } },
+
+  // ──── AI BRAIN (Center) ────
+  { id: 'ai-brain',    type: 'glass', position: { x: 240, y: 135 }, data: { label: 'AI Front Desk', icon: Brain, type: 'center' } },
+
+  // ──── LEAD NURTURE (Right Top) ────
+  { id: 'handshake',   type: 'glass', position: { x: 480, y: 0 },   data: { label: 'Lead Handshake', icon: Mail,     colorRgb: BLUE,    stat: '60s send',     hideRight: true } },
+  { id: 'reminders',   type: 'glass', position: { x: 480, y: 110 }, data: { label: 'Smart Reminders', icon: Calendar, colorRgb: BLUE,    stat: '203 triggers', hideRight: true } },
+
+  // ──── REVENUE ENGINE (Right Bottom) ────
+  { id: 'botox-clock', type: 'glass', position: { x: 480, y: 230 }, data: { label: 'Botox Clock',    icon: Clock, colorRgb: EMERALD, stat: '94 recalls',   hideRight: true } },
+  { id: 'reactivation', type: 'glass', position: { x: 480, y: 330 }, data: { label: 'DB Reactivation', icon: Zap,   colorRgb: EMERALD, stat: '12 sent',      hideRight: true } },
+  { id: 'reputation',  type: 'glass', position: { x: 480, y: 430 }, data: { label: 'Reputation',     icon: Star,  colorRgb: EMERALD, stat: '156 reviews',  hideRight: true } },
 ]
 
-const triggerEdgeStyle = { stroke: 'rgba(5,150,105,0.4)', strokeWidth: 1.5 }
-const actionEdgeStyle  = { stroke: 'rgba(5,150,105,0.35)', strokeWidth: 1.5 }
+const amberEdge  = { stroke: 'rgba(245,158,11,0.4)', strokeWidth: 1.5 }
+const blueEdge   = { stroke: 'rgba(59,130,246,0.35)', strokeWidth: 1.5 }
+const greenEdge  = { stroke: 'rgba(5,150,105,0.35)', strokeWidth: 1.5 }
 const edgeMarker = { type: MarkerType.ArrowClosed, width: 14, height: 14, color: 'rgba(5,150,105,0.5)' }
 
 const initialEdges = [
-  { id: 'e1', source: 'trigger-1', target: 'ai-brain', type: 'smoothstep', animated: true, style: triggerEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e2', source: 'trigger-2', target: 'ai-brain', type: 'smoothstep', animated: true, style: triggerEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e3', source: 'trigger-3', target: 'ai-brain', type: 'smoothstep', animated: true, style: triggerEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e4', source: 'trigger-4', target: 'ai-brain', type: 'smoothstep', animated: true, style: triggerEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e5', source: 'ai-brain', target: 'action-1', type: 'smoothstep', animated: true, style: actionEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e6', source: 'ai-brain', target: 'action-2', type: 'smoothstep', animated: true, style: actionEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e7', source: 'ai-brain', target: 'action-3', type: 'smoothstep', animated: true, style: actionEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e8', source: 'ai-brain', target: 'action-4', type: 'smoothstep', animated: true, style: actionEdgeStyle, markerEnd: edgeMarker },
-  { id: 'e9', source: 'ai-brain', target: 'action-5', type: 'smoothstep', animated: true, style: actionEdgeStyle, markerEnd: edgeMarker },
+  // Inbound → Brain (amber)
+  { id: 'e1', source: 'voice',       target: 'ai-brain', type: 'smoothstep', animated: true, style: amberEdge, markerEnd: edgeMarker },
+  { id: 'e2', source: 'omni-chat',   target: 'ai-brain', type: 'smoothstep', animated: true, style: amberEdge, markerEnd: edgeMarker },
+  { id: 'e3', source: 'missed-call', target: 'ai-brain', type: 'smoothstep', animated: true, style: amberEdge, markerEnd: edgeMarker },
+
+  // Brain → Nurture (blue)
+  { id: 'e4', source: 'ai-brain', target: 'handshake', type: 'smoothstep', animated: true, style: blueEdge, markerEnd: edgeMarker },
+  { id: 'e5', source: 'ai-brain', target: 'reminders', type: 'smoothstep', animated: true, style: blueEdge, markerEnd: edgeMarker },
+
+  // Brain → Revenue (emerald)
+  { id: 'e6', source: 'ai-brain', target: 'botox-clock',  type: 'smoothstep', animated: true, style: greenEdge, markerEnd: edgeMarker },
+  { id: 'e7', source: 'ai-brain', target: 'reactivation', type: 'smoothstep', animated: true, style: greenEdge, markerEnd: edgeMarker },
+  { id: 'e8', source: 'ai-brain', target: 'reputation',   type: 'smoothstep', animated: true, style: greenEdge, markerEnd: edgeMarker },
 ]
 
 const miniMapNodeColor = (node) => {
   if (node.data?.type === 'center') return '#059669'
-  if (node.id.startsWith('trigger')) return '#f59e0b'
+  if (node.data?.colorRgb === AMBER) return '#f59e0b'
+  if (node.data?.colorRgb === BLUE) return '#3b82f6'
   return '#10b981'
 }
 
@@ -153,7 +175,6 @@ export default function AutomationFlow() {
 
   return (
     <div className="relative w-full h-[600px] rounded-2xl overflow-hidden border border-white/[0.06]">
-      {/* Ambient glow behind center */}
       <div className="absolute inset-0 pointer-events-none z-0" style={{
         background: 'radial-gradient(ellipse 40% 50% at 50% 45%, rgba(5,150,105,0.06) 0%, transparent 70%)',
       }} />
@@ -177,10 +198,7 @@ export default function AutomationFlow() {
         proOptions={{ hideAttribution: true }}
       >
         <Background variant={BackgroundVariant.Dots} color="rgba(255,255,255,0.04)" gap={24} size={1.5} />
-        <Controls
-          showInteractive={false}
-          position="bottom-right"
-        />
+        <Controls showInteractive={false} position="bottom-right" />
         <MiniMap
           position="top-right"
           nodeColor={miniMapNodeColor}
