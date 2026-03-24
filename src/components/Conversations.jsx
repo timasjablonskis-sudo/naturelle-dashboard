@@ -13,34 +13,99 @@ const initialConversations = conversationLeads.map(l => ({
   messages: l.conversation.messages,
 }))
 
-const aiReplies = {
-  botox: "Neuromodulators (Botox/Dysport) start at $12/unit — most clients need 20–40 units. We focus on natural-looking results tailored to your features. Would you like to book a consultation?",
-  neuromodulator: "Neuromodulators (Botox/Dysport) start at $12/unit — most clients need 20–40 units. Our providers specialize in natural-looking results. Would you like to book a consultation?",
-  sculptra: "Sculptra starts at $750/vial — it's a collagen stimulator that builds volume naturally over 2+ years. Most clients need 2–3 vials per session. Want to book a consultation?",
-  microneedling: "Microneedling starts at $300/session. We also offer PRP-enhanced sessions for incredible collagen results. 3-session packages are most popular. Want to book a consultation?",
-  prp: "PRP (Platelet-Rich Plasma) therapy uses your body's own growth factors for natural rejuvenation. Sessions start at $350. Great for skin rejuvenation and hair restoration. Want to learn more?",
-  prf: "PRF (Platelet-Rich Fibrin) is the next evolution of PRP — it releases growth factors over a longer period for enhanced results. Want to book a consultation to see if it's right for you?",
-  filler: "Dermal fillers start at $550/syringe. We use premium hyaluronic acid fillers for natural enhancement — lips, cheeks, jawline, and more. Results last 6–18 months. Want to book?",
-  'dermal filler': "Dermal fillers start at $550/syringe. We offer treatment for lips, cheeks, jawline, chin, and under-eyes. Natural-looking results that last 6–18 months. Want to schedule a consultation?",
-  kybella: "Kybella is an injectable treatment that permanently destroys fat cells under the chin — no surgery needed. Typically 2–4 sessions. Want to book a consultation?",
-  'pdo thread': "PDO Threads provide a non-surgical lift for jawline, cheeks, neck, and brows. Results last 12–18 months with minimal downtime. Want to learn more?",
-  skinvive: "SkinVive is an injectable that improves skin quality from within — better hydration, smoothness, and glow. Results last about 6 months. Want to book?",
-  b12: "Vitamin B12 injections boost energy, metabolism, and overall wellness. Quick and easy — just a few minutes. Want to schedule one?",
-  book: "I'd love to help you book! We have availability at our Wheaton location. What day works best for you?",
-  appointment: "I'd love to help you book! We have availability at our Wheaton location. What day works best for you?",
-  price: "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
-  cost: "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
-  'how much': "Which service are you asking about? We offer Neuromodulators ($12/unit), Dermal Fillers ($550+), Sculptra ($750+), PRP ($350+), Microneedling ($300+), and more!",
-}
+// Reply rules — checked top-to-bottom, first match wins.
+// Each rule: [patterns[], response, priority (higher = checked first)]
+const REPLY_RULES = [
+  // ── Greetings ──
+  { patterns: [/^(hi|hey|hello|howdy|good morning|good afternoon|good evening|sup|yo)\b/],
+    reply: "Hi there! Welcome to Naturelle Med Spa. I'm the AI assistant — I can answer questions about our treatments, pricing, and availability, or help you book a consultation. What can I help you with?" },
 
-const defaultReply = "Great question! At Naturelle Med Spa, we specialize in neuromodulators, dermal fillers, Sculptra, PRP, PRF, PDO Threads, Kybella, microneedling, and SkinVive — all focused on enhancing your natural beauty. Would you like to book a consultation?"
+  // ── Booking intent ──
+  { patterns: [/\b(book|schedule|appointment|reserve|sign up|come in|visit)\b/],
+    reply: "I'd love to help you book! We have availability this week at our Wheaton location — 400 W Liberty Dr Suite B. Do you have a treatment in mind, or would you like a general consultation?" },
+
+  // ── Pricing (general) ──
+  { patterns: [/\b(price|pricing|cost|how much|rates|menu|what do you charge)\b/],
+    reply: "Here's a quick look at our most popular treatments:\n\n• Neuromodulators (Botox/Dysport) — $12/unit\n• Dermal Fillers — from $550/syringe\n• Sculptra — $750/vial\n• PRP Therapy — from $350\n• Microneedling — from $300\n• Kybella — from $600\n• SkinVive — $450\n\nAnything specific you'd like to know more about?" },
+
+  // ── Specific treatments ──
+  { patterns: [/\b(botox|dysport|neuromodulator|tox|wrinkle)/],
+    reply: "Neuromodulators like Botox and Dysport start at $12/unit. Most clients need 20–40 units depending on the treatment area — forehead lines, crow's feet, frown lines, etc. Results last about 3–4 months. Our providers specialize in keeping it natural — no frozen look. Would you like to book a consultation?" },
+
+  { patterns: [/\b(sculptra|collagen stimulat)/],
+    reply: "Sculptra is one of our most popular treatments — it's a collagen stimulator that rebuilds volume naturally over time. Starting at $750/vial, most clients need 2–3 vials per session. The best part? Results last 2+ years. It's great for cheeks, temples, jawline, and overall facial rejuvenation. Want to learn more or book a consultation?" },
+
+  { patterns: [/\b(filler|lip|cheek|jawline|chin|under.?eye|nasolabial)/],
+    reply: "Dermal fillers start at $550/syringe. We use premium hyaluronic acid fillers and treat lips, cheeks, jawline, chin, under-eyes, and nasolabial folds. Results are immediate and last 6–18 months depending on the area. Our approach is all about subtle, natural enhancement. Which area are you interested in?" },
+
+  { patterns: [/\b(microneedling|micro.?needle)/],
+    reply: "Microneedling starts at $300/session. It stimulates your skin's natural collagen production for improved texture, tone, and firmness. We also offer PRP-enhanced microneedling for even better results. Most clients do a series of 3 sessions spaced 4–6 weeks apart. Want to book one?" },
+
+  { patterns: [/\b(prp|platelet.?rich plasma)/],
+    reply: "PRP therapy uses your body's own growth factors for natural rejuvenation. Sessions start at $350 and take about 45–60 minutes. It's great for skin rejuvenation, fine lines, and even hair restoration. Most clients see visible improvement after 2–3 sessions. Interested in scheduling?" },
+
+  { patterns: [/\b(prf|platelet.?rich fibrin)/],
+    reply: "PRF is the next generation of PRP — it releases growth factors over a longer period for enhanced, longer-lasting results. We use it for facial rejuvenation and under-eye treatment. Want to book a consultation to see if PRF is right for your goals?" },
+
+  { patterns: [/\b(kybella|double chin|chin fat|submental)/],
+    reply: "Kybella permanently destroys fat cells under the chin — no surgery, no downtime. Most clients see great results in 2–4 sessions spaced about a month apart. Once those fat cells are gone, they don't come back. Starting at $600. Want to schedule a consultation?" },
+
+  { patterns: [/\b(pdo|thread|thread lift|non.?surgical lift)/],
+    reply: "PDO Threads are a non-surgical lift for the jawline, cheeks, neck, and brows. The threads dissolve naturally over time while stimulating collagen production — so you get an immediate lift plus ongoing improvement. Results last 12–18 months. Starting at $800. Want to learn more?" },
+
+  { patterns: [/\b(skinvive|skin.?vive|skin quality|glow|hydrat)/],
+    reply: "SkinVive is an injectable skin quality treatment at $450. It improves hydration, smoothness, and gives you a natural glow from within. Most clients see visible results within 2 weeks, and they last about 6 months. It's one of our most-requested treatments. Want to try it?" },
+
+  { patterns: [/\b(b12|vitamin|energy|metabolism)/],
+    reply: "Vitamin B12 injections are just $35 — quick and easy, takes a few minutes. Great for energy, metabolism, and overall wellness. A lot of our clients add it on to their regular treatments. Want to add one to your next visit?" },
+
+  // ── Common questions ──
+  { patterns: [/\b(where|location|address|directions|find you)\b/],
+    reply: "We're located at 400 W Liberty Dr Suite B, Wheaton, IL 60187. Easy to find with parking available. Our hours are Monday–Saturday. Would you like to schedule a visit?" },
+
+  { patterns: [/\b(hour|open|close|when are you|availability|what time)\b/],
+    reply: "We're open Monday through Saturday. We have morning, afternoon, and some evening availability depending on the day. When works best for you?" },
+
+  { patterns: [/\b(phone|call|number|contact)\b/],
+    reply: "You can reach us at (773) 592-9781, or I can help you right here! Would you like to book a consultation or have questions about a specific treatment?" },
+
+  { patterns: [/\b(service|treatment|offer|do you do|what do you|menu|option)\b/],
+    reply: "We offer a full range of aesthetic treatments:\n\n• Neuromodulators (Botox/Dysport)\n• Dermal Fillers (lips, cheeks, jawline)\n• Sculptra\n• PRP & PRF Therapy\n• PDO Thread Lifts\n• Kybella\n• Microneedling\n• SkinVive\n• Vitamin B12 Injections\n\nAll focused on natural-looking results. Anything catch your eye?" },
+
+  { patterns: [/\b(hurt|pain|painful|does it hurt|uncomfortable)\b/],
+    reply: "Most of our treatments involve minimal discomfort. We use topical numbing for injectables, and most clients describe it as a slight pinch. Our providers go at your pace and make sure you're comfortable throughout. Which treatment are you asking about?" },
+
+  { patterns: [/\b(safe|side effect|risk|recovery|downtime|heal)\b/],
+    reply: "All of our treatments are FDA-approved with excellent safety profiles. Downtime varies — injectables like Botox and fillers have minimal to no downtime, while treatments like microneedling may have a day or two of redness. Our providers will walk you through everything during your consultation. Which treatment are you curious about?" },
+
+  { patterns: [/\b(first time|never done|new to|beginner|nervous|scared)\b/],
+    reply: "No worries at all — many of our clients are first-timers! That's exactly what the consultation is for. Our providers will assess your goals, explain everything in detail, answer all your questions, and create a personalized plan. No pressure, no commitment. Would you like to schedule one?" },
+
+  { patterns: [/\b(thank|thanks|awesome|great|perfect|sounds good|cool)\b/],
+    reply: "You're welcome! If you have any other questions or want to book, I'm right here. We'd love to see you at Naturelle Med Spa!" },
+
+  { patterns: [/\b(yes|yeah|yep|sure|definitely|absolutely|let'?s do it)\b/],
+    reply: "Great! We have availability this week at our Wheaton location. What day and time works best for you? Morning, afternoon, or evening?" },
+
+  { patterns: [/\b(no|not right now|maybe later|i'll think|not sure)\b/],
+    reply: "No rush at all! We're here whenever you're ready. Feel free to message us anytime with questions — we'd love to help you feel your most confident." },
+
+  { patterns: [/\b(consult|consultation|assessment|evaluation)\b/],
+    reply: "Our consultations are complimentary! It's a one-on-one assessment with one of our providers where we'll discuss your aesthetic goals and recommend the best treatment plan. Takes about 15–20 minutes. No obligation. Would you like to schedule one?" },
+
+  { patterns: [/\b(insurance|cover|accept)\b/],
+    reply: "Aesthetic treatments are typically not covered by insurance since they're elective procedures. However, we do offer flexible payment options to make treatments accessible. Want to discuss pricing for a specific treatment?" },
+
+  { patterns: [/\b(payment|pay|finance|plan|afford)\b/],
+    reply: "We want to make sure our treatments are accessible. We accept all major credit cards and can discuss flexible payment arrangements during your consultation. Which treatment are you interested in? I can give you exact pricing." },
+]
 
 function getAIReply(input) {
-  const lower = input.toLowerCase()
-  for (const [key, reply] of Object.entries(aiReplies)) {
-    if (lower.includes(key)) return reply
+  const lower = input.toLowerCase().trim()
+  for (const rule of REPLY_RULES) {
+    if (rule.patterns.some(p => p.test(lower))) return rule.reply
   }
-  return defaultReply
+  return "Thanks for reaching out! I'd be happy to help. Are you looking for information about a specific treatment, pricing, or would you like to book a consultation at our Wheaton location?"
 }
 
 const ChannelIcon = ({ channel }) => {
