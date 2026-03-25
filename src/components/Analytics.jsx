@@ -11,11 +11,14 @@ import { TrendingUp, Users, Clock, DollarSign, Percent } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 import { CHART_COLORS, CHART_TOOLTIP } from '../lib/chart-theme'
-import { analyticsKPIs, sourcePercentages } from '../data/stats'
+import { analyticsKPIs, sourcePercentages, ALL_TIME_MULTIPLIER } from '../data/stats'
+import { LEADS } from '../data/leads'
 
+// ─── Derived from leads.js ───────────────────────────────
+const baseDaily = Math.round(analyticsKPIs.totalLeads / 30)
 const leadData = Array.from({ length: 30 }, (_, i) => ({
   day: `${i + 1}`,
-  leads: Math.round(18 + i * 0.8 + Math.sin(i * 0.5) * 6 + Math.random() * 4),
+  leads: Math.round(baseDaily + Math.sin(i * 0.5) * 6 + (i % 7 < 5 ? 2 : -4)),
 }))
 
 const zeroLeadData = Array.from({ length: 30 }, (_, i) => ({ day: `${i + 1}`, leads: 0 }))
@@ -25,30 +28,29 @@ const zeroRevenueData = [
   { week: 'Wk 7', revenue: 0 }, { week: 'Wk 8', revenue: 0 },
 ]
 
-const serviceData = [
-  { service: 'Neuromodulators', bookings: 38 },
-  { service: 'Dermal Fillers', bookings: 24 },
-  { service: 'Sculptra', bookings: 19 },
-  { service: 'PRP/PRF', bookings: 15 },
-  { service: 'Microneedling', bookings: 12 },
-  { service: 'Other', bookings: 8 },
-]
+// Compute service breakdown from actual leads, scaled by ALL_TIME_MULTIPLIER
+const serviceCountsRaw = LEADS.reduce((acc, l) => {
+  const svc = l.service === 'General Inquiry' ? 'Other' : l.service
+  acc[svc] = (acc[svc] || 0) + 1
+  return acc
+}, {})
+const serviceData = Object.entries(serviceCountsRaw)
+  .map(([service, count]) => ({ service, bookings: count * ALL_TIME_MULTIPLIER }))
+  .sort((a, b) => b.bookings - a.bookings)
 
+// 4 colors for 4 sources (now includes Website Form)
+const SOURCE_COLORS = [CHART_COLORS.primary, CHART_COLORS.success, CHART_COLORS.accent, CHART_COLORS.rose]
 const sourceData = sourcePercentages.map((s, i) => ({
   ...s,
-  color: [CHART_COLORS.primary, CHART_COLORS.success, CHART_COLORS.accent][i],
+  color: SOURCE_COLORS[i] || CHART_COLORS.muted,
 }))
 
-const revenueData = [
-  { week: 'Wk 1', revenue: 6200 },
-  { week: 'Wk 2', revenue: 7400 },
-  { week: 'Wk 3', revenue: 7100 },
-  { week: 'Wk 4', revenue: 8800 },
-  { week: 'Wk 5', revenue: 9200 },
-  { week: 'Wk 6', revenue: 10500 },
-  { week: 'Wk 7', revenue: 11800 },
-  { week: 'Wk 8', revenue: 13600 },
-]
+// Revenue trend that sums to analyticsKPIs.totalRevenue (ascending)
+const revenueWeights = [0.08, 0.09, 0.10, 0.11, 0.12, 0.14, 0.16, 0.20]
+const revenueData = revenueWeights.map((w, i) => ({
+  week: `Wk ${i + 1}`,
+  revenue: Math.round(analyticsKPIs.totalRevenue * w),
+}))
 
 const kpis = [
   { label: 'Total Leads', value: analyticsKPIs.totalLeads.toLocaleString(), icon: Users, color: CHART_COLORS.primary },

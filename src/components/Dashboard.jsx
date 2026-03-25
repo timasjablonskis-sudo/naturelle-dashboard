@@ -7,16 +7,17 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
 import { CHART_COLORS, CHART_TOOLTIP } from '../lib/chart-theme'
-import { bookingsByChannel, funnelSteps as computedFunnel, conversionRate } from '../data/stats'
+import { bookingsByChannel, funnelSteps as computedFunnel, conversionRate, totalLeads } from '../data/stats'
 
+const dailyBase = Math.round(totalLeads / 7)
 const weekData = [
-  { day: 'Mon', leads: 14 },
-  { day: 'Tue', leads: 18 },
-  { day: 'Wed', leads: 16 },
-  { day: 'Thu', leads: 21 },
-  { day: 'Fri', leads: 19 },
-  { day: 'Sat', leads: 22 },
-  { day: 'Sun', leads: 18 },
+  { day: 'Mon', leads: dailyBase - 1 },
+  { day: 'Tue', leads: dailyBase + 1 },
+  { day: 'Wed', leads: dailyBase },
+  { day: 'Thu', leads: dailyBase + 3 },
+  { day: 'Fri', leads: dailyBase + 2 },
+  { day: 'Sat', leads: dailyBase + 4 },
+  { day: 'Sun', leads: dailyBase + 1 },
 ]
 
 const channelData = bookingsByChannel
@@ -26,13 +27,13 @@ const funnelSteps = computedFunnel
 const STATIC_FEED = [
   // Recent — last hour
   { icon: '🤖', text: 'AI booked Neuromodulator consultation for Emily R.', time: '2m ago' },
-  { icon: '📞', text: 'Missed call recovered → Sarah L. booked PRP Treatment', time: '8m ago' },
-  { icon: '💬', text: 'Instagram DM converted → Anna T. booked Sculptra consult', time: '15m ago' },
+  { icon: '📞', text: 'Missed call recovered → Sarah M. booked Neuromodulator consult', time: '8m ago' },
+  { icon: '💬', text: 'Instagram DM converted → Ashley R. booked Dermal Filler consult', time: '15m ago' },
   { icon: '📧', text: 'Follow-up email sent to 4 leads — 2 opened within 5 min', time: '22m ago' },
   { icon: '⭐', text: 'AI responded to 2-star review from Jessica L.', time: '31m ago' },
   { icon: '🤖', text: 'AI booked Dermal Filler consult for Jessica M.', time: '45m ago' },
   // Mid-day
-  { icon: '📞', text: 'Missed call recovered → David W. booked Microneedling', time: '1h ago' },
+  { icon: '📞', text: 'Missed call recovered → David R. texted back about PRP', time: '1h ago' },
   { icon: '🔄', text: 'Email sequence triggered for 3 unbooked leads', time: '1.5h ago' },
   { icon: '💬', text: 'Instagram DM → Kayla M. asked about Kybella, AI responded', time: '2h ago' },
   { icon: '🤖', text: 'AI booked SkinVive treatment for Michael B.', time: '2h ago' },
@@ -135,10 +136,10 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
   const feed = simFeed.length ? [...simFeed, ...STATIC_FEED] : STATIC_FEED
 
   const kpis = [
-    { label: 'Leads Captured',       value: simStats.leads,                         change: '+18%', icon: Users,       color: CHART_COLORS.primary },
-    { label: 'Consultations Booked', value: simStats.bookings,                       change: '+33%', icon: Calendar,    color: CHART_COLORS.success },
-    { label: 'Calls Recovered',      value: simStats.missed,                         change: '+25%', icon: PhoneMissed, color: CHART_COLORS.accent },
-    { label: 'Revenue Generated',    value: '$' + simStats.revenue.toLocaleString(), change: '+12%', icon: DollarSign, color: CHART_COLORS.primary },
+    { label: 'Leads Captured',       value: simStats.leads,                         change: simStarted ? '+18%' : '—', icon: Users,       color: CHART_COLORS.primary },
+    { label: 'Consultations Booked', value: simStats.bookings,                       change: simStarted ? '+33%' : '—', icon: Calendar,    color: CHART_COLORS.success },
+    { label: 'Calls Recovered',      value: simStats.missed,                         change: simStarted ? '+25%' : '—', icon: PhoneMissed, color: CHART_COLORS.accent },
+    { label: 'Revenue Generated',    value: '$' + simStats.revenue.toLocaleString(), change: simStarted ? '+12%' : '—', icon: DollarSign, color: CHART_COLORS.primary },
   ]
 
   return (

@@ -206,7 +206,7 @@ export default function App() {
     instagram:     <Instagram simStarted={simStarted} simConversations={simIgConversations} />,
     reviews:       <Reviews simReviews={simReviews} />,
     appointments:  <Appointments simAppointments={simAppointments} simStarted={simStarted} />,
-    automations:   <Automations />,
+    automations:   <Automations simStats={simStats} simStarted={simStarted} />,
     analytics:     <Analytics simStarted={simStarted} />,
     email:         <EmailFollowup simEmails={simEmails} simStarted={simStarted} />,
   }

@@ -78,7 +78,7 @@ export const totalAppointments = LEADS.reduce((sum, l) => {
 
 // ─── Dashboard Funnel ─────────────────────────────────
 const conversationCount = conversationLeads.length + instagramLeads.length
-const consultationCount = totalBookings + 2 // booked + some still in consultation stage
+const consultationCount = LEADS.filter(l => l.status === 'Consultation Booked' || l.status === 'Consultation Scheduled').length
 
 export const funnelSteps = [
   { label: 'Leads',         base: totalLeads,         pct: 100 },
@@ -89,11 +89,11 @@ export const funnelSteps = [
 
 // ─── Analytics (All-Time Projections) ─────────────────
 // Multiplier represents ~1.5 months of accumulated data
-const ALL_TIME_MULTIPLIER = 47
+export const ALL_TIME_MULTIPLIER = 47
 
 export const analyticsKPIs = {
   totalLeads:     totalLeads * ALL_TIME_MULTIPLIER,
-  avgResponse:    '8 sec',
+  avgResponse:    `${Math.round(missedCallLeads.reduce((sum, l) => sum + parseInt(l.missedCall.responseTime), 0) / missedCallLeads.length)} sec`,
   conversionRate: `${conversionRate}%`,
   totalRevenue:   totalRevenue * ALL_TIME_MULTIPLIER,
 }
@@ -103,6 +103,7 @@ export const sourcePercentages = [
   { name: 'Website Chat', value: Math.round((sourceBreakdown['Website Chat'] / totalLeads) * 100) },
   { name: 'Instagram',    value: Math.round((sourceBreakdown['Instagram DM'] / totalLeads) * 100) },
   { name: 'Missed Call',  value: Math.round((sourceBreakdown['Missed Call'] / totalLeads) * 100) },
+  { name: 'Website Form', value: Math.round((sourceBreakdown['Website Form'] / totalLeads) * 100) },
 ]
 
 // ─── BASE_STATS (consumed by App.jsx) ─────────────────

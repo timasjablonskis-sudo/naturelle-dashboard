@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Users, X, Phone, Mail, Calendar, Clock } from 'lucide-react'
+import { Users, X, Phone, Mail, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { staggerContainer, staggerItem, hoverScale } from '../lib/motion'
@@ -23,7 +23,7 @@ const sourceStyle = {
   'Website Form': 'bg-emerald-500/10 text-emerald-400',
 }
 
-const filters = ['All', 'Website', 'Instagram', 'SMS']
+const filters = ['All', 'Website', 'Instagram', 'Missed Call']
 const springTransition = { type: 'spring', stiffness: 300, damping: 30 }
 
 function LeadDetailPanel({ lead, onClose }) {
@@ -94,8 +94,8 @@ function LeadDetailPanel({ lead, onClose }) {
                 <p className="font-mono text-[9px] text-zinc-600 tracking-wider mb-3">ACTIVITY TIMELINE</p>
                 {[
                   { label: 'Lead captured by AI', time: lead.date, dot: 'bg-primary' },
-                  { label: 'AI sent instant follow-up', time: lead.date, dot: 'bg-amber-400' },
-                  { label: lead.status, time: lead.date, dot: 'bg-emerald-400' },
+                  { label: 'AI sent instant follow-up', time: '< 1 min later', dot: 'bg-amber-400' },
+                  { label: lead.status, time: '3 min later', dot: 'bg-emerald-400' },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3 mb-4">
                     <div className="flex flex-col items-center">
@@ -111,12 +111,6 @@ function LeadDetailPanel({ lead, onClose }) {
               </div>
             </div>
 
-            <div className="px-6 py-4 border-t border-white/[0.06]">
-              <button className="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm cursor-pointer hover:bg-emerald-600 transition-colors">
-                <Calendar size={14} className="inline mr-2" />
-                Book Consultation
-              </button>
-            </div>
           </motion.div>
         </>
       )}
@@ -134,7 +128,7 @@ export default function Leads({ simStarted = false, simLeads = [] }) {
     : baseLeads.filter((l) => {
         if (activeFilter === 'Website')   return l.source.startsWith('Website')
         if (activeFilter === 'Instagram') return l.source.includes('Instagram')
-        if (activeFilter === 'SMS')       return l.source === 'Missed Call'
+        if (activeFilter === 'Missed Call') return l.source === 'Missed Call'
         return true
       })
 

@@ -7,6 +7,7 @@ const ITEMS = [
   { service: 'PRP Treatment', value: '$350' },
   { service: 'PRF Therapy', value: '$400' },
   { service: 'PDO Threads', value: '$800' },
+  { service: 'Microneedling', value: '$300' },
   { service: 'Microneedling + PRP', value: '$450' },
   { service: 'SkinVive', value: '$450' },
   { service: 'Kybella', value: '$600' },

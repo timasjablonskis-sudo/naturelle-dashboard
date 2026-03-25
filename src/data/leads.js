@@ -379,7 +379,11 @@ export const LEADS = [
       time: '9:30 AM',
       responseTime: '8 seconds',
       aiResponse: 'Hi Sarah! Thanks for contacting Naturelle Med Spa. We saw you called about neuromodulators (Botox/Dysport). We focus on natural-looking results. Would you like to book a consultation?',
-      sequence: null,
+      sequence: [
+        { touch: 1, delay: '2 hrs', message: "Hey Sarah — saw you were interested in neuromodulators. Any questions? I'm happy to help.", badge: 'Opened' },
+        { touch: 2, delay: '24 hrs', message: "Quick reminder: consultations are complimentary and our providers will create a personalized plan. Want to grab a time?", badge: 'Replied' },
+        { touch: 3, delay: '72 hrs', message: "Last chance this week! We have a few openings left. Want me to lock one in for you?", badge: 'Booked ✓' },
+      ],
     },
 
     conversation: {
@@ -423,7 +427,11 @@ export const LEADS = [
       time: '8:45 AM',
       responseTime: '9 seconds',
       aiResponse: "Hi Jennifer! You missed a call to Naturelle Med Spa. Sculptra is a collagen stimulator with results lasting 2+ years. Want to book a consultation?",
-      sequence: null,
+      sequence: [
+        { touch: 1, delay: '2 hrs', message: "Hi Jennifer — following up on your Sculptra inquiry. It's our most popular anti-aging treatment with results lasting 2+ years!", badge: 'Opened' },
+        { touch: 2, delay: '24 hrs', message: "Sculptra stimulates your body's own collagen. Most clients see a natural improvement that builds over weeks. Want to book a consult?", badge: 'Replied' },
+        { touch: 3, delay: '72 hrs', message: "We have one opening left this week for a Sculptra consultation. Shall I grab it for you?", badge: 'Booked ✓' },
+      ],
     },
 
     appointment: {
