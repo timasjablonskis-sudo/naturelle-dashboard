@@ -32,7 +32,7 @@ const CORES = [
   },
   {
     id: 'voice',
-    name: 'The AI Voice Receptionist',
+    name: 'The Omni Voice Receptionist',
     type: 'voice',
     subtitle: 'Voice-Based AI',
     description: '24/7 phone handling — answers calls, qualifies leads, books appointments live.',

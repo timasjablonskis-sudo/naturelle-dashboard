@@ -131,7 +131,7 @@ const initialNodes = [
   { id: 'omni-core', type: 'glass', position: { x: 240, y: 45 },
     data: { label: 'Omni-Channel\nConcierge', icon: MessageSquare, type: 'center', centerColor: BLUE, stat: '748 triggers' } },
   { id: 'voice-core', type: 'glass', position: { x: 240, y: 200 },
-    data: { label: 'AI Voice\nReceptionist', icon: Phone, type: 'center', centerColor: VIOLET, stat: '132 triggers' } },
+    data: { label: 'Omni Voice\nReceptionist', icon: Phone, type: 'center', centerColor: VIOLET, stat: '132 triggers' } },
 
   // ──── ADD-ON MODULES (Right) ────
   { id: 'reengagement',    type: 'glass', position: { x: 500, y: 0 },
