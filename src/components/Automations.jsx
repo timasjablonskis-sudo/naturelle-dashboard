@@ -15,7 +15,7 @@ const CORES = [
     name: 'The Omni-Channel Concierge',
     type: 'text',
     subtitle: 'Text-Based AI',
-    description: 'Unified inbox — IG, FB, Website Chat, Email, SMS. Every text channel, one AI brain.',
+    description: 'Unified inbox — IG, FB, Website Chat, Email, SMS. Every channel, copilot brain.',
     color: '#3b82f6',
     colorRgb: '59,130,246',
     accent: 'text-blue-400',
