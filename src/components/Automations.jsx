@@ -13,13 +13,13 @@ const ENGINES = [
 ];
 
 const ADDONS = [
-  { id:"reminders", icon:"🔔", name:"Smart Reminder Suite",       desc:'"Confirmation Required" logic — alerts staff if no confirmation within X hours',                       runs:"203", channels:["Text","Voice"], addonPrice:79,  campaign:false },
-  { id:"reengage",  icon:"♻️", name:"Lead Re-engagement",         desc:"Monitors for ghosted leads — auto-triggers follow-up sequences to restart booking conversations",       runs:"84",  channels:["Text"],         addonPrice:99,  campaign:false },
-  { id:"noshow",    icon:"🚫", name:"No-Show Recovery",           desc:"CRM trigger on no-show status — instant SMS or voice outreach to reschedule",                          runs:"47",  channels:["Text","Voice"], addonPrice:89,  campaign:false },
-  { id:"reviews",   icon:"⭐", name:"Review Generation",          desc:"Post-appointment SMS triggers for Google/Yelp reviews",                                                 runs:"156", channels:["Text"],         addonPrice:79,  campaign:false },
-  { id:"cycle",     icon:"💉", name:"Treatment Cycle Automation",  desc:'The "Botox Clock" — auto-recall at 4-week, 3-month, and 6-month intervals',                           runs:"94",  channels:["Text"],         addonPrice:109, campaign:false },
+  { id:"reminders", icon:"🔔", name:"Smart Reminder Suite",       desc:'"Confirmation Required" logic — alerts staff if no confirmation within X hours',                       runs:"203", channels:["Text","Voice"], addonPrice:99,  campaign:false },
+  { id:"reengage",  icon:"♻️", name:"Lead Re-engagement",         desc:"Monitors for ghosted leads — auto-triggers follow-up sequences to restart booking conversations",       runs:"84",  channels:["Text"],         addonPrice:149, campaign:false },
+  { id:"noshow",    icon:"🚫", name:"No-Show Recovery",           desc:"CRM trigger on no-show status — instant SMS or voice outreach to reschedule",                          runs:"47",  channels:["Text","Voice"], addonPrice:119, campaign:false },
+  { id:"reviews",   icon:"⭐", name:"Review Generation",          desc:"Post-appointment SMS triggers for Google/Yelp reviews",                                                 runs:"156", channels:["Text"],         addonPrice:99,  campaign:false },
+  { id:"cycle",     icon:"💉", name:"Treatment Cycle Automation",  desc:'The "Botox Clock" — auto-recall at 4-week, 3-month, and 6-month intervals',                           runs:"94",  channels:["Text"],         addonPrice:159, campaign:false },
   { id:"dbreact",   icon:"💤", name:"Database Reactivation",      desc:"Campaign mode across text or voice — re-engages patients inactive 90+ days",                          runs:"12",  channels:["Text","Voice"], addonPrice:0,   campaign:true, campaignPrice:399, campaignNote:"Per campaign run — not a monthly charge" },
-  { id:"rep",       icon:"🛡", name:"Reputation Response Engine",  desc:"Independent watchdog — monitors and responds to all Google reviews 24/7",                             runs:"156", channels:[],               addonPrice:119, campaign:false,
+  { id:"rep",       icon:"🛡", name:"Reputation Response Engine",  desc:"Independent watchdog — monitors and responds to all Google reviews 24/7",                             runs:"156", channels:[],               addonPrice:169, campaign:false,
     details:[
       { label:"Positive Filter", color:"#00e5a0", bg:"#0a1f17", text:"4-5★ → auto thank-you response optimized for SEO" },
       { label:"Negative Shield", color:"#ff6b6b", bg:"#1f0a0a", text:"<3★ → professional holding response + instant owner SMS alert" },
