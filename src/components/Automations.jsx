@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const TIERS = [
-  { id:"starter", name:"AI Receptionist",  tagline:"Answer every call & message. Book 24/7.",                      setup:497,  monthly:297,  color:"#00e5a0", badge:"ENTRY",       addonIdxs:[0] },
-  { id:"growth",  name:"Growth System",    tagline:"Starter + recover revenue you're already losing.",             setup:997,  monthly:597,  color:"#7c6fff", badge:"POPULAR",     addonIdxs:[0,1,2,3], recommended:true },
+  { id:"starter", name:"Growth System",    tagline:"24/7 AI front desk. Every call, every message, every lead.",                      setup:497,  monthly:297,  color:"#00e5a0", badge:"ENTRY",       addonIdxs:[0] },
+  { id:"growth",  name:"Retention Pro",   tagline:"Growth System + recover the revenue you're already losing.",             setup:997,  monthly:597,  color:"#7c6fff", badge:"POPULAR",     addonIdxs:[0,1,2,3], recommended:true },
   { id:"os",      name:"Med Spa OS",        tagline:"Every automation. The complete front-office stack.",          setup:1497, monthly:997,  color:"#f5a623", badge:"FULL STACK",   addonIdxs:[0,1,2,3,4,5,6] },
   { id:"custom",  name:"Build Your Own",   tagline:"Mix and match. Pay for exactly what you need.",               setup:null, monthly:null, color:"#e040fb", badge:"CUSTOM" },
 ];
@@ -256,7 +256,7 @@ export default function Automations() {
           ? <div style={s.hint("#0e1a10","#2a5030")}><span style={{ color:"#00e5a0", fontWeight:600 }}>ℹ️ Exact match:</span> This is identical to the <strong style={{ color:"#e8f5f0" }}>{exactMatch.name}</strong> plan.</div>
           : <div style={s.hint("#140a20","#3a1850")}><span style={{ color:"#e040fb", fontWeight:600 }}>✦ Unique combo</span> — no standard plan matches this. Custom pricing applies.</div>
       }
-      <button style={s.cta}>Book a Call — Lock In This Plan →</button>
+      <button style={s.cta} onClick={() => window.open('mailto:timasjablonskis@gmail.com?subject=AdScale Labs — Custom Plan Inquiry', '_blank')}>Book a Call — Lock In This Plan →</button>
     </div>
   );
 
