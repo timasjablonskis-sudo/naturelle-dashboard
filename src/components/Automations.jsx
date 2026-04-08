@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const TIERS = [
-  { id:"starter", name:"Growth System",    tagline:"24/7 AI front desk. Every call, every message, every lead.",                      setup:497,  monthly:297,  color:"#00e5a0", badge:"ENTRY",       addonIdxs:[0] },
-  { id:"growth",  name:"Retention Pro",   tagline:"Growth System + recover the revenue you're already losing.",             setup:997,  monthly:597,  color:"#7c6fff", badge:"POPULAR",     addonIdxs:[0,1,2,3], recommended:true },
-  { id:"os",      name:"Med Spa OS",        tagline:"Every automation. The complete front-office stack.",          setup:1497, monthly:997,  color:"#f5a623", badge:"FULL STACK",   addonIdxs:[0,1,2,3,4,5,6] },
-  { id:"custom",  name:"Build Your Own",   tagline:"Mix and match. Pay for exactly what you need.",               setup:null, monthly:null, color:"#e040fb", badge:"CUSTOM" },
+  { id:"starter", name:"Growth System",    tagline:"24/7 AI front desk. Every call, every message, every lead.",  setup:497,  monthly:297,  color:"#00e5a0", badge:"ENTRY",       addonIdxs:[0] },
+  { id:"growth",  name:"Retention Pro",   tagline:"Growth System + recover the revenue you're already losing.",   setup:997,  monthly:597,  color:"#7c6fff", badge:"POPULAR",     addonIdxs:[0,1,2,3], recommended:true },
+  { id:"os",      name:"Med Spa OS",      tagline:"Every automation. The complete front-office stack.",            setup:1497, monthly:997,  color:"#f5a623", badge:"FULL STACK",   addonIdxs:[0,1,2,3,4,5,6] },
+  { id:"custom",  name:"Build Your Own",  tagline:"Mix and match. Pay for exactly what you need.",                setup:null, monthly:null, color:"#e040fb", badge:"CUSTOM" },
 ];
 
 const ENGINES = [
