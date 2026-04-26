@@ -2,26 +2,31 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Users, MessageSquare, PhoneMissed,
-  Instagram, Zap, BarChart2, Mail, Search
+  Instagram, Zap, BarChart2, Mail, Search,
+  TrendingDown, CalendarDays, Star, CreditCard
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const NAV_ITEMS = [
-  { id: 'dashboard',     label: 'Dashboard',    Icon: LayoutDashboard },
+  { id: 'dashboard',     label: 'Dashboard',     Icon: LayoutDashboard },
+  { id: 'revenue',       label: 'Revenue Gap',   Icon: TrendingDown },
   { id: 'leads',         label: 'Leads',         Icon: Users },
   { id: 'conversations', label: 'Chat',          Icon: MessageSquare },
   { id: 'missed',        label: 'Missed Calls',  Icon: PhoneMissed },
   { id: 'instagram',     label: 'Instagram',     Icon: Instagram },
   { id: 'automations',   label: 'Automations',   Icon: Zap },
+  { id: 'reviews',       label: 'Reviews',       Icon: Star },
+  { id: 'appointments',  label: 'Appointments',  Icon: CalendarDays },
   { id: 'analytics',     label: 'Analytics',     Icon: BarChart2 },
   { id: 'email',         label: 'Email',         Icon: Mail },
+  { id: 'plans',         label: 'Plans',         Icon: CreditCard },
 ]
 
 export default function FloatingNav({ active, setActive, onCommandOpen }) {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+    <nav aria-label="Main navigation" className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
       <motion.div
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -36,7 +41,8 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
         {/* Cmd+K trigger */}
         <button
           onClick={onCommandOpen}
-          className="relative hidden md:flex flex-col items-center gap-1 px-2.5 py-2 rounded-xl cursor-pointer outline-none group"
+          aria-label="Open command palette (Cmd+K)"
+          className="relative hidden md:flex flex-col items-center gap-1 px-2.5 py-2 rounded-xl cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary group"
         >
           <Search size={16} className="text-zinc-500 group-hover:text-zinc-300 transition-colors" />
           <span className="text-[8px] font-mono text-zinc-600">⌘K</span>
@@ -63,7 +69,7 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 4 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 z-60 pointer-events-none"
+                    className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 z-[60] pointer-events-none"
                   >
                     <div className="bg-surface-1/95 border border-white/10 rounded-lg px-2.5 py-1 whitespace-nowrap">
                       <span className="text-white text-[11px] font-mono tracking-wide">{label}</span>
@@ -76,11 +82,13 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
               {/* Icon button */}
               <motion.button
                 onClick={() => setActive(id)}
+                aria-label={label}
+                aria-current={isActive ? 'page' : undefined}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 className={cn(
-                  'relative flex flex-col items-center gap-1 px-1.5 py-1.5 md:px-2.5 md:py-2 rounded-xl cursor-pointer outline-none border-none',
+                  'relative flex flex-col items-center gap-1 px-1.5 py-1.5 md:px-2.5 md:py-2 rounded-xl cursor-pointer border-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 )}
               >
                 {/* Active glow background */}
@@ -114,6 +122,6 @@ export default function FloatingNav({ active, setActive, onCommandOpen }) {
           )
         })}
       </motion.div>
-    </div>
+    </nav>
   )
 }

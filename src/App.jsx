@@ -12,6 +12,8 @@ import Leads from './components/Leads'
 import Analytics from './components/Analytics'
 import Automations from './components/Automations'
 import EmailFollowup from './components/EmailFollowup'
+import RevenueGap from './components/RevenueGap'
+import Plans from './components/Plans'
 import SimToast from './components/SimToast'
 import CommandPalette, { openCommandPalette } from './components/CommandPalette'
 import AgentTerminal from './components/AgentTerminal'
@@ -200,15 +202,17 @@ export default function App() {
 
   const panels = {
     dashboard:     <Dashboard simStats={simStats} simFeed={simFeed} simRunning={simRunning} simStarted={simStarted} onStart={startSim} onReset={resetSim} />,
+    revenue:       <RevenueGap />,
     leads:         <Leads simStarted={simStarted} simLeads={simLeads} />,
     conversations: <Conversations simStarted={simStarted} />,
     missed:        <MissedCalls simStarted={simStarted} simMissedCalls={simMissedCalls} />,
     instagram:     <Instagram simStarted={simStarted} simConversations={simIgConversations} />,
     reviews:       <Reviews simReviews={simReviews} />,
     appointments:  <Appointments simAppointments={simAppointments} simStarted={simStarted} />,
-    automations:   <Automations simStats={simStats} simStarted={simStarted} />,
+    automations:   <Automations simStats={simStats} simStarted={simStarted} onNavigate={setActive} />,
     analytics:     <Analytics simStarted={simStarted} />,
     email:         <EmailFollowup simEmails={simEmails} simStarted={simStarted} />,
+    plans:         <Plans />,
   }
 
   return (
@@ -224,6 +228,7 @@ export default function App() {
       <FloatingNav active={active} setActive={setActive} onCommandOpen={openCommandPalette} />
       <CommandPalette setActive={setActive} addToast={addToast} />
       <SimToast toasts={toasts} />
+      <AgentTerminal />
     </div>
   )
 }

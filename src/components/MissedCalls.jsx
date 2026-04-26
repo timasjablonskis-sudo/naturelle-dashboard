@@ -28,7 +28,7 @@ const topicColor = {
   'Kybella': '#059669',
 }
 
-export default function MissedCalls({ simMissedCalls = [] }) {
+export default function MissedCalls({ simMissedCalls = [], simStarted = false }) {
   const liveCalls = [
     ...simMissedCalls.map((mc) => ({
       name: mc.name, time: mc.time, topic: mc.service,

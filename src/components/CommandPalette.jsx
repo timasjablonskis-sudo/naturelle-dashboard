@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Users, MessageSquare, PhoneMissed,
   Instagram, Zap, BarChart2, Mail, Star, Calendar, Search,
-  Phone, PauseCircle, Scan
+  Phone, PauseCircle, Scan, TrendingDown, CreditCard
 } from 'lucide-react'
 
 const NAV_ITEMS = [
   { id: 'dashboard',     label: 'Dashboard',      Icon: LayoutDashboard },
+  { id: 'revenue',       label: 'Revenue Gap',    Icon: TrendingDown },
   { id: 'leads',         label: 'Leads',           Icon: Users },
   { id: 'conversations', label: 'Conversations',   Icon: MessageSquare },
   { id: 'missed',        label: 'Missed Calls',    Icon: PhoneMissed },
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
   { id: 'appointments',  label: 'Appointments',    Icon: Calendar },
   { id: 'automations',   label: 'Automations',     Icon: Zap },
   { id: 'analytics',     label: 'Analytics',       Icon: BarChart2 },
+  { id: 'plans',         label: 'Plans',           Icon: CreditCard },
 ]
 
 export default function CommandPalette({ setActive, addToast }) {
