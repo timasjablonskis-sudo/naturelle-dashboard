@@ -18,7 +18,7 @@ const initialConversations = conversationLeads.map(l => ({
 const REPLY_RULES = [
   // ── Greetings ──
   { patterns: [/^(hi|hey|hello|howdy|good morning|good afternoon|good evening|sup|yo)\b/],
-    reply: "Hi there! Welcome to Naturelle Med Spa. I'm the AI assistant — I can answer questions about our treatments, pricing, and availability, or help you book a consultation. What can I help you with?" },
+    reply: "Hi there! Welcome to Lumina Med Spa. I'm the AI assistant — I can answer questions about our treatments, pricing, and availability, or help you book a consultation. What can I help you with?" },
 
   // ── Booking intent ──
   { patterns: [/\b(book|schedule|appointment|reserve|sign up|come in|visit)\b/],
@@ -82,7 +82,7 @@ const REPLY_RULES = [
     reply: "No worries at all — many of our clients are first-timers! That's exactly what the consultation is for. Our providers will assess your goals, explain everything in detail, answer all your questions, and create a personalized plan. No pressure, no commitment. Would you like to schedule one?" },
 
   { patterns: [/\b(thank|thanks|awesome|great|perfect|sounds good|cool)\b/],
-    reply: "You're welcome! If you have any other questions or want to book, I'm right here. We'd love to see you at Naturelle Med Spa!" },
+    reply: "You're welcome! If you have any other questions or want to book, I'm right here. We'd love to see you at Lumina Med Spa!" },
 
   { patterns: [/\b(yes|yeah|yep|sure|definitely|absolutely|let'?s do it)\b/],
     reply: "Great! We have availability this week at our Wheaton location. What day and time works best for you? Morning, afternoon, or evening?" },
@@ -259,7 +259,7 @@ export default function Conversations({ simStarted = false }) {
                     </div>
                     <div className="flex items-center justify-end gap-1 mt-1">
                       <Bot size={9} className="text-primary" />
-                      <span className="text-zinc-600 font-mono text-[9px]">Naturelle Med Spa AI</span>
+                      <span className="text-zinc-600 font-mono text-[9px]">Lumina Med Spa AI</span>
                     </div>
                   </div>
                 )}

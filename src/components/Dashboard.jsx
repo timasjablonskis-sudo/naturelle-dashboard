@@ -151,7 +151,7 @@ export default function Dashboard({ simStats, simFeed, simRunning, simStarted, o
             <span className="w-2 h-2 rounded-full animate-pulse bg-primary" />
             <span className="font-mono text-[10px] tracking-widest text-primary">LIVE — TODAY</span>
           </div>
-          <h1 className="font-display font-bold text-2xl text-white tracking-tight">{(() => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening' })()}, Naturelle Med Spa.</h1>
+          <h1 className="font-display font-bold text-2xl text-white tracking-tight">{(() => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening' })()}, Lumina Med Spa.</h1>
           <p className="text-zinc-400 text-sm mt-0.5">
             Your AI Front Desk has handled{' '}
             <span className="font-semibold text-white">{simStats.leads} leads</span>

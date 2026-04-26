@@ -27,7 +27,8 @@ export default function Header({ simStats }) {
     <header className="h-[48px] md:h-[56px] border-b border-white/10 px-3 md:px-6 flex items-center gap-2 md:gap-4 flex-shrink-0 backdrop-blur-md bg-surface-1/60">
       {/* Left */}
       <div className="flex-shrink-0 min-w-[160px]">
-        <div className="font-sans font-semibold text-white text-base leading-none tracking-tight">Naturelle Med Spa</div>
+        <div className="font-sans font-semibold text-white text-base leading-none tracking-tight">Lumina Med Spa</div>
+        <div className="text-[9px] font-mono text-zinc-600 tracking-widest uppercase mt-0.5">Pulse by AdScale</div>
         <div className="flex items-center gap-1 mt-0.5">
           <MapPin size={10} className="text-zinc-500" />
           <span className="text-[10px] text-zinc-500 font-mono">Wheaton, IL</span>

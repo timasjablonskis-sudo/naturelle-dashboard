@@ -14,7 +14,7 @@ const staticEmails = emailLeads.map(l => ({
 
 function getEmailBody(email) {
   if (email.body) return email.body
-  return `Hi ${email.to.split(' ')[0]},\n\nThank you for your interest in ${email.service} at Naturelle Med Spa. We wanted to personally reach out and make sure you have all the information you need.\n\nWe offer ${email.service} with personalized treatment plans designed for your goals. Book a free consultation and our team will walk you through pricing, availability, and what to expect.\n\nWe look forward to hearing from you!`
+  return `Hi ${email.to.split(' ')[0]},\n\nThank you for your interest in ${email.service} at Lumina Med Spa. We wanted to personally reach out and make sure you have all the information you need.\n\nWe offer ${email.service} with personalized treatment plans designed for your goals. Book a free consultation and our team will walk you through pricing, availability, and what to expect.\n\nWe look forward to hearing from you!`
 }
 
 export default function EmailFollowup({ simEmails = [], simStarted = false }) {
@@ -114,14 +114,14 @@ export default function EmailFollowup({ simEmails = [], simStarted = false }) {
           <div className="flex-1 overflow-y-auto p-3 md:p-6">
             <div className="max-w-[600px] mx-auto rounded-xl overflow-hidden shadow-xl">
               <div className="px-4 md:px-8 py-4 bg-primary">
-                <div className="font-semibold text-xl text-white tracking-tight">Naturelle Med Spa</div>
+                <div className="font-semibold text-xl text-white tracking-tight">Lumina Med Spa</div>
                 <div className="text-emerald-200 text-xs font-mono mt-0.5">AI-Powered Follow-Up</div>
               </div>
               <div className="bg-white px-4 md:px-8 py-6">
                 <div className="mb-5 pb-4 border-b border-[#f0f0f0]">
                   <div className="flex items-center gap-2 text-xs text-[#666] mb-1">
                     <span className="font-medium text-[#333]">From:</span>
-                    <span>Naturelle Med Spa &lt;hello@naturellemedspa.com&gt;</span>
+                    <span>Lumina Med Spa &lt;hello@luminamedspa.com&gt;</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#666] mb-1">
                     <span className="font-medium text-[#333]">To:</span>
@@ -143,7 +143,7 @@ export default function EmailFollowup({ simEmails = [], simStarted = false }) {
                   </a>
                 </div>
                 <div className="mt-8 pt-5 border-t border-[#f0f0f0] text-center text-[#999] text-[11px]">
-                  <div className="font-semibold text-[#555] mb-1">Naturelle Med Spa</div>
+                  <div className="font-semibold text-[#555] mb-1">Lumina Med Spa</div>
                   <div>400 W Liberty Dr Suite B, Wheaton, IL 60187 · (773) 592-9781</div>
                   <div className="mt-1">
                     <a href="#" className="text-emerald-500 underline" onClick={(e) => e.preventDefault()}>Unsubscribe</a>

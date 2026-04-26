@@ -32,7 +32,7 @@ export default function MissedCalls({ simMissedCalls = [], simStarted = false })
   const liveCalls = [
     ...simMissedCalls.map((mc) => ({
       name: mc.name, time: mc.time, topic: mc.service,
-      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Naturelle Med Spa. Want to book an appointment?`,
+      aiResponse: mc.aiResponse || `Hi ${mc.name.split(' ')[0]}! You called about ${mc.service} at Lumina Med Spa. Want to book an appointment?`,
       status: mc.status, responseTime: '8 seconds', isNew: mc.isNew,
     })),
     ...calls,

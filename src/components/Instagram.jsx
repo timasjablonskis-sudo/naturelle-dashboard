@@ -144,7 +144,7 @@ export default function Instagram({ simStarted = false, simConversations = [] })
               <MessageCircle size={13} className="text-zinc-500" />
               <span className="text-zinc-500 font-mono text-[10px]">AI responding automatically via Instagram</span>
             </div>
-            <span className="text-zinc-600 font-mono text-[10px]">Naturelle Med Spa AI</span>
+            <span className="text-zinc-600 font-mono text-[10px]">Lumina Med Spa AI</span>
           </div>
         </div>
       </div>

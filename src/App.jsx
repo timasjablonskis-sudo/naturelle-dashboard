@@ -39,8 +39,8 @@ const SIM_EVENTS = [
   },
   {
     delay: 3000,
-    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Naturelle Med Spa offers Sculptra starting at $750/vial. Want to book a consult?"' },
-    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Naturelle Med Spa offers Sculptra starting at $750/vial. It\'s a collagen stimulator that gives natural, long-lasting results over 2+ years! Would you like to book a consultation?' } },
+    toast: { type: 'instagram', title: '🤖 AI Responded Instantly', body: '"Hi! Yes, Lumina Med Spa offers Sculptra starting at $750/vial. Want to book a consult?"' },
+    igUpdate: { id: 99, message: { from: 'ai', text: 'Hi! Yes, Lumina Med Spa offers Sculptra starting at $750/vial. It\'s a collagen stimulator that gives natural, long-lasting results over 2+ years! Would you like to book a consultation?' } },
   },
   {
     delay: 5200,
@@ -60,7 +60,7 @@ const SIM_EVENTS = [
       service: 'Microneedling',
       status: 'AI Responding',
       isNew: true,
-      aiResponse: 'Hi Lauren! You just missed a call from Naturelle Med Spa. We saw you were inquiring about Microneedling. Want to book an appointment this week?',
+      aiResponse: 'Hi Lauren! You just missed a call from Lumina Med Spa. We saw you were inquiring about Microneedling. Want to book an appointment this week?',
     },
   },
   {
@@ -80,7 +80,7 @@ const SIM_EVENTS = [
     delay: 15500,
     toast: { type: 'email', title: '📧 Follow-Up Emails Sent', body: 'AI sent follow-up to 3 leads who have not booked in 24h' },
     feed: { icon: '📧', text: 'Automated follow-up email sent to 3 unbooked leads', time: 'just now' },
-    emailExample: { to: 'Jessica M.', service: 'Dermal Fillers', subject: 'Your consultation at Naturelle Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in dermal fillers...' },
+    emailExample: { to: 'Jessica M.', service: 'Dermal Fillers', subject: 'Your consultation at Lumina Med Spa', preview: 'Hi Jessica! We wanted to follow up on your interest in dermal fillers...' },
   },
   {
     delay: 18500,
@@ -89,7 +89,7 @@ const SIM_EVENTS = [
     review: {
       name: 'Mia T.',
       rating: 5,
-      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Naturelle Med Spa is next level.',
+      text: 'The AI receptionist booked my Botox appointment instantly at midnight — no waiting, no phone tag. And the results? Incredible. Lumina Med Spa is next level.',
       aiResponse: "Mia, thank you so much! We're thrilled our AI front desk made booking effortless — and even more thrilled you love your results! Can't wait to see you again. 💚",
       status: 'Response Posted',
       time: 'just now',
