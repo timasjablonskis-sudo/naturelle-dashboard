@@ -105,20 +105,7 @@ export default function AgentTerminal({ simRunning }) {
 
   return (
     <div className="fixed bottom-[72px] left-0 right-0 z-30">
-      {/* Collapsed bar */}
-      <button
-        onClick={() => setExpanded((v) => !v)}
-        className="w-full h-9 flex items-center gap-2 px-4 border-t border-white/[0.06] backdrop-blur-xl transition-colors hover:bg-white/[0.02]"
-        style={{ background: 'rgba(24,24,27,0.95)' }}
-      >
-        <Terminal size={12} className="text-primary" />
-        <span className="font-mono text-[10px] text-zinc-400 tracking-wider">AI TERMINAL</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
-        <kbd className="ml-auto text-[9px] font-mono text-zinc-600 bg-white/5 border border-white/10 rounded px-1 py-0.5">`</kbd>
-        {expanded ? <ChevronDown size={12} className="text-zinc-500" /> : <ChevronUp size={12} className="text-zinc-500" />}
-      </button>
-
-      {/* Expanded terminal */}
+      {/* Expanded terminal — above the bar so it opens upward */}
       {expanded && (
         <div
           className="border-t border-white/[0.06] overflow-hidden"
@@ -133,6 +120,19 @@ export default function AgentTerminal({ simRunning }) {
           </div>
         </div>
       )}
+
+      {/* Collapsed bar */}
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="w-full h-9 flex items-center gap-2 px-4 border-t border-white/[0.06] backdrop-blur-xl transition-colors hover:bg-white/[0.02]"
+        style={{ background: 'rgba(24,24,27,0.95)' }}
+      >
+        <Terminal size={12} className="text-primary" />
+        <span className="font-mono text-[10px] text-zinc-400 tracking-wider">AI TERMINAL</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-1" />
+        <kbd className="ml-auto text-[9px] font-mono text-zinc-600 bg-white/5 border border-white/10 rounded px-1 py-0.5">`</kbd>
+        {expanded ? <ChevronDown size={12} className="text-zinc-500" /> : <ChevronUp size={12} className="text-zinc-500" />}
+      </button>
     </div>
   )
 }

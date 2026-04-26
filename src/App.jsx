@@ -16,7 +16,6 @@ import RevenueGap from './components/RevenueGap'
 import Plans from './components/Plans'
 import SimToast from './components/SimToast'
 import CommandPalette, { openCommandPalette } from './components/CommandPalette'
-import AgentTerminal from './components/AgentTerminal'
 import RevenueTicker from './components/RevenueTicker'
 import { BASE_STATS } from './data/stats'
 
@@ -228,7 +227,6 @@ export default function App() {
       <FloatingNav active={active} setActive={setActive} onCommandOpen={openCommandPalette} />
       <CommandPalette setActive={setActive} addToast={addToast} />
       <SimToast toasts={toasts} />
-      <AgentTerminal />
     </div>
   )
 }
